@@ -1,4 +1,7 @@
-<header>
+
+<div *ngIf="!(router.url.includes('login') || router.url.includes('selecionarcliente') || router.url.includes('relatoriocliente'))">
+    <header>
+
     <nav class="navbar navbar-dark  nav-rd">
         <a class="navbar-brand" href="">
             <img src="assets/images/Raiadrogasil_Logo.png" width="200" class="d-inline-block align-top" alt="" loading="lazy">
@@ -11,4 +14,6 @@
             </ul>
         </div>
     </nav>
+
 </header>
+</div>

@@ -1,17 +1,16 @@
-  <app-header></app-header>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="side-bar col-lg-3 col-md-4 col-sm-0">
-        <app-sidebar></app-sidebar>
-      </div>
 
-      <div class="col-lg-9 col-md-8 col-sm-12">
-        <router-outlet></router-outlet>
+<app-header></app-header>
+<div class="container-fluid">
+  <div class="row" *ngIf="!(router.url.includes('login') || router.url.includes('selecionarcliente') || router.url.includes('relatoriocliente'))">
+    <div class="side-bar col-lg-3 col-md-4 col-sm-0">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-12">
+      <router-outlet></router-outlet>
 
-    <!--<app-consultaproduto></app-consultaproduto> 
-       <app-devolucao></app-devolucao>  
-     <app-ofertacupom></app-ofertacupom> 
-    <app-reservaproduto></app-reservaproduto> -->
     </div>
   </div>
+  <div *ngIf="router.url.includes('login') || router.url.includes('selecionarcliente') || router.url.includes('relatoriocliente')">    
+    <router-outlet></router-outlet>
   </div>
+</div>

@@ -1,5 +1,6 @@
     <!--Menu Side-bar-->
-    <form id="form1">
+    <div *ngIf="!(router.url.includes('login') || router.url.includes('selecionarcliente') || router.url.includes('relatoriocliente'))">
+        <form id="form1">
         <div class="form-row my-3">
             <!--
                 <div class="col-12">
@@ -39,18 +40,18 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 mt-3"><a href="SelecionarCliente.html" class="btn btn-primary form-control btn-novo"><b> Novo
+        <div class="col-12 mt-3"><a routerLink="/selecionarcliente" class="btn btn-primary form-control btn-novo"><b> Novo
                     Atendimento</b></a></div>
-                    <div class="col-12 mt-3"><a routerLink="/consultaproduto" class="btn btn-primary form-control btn-consulta"><b>Consulta de
-                        Produtos</b></a></div>
+                   
         <div class="col-12 mt-3"><a routerLink="/reservaproduto" class="btn btn-primary form-control btn-reserva"><b>Reserva de
                     Produtos</b></a></div>
         <div class="col-12 mt-3"><a routerLink="/devolucao" class="btn btn-primary form-control btn-troca"><b>Troca de
                     Produtos</b></a></div>
         <div class="col-12 mt-3"><a routerLink="/ofertacupom" class="btn btn-primary form-control btn-cupom"><b>Cupom de
                     Desconto</b></a></div>
-        <div class="col-12 mt-3"><a href="login.html" class="btn btn-primary form-control btn-sair"><b>Sair</b></a></div>
+        <div class="col-12 mt-3"><a routerLink="/login" class="btn btn-primary form-control btn-sair"><b>Sair</b></a></div>
     </div>
     <div class="row" id="onlySpace">
 
     </div>
+</div>

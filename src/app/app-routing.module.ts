@@ -1,30 +1,59 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule} from '@angular/router';
-import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
 import { ReservaprodutoComponent } from './reservaproduto/reservaproduto.component';
 import { ConsultaprodutoComponent } from './consultaproduto/consultaproduto.component';
 import { DevolucaoComponent } from './devolucao/devolucao.component';
 import { OfertacupomComponent } from './ofertacupom/ofertacupom.component';
+import { SelecionarclienteComponent } from './selecionarcliente/selecionarcliente.component';
+import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+
+  },
+ 
+  {
+    path: 'login',
+    component: LoginComponent
+
+  },
+  {
+    path: 'selecionarcliente',
+    component: SelecionarclienteComponent
+
+  },
+
+  {
+    path: 'relatoriocliente',
+    component: RelatorioclienteComponent
+
+  },
+ 
  
   {
     path: 'consultaproduto',
     component: ConsultaprodutoComponent
-},
-{
-    path: 'devolucao',
-    component: DevolucaoComponent
-},
-{
-    path: 'ofertacupom',
-    component: OfertacupomComponent
-},
-{
-    path: 'reservaproduto',
-    component: ReservaprodutoComponent
-}
+  },
+  {
+    path: 'consultaproduto',
+    component: ConsultaprodutoComponent
+  },
+  {
+      path: 'devolucao',
+      component: DevolucaoComponent
+  },
+  {
+      path: 'ofertacupom',
+      component: OfertacupomComponent
+  },
+  {
+      path: 'reservaproduto',
+      component: ReservaprodutoComponent
+  }
 ];  
 
 
