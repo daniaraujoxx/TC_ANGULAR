@@ -9,28 +9,38 @@ import { Login } from './login/shared/login.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;
 
   request: Login = { 
-    status: number,
-    mensagem: string,
+    status: 0,
+    mensagem: '',
     retorno: {
-        IdOperador: number,
-        NmOperador: string,
-        NrCPF: string,
-        NrMatricula: number,
-        DsCargo: string,
-        CdFilial: number,
-        PwOperador: string
+        IdOperador: 0,
+        NmOperador: '',
+        NrCPF: '',
+        NrMatricula: 0,
+        DsCargo: '',
+        CdFilial: 0,
+        PwOperador: ''
     }
   }
-  constructor() { }
+  constructor(
+    private loginService: LoginService,
+    private route: ActivatedRoute,
+    private router: Router
+  
+   ) { }
 
   ngOnInit(): void {
+    
   }
-
+  logar() :void {
+    if (this.formLogin.form.valid) {
+      this.loginService.postLogin(this.request).subscribe();
+      this.router.navigate(['/selecionarcliente']);
+    }
+  }
 }
