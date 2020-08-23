@@ -13,7 +13,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoginComponent } from './login/login.component';
 import { SelecionarclienteComponent } from './selecionarcliente/selecionarcliente.component';
 import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.component';
-
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,8 @@ import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.c
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

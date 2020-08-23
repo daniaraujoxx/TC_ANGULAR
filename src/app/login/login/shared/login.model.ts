@@ -2,15 +2,15 @@ export interface Login {
     status: number;
     mensagem: string;
     retorno: {
-        IdOperador: number,
-        NmOperador: string,
-        NrCPF: string,
-        NrMatricula: number,
-        DsCargo: string,
-        CdFilial: number,
-        PwOperador: string
+        idOperador: number,
+        nmOperador: string,
+        nrCPF: string,
+        nrMatricula: number,
+        dsCargo: string,
+        cdFilial: number,
+        pwOperador: string
     }
-    
+
 }
 
 //GET Login

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from './login/shared/login.service';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Login } from './login/shared/login.model';
+import { Login, ResponseLogin } from './login/shared/login.model';
 
 
 
@@ -14,33 +14,38 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;
 
-  request: Login = { 
+  request: Login = {
     status: 0,
     mensagem: '',
     retorno: {
-        IdOperador: 0,
-        NmOperador: '',
-        NrCPF: '',
-        NrMatricula: 0,
-        DsCargo: '',
-        CdFilial: 0,
-        PwOperador: ''
+        idOperador: 0,
+        nmOperador: '',
+        nrCPF: '',
+        nrMatricula: 11111111,
+        dsCargo: '',
+        cdFilial: 0,
+        pwOperador: '1111'
     }
   }
+
+  responseLogin: ResponseLogin;
+
   constructor(
     private loginService: LoginService,
     private route: ActivatedRoute,
     private router: Router
-  
+
    ) { }
 
   ngOnInit(): void {
-    
+
   }
   logar() :void {
     if (this.formLogin.form.valid) {
-      this.loginService.postLogin(this.request).subscribe();
-      this.router.navigate(['/selecionarcliente']);
+      console.log(this.request);
+      this.loginService.postLogin(this.request).subscribe(request => this.responseLogin = request);
+      console.log(this.responseLogin);
+      //this.router.navigate(['/selecionarcliente']);
     }
   }
 }
