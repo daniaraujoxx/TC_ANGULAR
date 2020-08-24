@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
         idOperador: 0,
         nmOperador: '',
         nrCPF: '',
-        nrMatricula: 11111111,
+        nrMatricula: 157997,
         dsCargo: '',
         cdFilial: 0,
-        pwOperador: '1111'
+        pwOperador: '1234'
     }
   }
 

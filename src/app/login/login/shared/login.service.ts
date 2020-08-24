@@ -14,7 +14,7 @@ export class LoginService {
   private readonly httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Authorization': 'Basic ' + btoa('tc:1234')
+      'Authorization': 'Basic ' + btoa('tc:magnifico')
     })
   };
 
@@ -22,8 +22,8 @@ export class LoginService {
 
   private readonly API = 'http://localhost:8080/login';
 
-  postLogin(request: Login) {
-    return this.http.post<ResponseLogin>(this.API, request.retorno, this.httpOptions);
+  postLogin(request: Login): Observable<ResponseLogin>{
+    return this.http.post<ResponseLogin>(this.API, request.retorno,this.httpOptions);
   }
 
 }
