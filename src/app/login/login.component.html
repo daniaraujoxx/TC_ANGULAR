@@ -23,6 +23,9 @@
                                     </div>
                                     <div class="form-group col-12 my-4 text-center">
                                        <a (click) = "logar()" class="btn btn-primary btn-lg pl-5 pr-5 person-icon">Login</a>
+                                       <br>{{formLogin.valid}}
+                                       <br><br>{{request|json}}<br><br>
+                                       {{formLogin.value|json}}
                                     </div>
                                 </div>
                             </div>

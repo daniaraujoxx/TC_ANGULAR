@@ -1,3 +1,4 @@
+import { Observable, interval } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from './login/shared/login.service';
 import { NgForm } from '@angular/forms';
@@ -40,12 +41,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  logar() :void {
+  logar(): void {
     if (this.formLogin.form.valid) {
-      console.log(this.request);
       this.loginService.postLogin(this.request).subscribe(request => this.responseLogin = request);
-      console.log(this.responseLogin);
-      //this.router.navigate(['/selecionarcliente']);
+      if (this.responseLogin != undefined){
+        this.router.navigate(['/selecionarcliente']);
+      }
     }
   }
 }

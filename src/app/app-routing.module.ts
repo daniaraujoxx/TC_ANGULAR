@@ -15,7 +15,7 @@ export const routes: Routes = [
     pathMatch: 'full'
 
   },
- 
+
   {
     path: 'login',
     component: LoginComponent
@@ -28,12 +28,12 @@ export const routes: Routes = [
   },
 
   {
-    path: 'relatoriocliente',
+    path: 'relatoriocliente/:dados',
     component: RelatorioclienteComponent
 
   },
- 
- 
+
+
   {
     path: 'consultaproduto',
     component: ConsultaprodutoComponent
@@ -54,7 +54,7 @@ export const routes: Routes = [
       path: 'reservaproduto',
       component: ReservaprodutoComponent
   }
-];  
+];
 
 
 
@@ -62,6 +62,6 @@ export const routes: Routes = [
   declarations: [],
   imports: [RouterModule.forRoot(routes)],
   exports:[RouterModule]
-  
+
 })
 export class AppRoutingModule { }
