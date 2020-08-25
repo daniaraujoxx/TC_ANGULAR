@@ -32,14 +32,11 @@
                           <td>{{cliente.nrRg}}</td>
                           <td>{{cliente.nrCPF}}</td>
                           <td>{{cliente.dtNascimento | date: 'dd/MM/yyyy'}}</td>
-                          <td class="text-right"><a routerLink="/consultaproduto"
+                          <td class="text-right"><a (click)="selecionar(cliente.idCliente)"
                               class="btn btn-primary person-icon">Selecionar</a></td>
                         </tr>
                       </tbody>
                     </table>
-                    <div *ngFor="let cliente of clienteResponse.retorno">
-                      {{cliente.idCliente}}{{cliente.nmCliente}}
-                    </div>
                   </div>
                 </div>
               </div>
