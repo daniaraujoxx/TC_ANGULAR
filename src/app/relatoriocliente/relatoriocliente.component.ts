@@ -34,7 +34,12 @@ export class RelatorioclienteComponent implements OnInit {
 
       //  this.router.navigate(['/selecionarcliente']);
 
-    });
+    },
+    error => {
+      if(confirm("Cliente não encontrado!")){
+      this.router.navigate(['/selecionarcliente'])}
+    }
+    );
   }
 
   selecionar(idCliente: number){
