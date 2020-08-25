@@ -1,8 +1,9 @@
+import { Operador } from './operador.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { Login, ResponseLogin } from './login.model';
+import { LoginResponse, ResponseLogin } from './login.model';
 
 
 
@@ -22,8 +23,8 @@ export class LoginService {
 
   private readonly API = 'http://localhost:8080/login';
 
-  postLogin(request: Login): Observable<ResponseLogin>{
-    return this.http.post<ResponseLogin>(this.API, request.retorno, this.httpOptions);
+  postLogin(operador: Operador): Observable<LoginResponse>{
+    return this.http.post<LoginResponse>(this.API, operador, this.httpOptions);
   }
 
 }

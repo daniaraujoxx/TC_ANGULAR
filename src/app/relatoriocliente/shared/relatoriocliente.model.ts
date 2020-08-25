@@ -1,30 +1,12 @@
-export interface Retorno {
-  idCliente: number,
-  nmCliente: string,
-  dsEmail: string,
-  dtCadastro: string,
-  nrCPF: string,
-  nrRg: string,
-  dtNascimento: string,
-  dsGenero: string,
-  nrTelefoneCliente: string,
-  categoriaClienteDTO: {
-  idCategoriaCliente: number,
-  dsCategoriaCliente: string,
-  pcDescontoCliente: number
-  }
-}
+import { Cliente } from './cliente.model';
+import { ResponseAPI } from './../../responseAPI/responseAPI.model';
 
-export interface Cliente {
+export interface ClienteResponse extends ResponseAPI<Cliente> {
     status: number;
     mensagem: string;
-    retorno: Retorno;
-
+    retorno: Cliente;
 }
 
 
-    export interface ResponseClientes {
-        clientes: Cliente;
-    }
 
 

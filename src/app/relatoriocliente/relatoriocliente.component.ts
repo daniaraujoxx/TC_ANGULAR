@@ -1,8 +1,8 @@
-import { routes } from './../app-routing.module';
+import { Cliente } from './shared/cliente.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { RelatorioclienteService } from './shared/relatoriocliente.service';
-import { Cliente, Retorno } from './shared/relatoriocliente.model';
+import { ClienteResponse } from './shared/relatoriocliente.model';
 
 @Component({
   selector: 'app-relatoriocliente',
@@ -11,8 +11,8 @@ import { Cliente, Retorno } from './shared/relatoriocliente.model';
 })
 export class RelatorioclienteComponent implements OnInit {
   dados: string ="";
-  responseClientes: Cliente;
-  retorno: Retorno;
+  clienteResponse: ClienteResponse;
+
 
 
   constructor(
@@ -25,8 +25,7 @@ export class RelatorioclienteComponent implements OnInit {
   ngOnInit(): void {
     this.dados = this.route.snapshot.paramMap.get('dados');
     this.relatorioClienteService.getCliente(this.dados).subscribe(response =>{
-      this.responseClientes = response;
-      this.retorno = this.responseClientes.retorno;
+      this.clienteResponse = response;
     });
   }
 }

@@ -1,9 +1,10 @@
+import { Operador } from './login/shared/operador.model';
 import { Observable, interval } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from './login/shared/login.service';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Login, ResponseLogin } from './login/shared/login.model';
+import { LoginResponse } from './login/shared/login.model';
 
 
 
@@ -15,10 +16,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;
 
-  request: Login = {
-    status: 0,
-    mensagem: '',
-    retorno: {
+  operador: Operador = {
         idOperador: 0,
         nmOperador: '',
         nrCPF: '',
@@ -26,10 +24,9 @@ export class LoginComponent implements OnInit {
         dsCargo: '',
         cdFilial: 0,
         pwOperador: '1234'
-    }
   }
 
-  responseLogin: ResponseLogin;
+  loginResponse: LoginResponse;
 
   constructor(
     private loginService: LoginService,
@@ -43,9 +40,9 @@ export class LoginComponent implements OnInit {
   }
   logar(): void {
     if (this.formLogin.form.valid) {
-      this.loginService.postLogin(this.request).subscribe(request =>{
-        this.responseLogin = request;
-        console.log(this.responseLogin);
+      this.loginService.postLogin(this.operador).subscribe(request =>{
+        this.loginResponse = request;
+        console.log(this.loginResponse);
         this.router.navigate(['/selecionarcliente']);});
     }
   }

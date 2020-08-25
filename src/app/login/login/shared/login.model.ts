@@ -1,19 +1,13 @@
-export interface Login {
+import { Operador } from './operador.model';
+import { ResponseAPI } from '../../../responseAPI/responseAPI.model';
+
+export interface LoginResponse extends ResponseAPI<Operador>{
     status: number;
     mensagem: string;
-    retorno: {
-        idOperador: number,
-        nmOperador: string,
-        nrCPF: string,
-        nrMatricula: number,
-        dsCargo: string,
-        cdFilial: number,
-        pwOperador: string
-    }
-
+    retorno: Operador;
 }
 
 //GET Login
 export interface ResponseLogin {
-    login: Login;
+    login: LoginResponse;
 }
