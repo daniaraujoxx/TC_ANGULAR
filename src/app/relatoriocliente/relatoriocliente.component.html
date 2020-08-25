@@ -35,7 +35,6 @@
                           <td class="text-right"><a routerLink="/consultaproduto"
                               class="btn btn-primary person-icon">Selecionar</a></td>
                         </tr>
-                        {{responseClientes.retorno|json}}
                         <tr>
                           <th scope="row" class="text-grey">José Ricardo</th>
                           <td>11.804.765-5</td>
@@ -54,6 +53,9 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div *ngFor="let cliente of retorno">
+                      {{cliente.idCliente}}
+                    </div>
                   </div>
                 </div>
               </div>

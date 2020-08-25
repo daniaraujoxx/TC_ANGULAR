@@ -2,7 +2,7 @@ import { routes } from './../app-routing.module';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { RelatorioclienteService } from './shared/relatoriocliente.service';
-import { Cliente } from './shared/relatoriocliente.model';
+import { Cliente, Retorno } from './shared/relatoriocliente.model';
 
 @Component({
   selector: 'app-relatoriocliente',
@@ -12,6 +12,7 @@ import { Cliente } from './shared/relatoriocliente.model';
 export class RelatorioclienteComponent implements OnInit {
   dados: string ="";
   responseClientes: Cliente;
+  retorno: Retorno;
 
 
   constructor(
@@ -25,7 +26,7 @@ export class RelatorioclienteComponent implements OnInit {
     this.dados = this.route.snapshot.paramMap.get('dados');
     this.relatorioClienteService.getCliente(this.dados).subscribe(response =>{
       this.responseClientes = response;
-      console.log(this.responseClientes.retorno)
+      this.retorno = this.responseClientes.retorno;
     });
   }
 }
