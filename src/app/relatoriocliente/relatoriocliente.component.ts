@@ -49,6 +49,7 @@ export class RelatorioclienteComponent implements OnInit {
         console.log("ID localizado com sucesso"+idCliente);
         console.log("CPF do usuário: "+cliente.nrCPF);
         localStorage['cliente'] = JSON.stringify(cliente);
+        this.router.navigate(["/consultaproduto"]);
       }
     });
   }

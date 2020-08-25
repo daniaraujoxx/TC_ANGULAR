@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Operador } from '../login/login/shared/operador.model';
 
 
 @Component({
@@ -9,9 +10,14 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  operador: Operador;
+
   constructor(public router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.operador =JSON.parse(localStorage['operador']);
+    console.log(this.operador);
+  }
   
   
 }
