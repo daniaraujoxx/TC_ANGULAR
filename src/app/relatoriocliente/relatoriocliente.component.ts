@@ -22,7 +22,8 @@ export class RelatorioclienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.dados = this.route.snapshot.paramMap.get('dados');
-    this.relatorioClienteService.getCliente(this.dados).subscribe(response => this.responseClientes = response);
-    console.log(this.responseClientes);
+    this.relatorioClienteService.getCliente(this.dados).subscribe(response =>{
+      this.responseClientes = response;
+      console.log(this.responseClientes);});
   }
 }
