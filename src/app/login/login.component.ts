@@ -43,7 +43,9 @@ export class LoginComponent implements OnInit {
       this.loginService.postLogin(this.operador).subscribe(request =>{
         this.loginResponse = request;
         console.log(this.loginResponse);
-        this.router.navigate(['/selecionarcliente']);});
+        localStorage['operador'] = JSON.stringify(this.loginResponse.retorno);
+        this.router.navigate(['/selecionarcliente']);
+      });
     }
   }
 }

@@ -31,6 +31,9 @@ export class RelatorioclienteComponent implements OnInit {
     this.dados = this.route.snapshot.paramMap.get('dados');
     this.relatorioClienteService.getCliente(this.dados).subscribe(response =>{
       this.clienteResponse = response;
+
+      //  this.router.navigate(['/selecionarcliente']);
+
     });
   }
 
@@ -38,7 +41,9 @@ export class RelatorioclienteComponent implements OnInit {
     console.log(idCliente);
     this.clienteResponse.retorno.forEach(cliente => {
       if (cliente.idCliente == idCliente){
-        console.log("ID localizado com sucesso");
+        console.log("ID localizado com sucesso"+idCliente);
+        console.log("CPF do usuário: "+cliente.nrCPF);
+        localStorage['cliente'] = JSON.stringify(cliente);
       }
     });
   }
