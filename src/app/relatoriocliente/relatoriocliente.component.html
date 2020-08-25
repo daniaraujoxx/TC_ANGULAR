@@ -26,28 +26,12 @@
                           <th scope="col" class="text-right"></th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody *ngFor="let cliente of clienteResponse.retorno">
                         <tr>
-                          <th scope="row" class="text-grey">Maria Luiza</th>
-                          <td>56.804.765-5</td>
-                          <td>111.222.333.43</td>
-                          <td>12/10/1990</td>
-                          <td class="text-right"><a routerLink="/consultaproduto"
-                              class="btn btn-primary person-icon">Selecionar</a></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="text-grey">José Ricardo</th>
-                          <td>11.804.765-5</td>
-                          <td>111.666.333.43</td>
-                          <td>12/05/1997</td>
-                          <td class="text-right"><a routerLink="/consultaproduto"
-                              class="btn btn-primary person-icon">Selecionar</a></td>
-                        </tr>
-                        <tr>
-                          <th scope="row" class="text-grey">Mateus Marcos</th>
-                          <td>56.777.765-5</td>
-                          <td>111.222.333.43</td>
-                          <td>12/05/1980</td>
+                          <th scope="row" class="text-grey">{{cliente.nmCliente}}</th>
+                          <td>{{cliente.nrRg}}</td>
+                          <td>{{cliente.nrCPF}}</td>
+                          <td>{{cliente.dtNascimento | date: 'dd/MM/yyyy'}}</td>
                           <td class="text-right"><a routerLink="/consultaproduto"
                               class="btn btn-primary person-icon">Selecionar</a></td>
                         </tr>
