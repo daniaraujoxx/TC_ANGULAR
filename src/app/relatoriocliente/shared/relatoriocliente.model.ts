@@ -17,9 +17,9 @@ export interface Cliente {
     pcDescontoCliente: number
     }}
 
-    
+
     }
     export interface ResponseClientes {
-        clientes: Cliente [];
+        clientes: Cliente;
     }
-    
+

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { ResponseClientes } from './relatoriocliente.model';
+import {Cliente } from './relatoriocliente.model';
 
 
 @Injectable({
@@ -22,7 +22,7 @@ export class RelatorioclienteService {
   constructor(private http: HttpClient) { }
   private readonly API = 'http://localhost:8080/cliente?dadosCliente=';
 
-  getCliente(dados: string): Observable<ResponseClientes[]>{
-    return this.http.get<ResponseClientes[]>(this.API + dados, this.httpOptions);
+  getCliente(dados: string): Observable<Cliente>{
+    return this.http.get<Cliente>(this.API + dados, this.httpOptions);
   }
 }
