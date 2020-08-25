@@ -14,9 +14,9 @@ export class RelatorioclienteComponent implements OnInit {
   clienteResponse: ClienteResponse={
     status: 0,
     mensagem: '',
-    retorno: null
+    retorno: []
     };
-    clientes: Cliente [];
+
 
 
 
@@ -31,13 +31,12 @@ export class RelatorioclienteComponent implements OnInit {
     this.dados = this.route.snapshot.paramMap.get('dados');
     this.relatorioClienteService.getCliente(this.dados).subscribe(response =>{
       this.clienteResponse = response;
-      this.clientes.push(this.clienteResponse.retorno);
     });
   }
 
   selecionar(idCliente: number){
     console.log(idCliente);
-    this.clientes.forEach(cliente => {
+    this.clienteResponse.retorno.forEach(cliente => {
       if (cliente.idCliente == idCliente){
         console.log("ID localizado com sucesso");
       }
