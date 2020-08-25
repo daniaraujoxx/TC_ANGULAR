@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
   }
   logar(): void {
     if (this.formLogin.form.valid) {
-      this.loginService.postLogin(this.request).subscribe(request => this.responseLogin = request);
-      if (this.responseLogin != undefined){
-        this.router.navigate(['/selecionarcliente']);
-      }
+      this.loginService.postLogin(this.request).subscribe(request =>{
+        this.responseLogin = request;
+        console.log(this.responseLogin);
+        this.router.navigate(['/selecionarcliente']);});
     }
   }
 }
