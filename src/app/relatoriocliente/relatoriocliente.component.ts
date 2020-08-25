@@ -1,4 +1,3 @@
-import { Cliente } from './shared/cliente.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { RelatorioclienteService } from './shared/relatoriocliente.service';
@@ -11,7 +10,11 @@ import { ClienteResponse } from './shared/relatoriocliente.model';
 })
 export class RelatorioclienteComponent implements OnInit {
   dados: string ="";
-  clienteResponse: ClienteResponse;
+  clienteResponse: ClienteResponse={
+    status: 0,
+    mensagem: '',
+    retorno: null
+  };
 
 
 
