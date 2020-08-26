@@ -54,7 +54,7 @@
                     <td>%</td>
                     <td>{{produto.produto.vlUnidade}}</td>
                     <td>{{produto.produto.vlUnidade - (cliente.categoriaClienteDTO.pcDescontoCliente * produto.produto.vlUnidade | number: '1.0-0')}}</td>
-                    <td>%</td>
+                    <td>{{cliente.categoriaClienteDTO.pcDescontoCliente | percent}}</td>
                     <td>{{produto.produto.lmpmLista[0].qtProduto}}</td>
                     <td>{{produto.produto.vlUnidade - (produto.produto.lmpmLista[0].pcDesconto * produto.produto.vlUnidade)}}</td>
                     <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
