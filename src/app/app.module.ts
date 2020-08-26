@@ -15,6 +15,7 @@ import { SelecionarclienteComponent } from './selecionarcliente/selecionarclient
 import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     SidebarComponent,
     LoginComponent,
     SelecionarclienteComponent,
-    RelatorioclienteComponent
+    RelatorioclienteComponent,
+    RelatoriocupomComponent
   ],
   imports: [
     BrowserModule,
