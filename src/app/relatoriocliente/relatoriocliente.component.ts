@@ -37,7 +37,6 @@ export class RelatorioclienteComponent implements OnInit {
 
     },
     error => {
-      alert(error)
       if(confirm("Cliente não encontrado!")){
       this.router.navigate(['/selecionarcliente'])}
     }
