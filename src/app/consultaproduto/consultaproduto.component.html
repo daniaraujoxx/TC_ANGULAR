@@ -38,121 +38,25 @@
                     <th scope="col">PMC</th>
                     <th scope="col">$V Exclu</th>
                     <th scope="col">%</th>
-                    <th scope="col">$VU</th>
-                    <th scope="col">LMPM</th>
+                    <th scope="col">LMPM-QTD</th>
+                    <th scope="col">LMPM-VL</th>
                     <th scope="col">Reserva</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let produto of estoqueResponse.retorno">
                 <tr>
                     <th scope="row" id="Generic">G</th>
-                    <td>Kuka</td>
-                    <td>26724</td>
-                    <td>Chupeta Super Ventilada Ortodôntica Rosa Fase 2</td>
-                    <td>127</td>
-                    <td>250</td>
+                    <td>{{produto.produto.nmFabricante}}</td>
+                    <td>{{produto.produto.cdProduto}}</td>
+                    <td>{{produto.produto.nmFantasia}}</td>
+                    <td>{{produto.qtEstoque}}</td>
+                    <td>{{produto.qtBase}}</td>
                     <td>%</td>
-                    <td>20,15</td>
-                    <td>14,99</td>
+                    <td>{{produto.produto.vlUnidade}}</td>
+                    <td>{{produto.produto.vlUnidade - (cliente.categoriaClienteDTO.pcDescontoCliente * produto.produto.vlUnidade | number: '1.0-0')}}</td>
                     <td>%</td>
-                    <td>14,99</td>
-                    <td></td>
-                    <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
-                    </b></a></td>
-                </tr>
-                <tr>
-                    <th scope="row" id="Generic">G</th>
-                    <td>Genomma</td>
-                    <td>60617</td>
-                    <td>Pomada para Tratamento de Hemorróidas Proctan</td>
-                    <td>10</td>
-                    <td>200</td>
-                    <td>%</td>
-                    <td>50,40</td>
-                    <td>32,90</td>
-                    <td>%</td>
-                    <td>32,90</td>
-                    <td></td>
-                    <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
-                    </b></a></td>
-                </tr>
-                <tr>
-                    <th scope="row" id="Referencia">R</th>
-                    <td>Dorflex</td>
-                    <td>33027</td>
-                    <td>Dorflex</td>
-                    <td>10</td>
-                    <td>200</td>
-                    <td>%</td>
-                    <td>5,52</td>
-                    <td>10,5</td>
-                    <td>%</td>
-                    <td>5,52</td>
-                    <td></td>
-                    <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
-                    </b></a></td>
-                </tr>
-                <tr>
-                    <th scope="row" id="Semelhante">S</th>
-                    <td>Cotonetes</td>
-                    <td>33027</td>
-                    <td>Hastes Flexíveis Cotonetes</td>
-                    <td>85</td>
-                    <td>150</td>
-                    <td>%</td>
-                    <td>6,69</td>
-                    <td>15,55</td>
-                    <td>%</td>
-                    <td>6,69</td>
-                    <td></td>
-                    <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
-                    </b></a></td>
-                </tr>
-                <tr>
-                    <th scope="row" id="Generic">G</th>
-                    <td>Huggies</td>
-                    <td>33027</td>
-                    <td>Toalhas Umedecidas Huggies Max Clean</td>
-                    <td>10</td>
-                    <td>20</td>
-                    <td>%</td>
-                    <td>35,66</td>
-                    <td>40,15</td>
-                    <td>%</td>
-                    <td>35,66</td>
-                    <td></td>
-                    <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
-                    </b></a></td>
-                </tr>
-                <tr>
-                    <th scope="row" id="Referencia">R</th>
-                    <td>Needs</td>
-                    <td>33027</td>
-                    <td>Algodão em Bolas Needs</td>
-                    <td>8</td>
-                    <td>10</td>
-                    <td>%</td>
-                    <td>7,79</td>
-                    <td>10,15</td>
-                    <td>%</td>
-                    <td>7,79</td>
-                    <td></td>
-                    <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
-                    </b></a></td>
-                </tr>
-                <tr>
-                    <th scope="row" id="Referencia">R</th>
-                    <td>Needs</td>
-                    <td>33027</td>
-                    <td>Algodão em Bolas Needs</td>
-                    <td>8</td>
-                    <td>10</td>
-                    <td>%</td>
-                    <td>7,79</td>
-                    <td>10,15</td>
-                    <td>%</td>
-                    <td>7,79</td>
-                    <td></td>
+                    <td>{{produto.produto.lmpmLista[0].qtProduto}}</td>
+                    <td>{{produto.produto.vlUnidade - (produto.produto.lmpmLista[0].pcDesconto * produto.produto.vlUnidade)}}</td>
                     <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
                     </b></a></td>
                 </tr>

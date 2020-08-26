@@ -3,6 +3,7 @@ import { EstoqueResponse } from './shared/estoqueResponse.model';
 import { Estoque } from './shared/estoque.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConsultaprodutoService } from './shared/consultaproduto.service';
+import { Cliente } from '../relatoriocliente/shared/cliente.model';
 
 @Component({
   selector: 'app-consultaproduto',
@@ -18,12 +19,8 @@ export class ConsultaprodutoComponent implements OnInit {
   }
 
   dados: string;
-  estoque: EstoqueResponse = {
-    status: null,
-    mensagem: null,
-    retorno: []
-
-  }
+  cliente: Cliente = JSON.parse(localStorage['cliente']);
+  
   
 
   constructor( 
