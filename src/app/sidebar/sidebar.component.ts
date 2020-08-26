@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from '../relatoriocliente/shared/cliente.model';
 import { NgForm } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 
 
 @Component({
@@ -19,6 +21,7 @@ export class SidebarComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit(): void {
+    
     this.cliente = JSON.parse(localStorage['cliente']);
     console.log(this.cliente);
   }

@@ -22,7 +22,7 @@ export class ConsultaprodutoService {
 
   private readonly API = 'http://localhost:8080/filial';
   
-  getBuscarProdutoCodigo(codigo: number): Observable<EstoqueResponse>{
+  getBuscarProdutoCodigo(codigo: string): Observable<EstoqueResponse>{
     this.url = `/${this.operador.cdFilial}/codigo/${codigo}`;
     return this.http.get<EstoqueResponse>(this.API + this.url, this.httpOptions);
   }
