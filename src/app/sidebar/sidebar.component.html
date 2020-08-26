@@ -1,6 +1,6 @@
     <!--Menu Side-bar-->
     <div *ngIf="!(router.url.includes('login') || router.url.includes('selecionarcliente') || router.url.includes('relatoriocliente'))">
-        <form id="form1">
+        <form #formProduto = "ngForm">
         <div class="form-row my-3">
             <!--
                 <div class="col-12">
@@ -8,10 +8,10 @@
             </div>
             -->
             <div class="col-10 pr-0">
-                <input type="text" class="form-control pesqProduto" name="produto" id="produto" placeholder="O que deseja encontrar?">
+                <input type="text" class="form-control pesqProduto" name="produto" [(ngModel)] = "produto" placeholder="O que deseja encontrar?">
             </div>
             <div class="col-2 pl-0">
-                <a type="submit" class="btn btn-primary lupa"></a>
+            <a type="submit" class="btn btn-primary lupa" (click)= "pesquisar()"></a>
             </div>
         </div>
     </form>
