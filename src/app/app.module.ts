@@ -16,7 +16,6 @@ import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.c
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +28,7 @@ import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.compone
     LoginComponent,
     SelecionarclienteComponent,
     RelatorioclienteComponent,
-    RelatoriocupomComponent
+    RelatoriocupomComponent,
   ],
   imports: [
     BrowserModule,
