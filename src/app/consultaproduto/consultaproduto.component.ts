@@ -20,10 +20,10 @@ export class ConsultaprodutoComponent implements OnInit {
 
   dados: string;
   cliente: Cliente = JSON.parse(localStorage['cliente']);
-  
-  
 
-  constructor( 
+
+
+  constructor(
     private consultaProdutoService: ConsultaprodutoService,
     private route: ActivatedRoute,
     private router: Router,) { }
@@ -35,7 +35,7 @@ export class ConsultaprodutoComponent implements OnInit {
       this.consultaProdutoService.getBuscarProdutos().subscribe(response => {
         this.estoqueResponse = response;
         console.log(this.estoqueResponse);
-        
+
       })
     }
     if(Number(this.dados)){
@@ -44,13 +44,13 @@ export class ConsultaprodutoComponent implements OnInit {
         console.log(this.estoqueResponse);
       });
     } else {
-    
+
     this.consultaProdutoService.getBuscarProdutoNome(this.dados).subscribe(response =>{
       this.estoqueResponse = response;
       console.log(this.estoqueResponse);
     });
   }
-    
+
   }
 
 

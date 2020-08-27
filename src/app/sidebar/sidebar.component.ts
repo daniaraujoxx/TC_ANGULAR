@@ -21,13 +21,19 @@ export class SidebarComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit(): void {
-    
+
     this.cliente = JSON.parse(localStorage['cliente']);
     console.log(this.cliente);
   }
-  
+
+
   pesquisar(){
-    this.router.navigate(['/consultaproduto', this.produto]);
+    //this.router.navigate(['/consultaproduto', this.produto]);
+    this.router.navigateByUrl('/consultaproduto', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`consultaproduto/${this.produto}`])
+    });
 
   }
+
+
 }
