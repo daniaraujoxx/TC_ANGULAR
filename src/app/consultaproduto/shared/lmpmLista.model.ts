@@ -1,6 +1,6 @@
 import { Lmpm } from "./lmpm.model";
 
-export interface LmpmLista { 
+export interface LmpmItem {
    idLmpmItem: number;
    qtProduto: number;
    pcDesconto: number;

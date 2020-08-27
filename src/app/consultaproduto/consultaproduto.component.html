@@ -45,7 +45,9 @@
             </thead>
             <tbody *ngFor="let produto of estoqueResponse.retorno">
                 <tr>
-                    <th scope="row" id="Generic">G</th>
+                    <th *ngIf="produto.produto.categoria.dsCategoria == 'GENERICO'" scope="row" id="Generic">G</th>
+                    <th *ngIf="produto.produto.categoria.dsCategoria == 'SEMELHANTE'" scope="row" id="Semelhante">S</th>
+                    <th *ngIf="produto.produto.categoria.dsCategoria != 'SEMELHANTE' || produto.produto.categoria.dsCategoria != 'GENERICO'" scope="row" id="Semelhante"></th>
                     <td>{{produto.produto.nmFabricante}}</td>
                     <td>{{produto.produto.cdProduto}}</td>
                     <td>{{produto.produto.nmFantasia}}</td>
@@ -55,8 +57,8 @@
                     <td>{{produto.produto.vlUnidade}}</td>
                     <td>{{produto.produto.vlUnidade - (cliente.categoriaClienteDTO.pcDescontoCliente * produto.produto.vlUnidade | number: '1.0-0')}}</td>
                     <td>{{cliente.categoriaClienteDTO.pcDescontoCliente | percent}}</td>
-                    <td>{{produto.produto.lmpmLista[0].qtProduto}}</td>
-                    <td>{{produto.produto.vlUnidade - (produto.produto.lmpmLista[0].pcDesconto * produto.produto.vlUnidade)}}</td>
+                    <td><span *ngIf="produto.produto.lmpmItem!=null">{{produto.produto.lmpmItem.qtProduto}}</span></td>
+                    <td><span *ngIf="produto.produto.lmpmItem!=null">{{produto.produto.vlUnidade - (produto.produto.lmpmItem.pcDesconto * produto.produto.vlUnidade)}}</span></td>
                     <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
                     </b></a></td>
                 </tr>

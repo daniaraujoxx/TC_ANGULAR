@@ -30,21 +30,12 @@ export class ConsultaprodutoComponent implements OnInit {
 
   ngOnInit(): void {
     this.dados = this.route.snapshot.paramMap.get('produto');
-    console.log(this.dados);
-    if(this.dados == ""){
-      this.consultaProdutoService.getBuscarProdutos().subscribe(response => {
-        this.estoqueResponse = response;
-        console.log(this.estoqueResponse);
-
-      })
-    }
-    if(Number(this.dados)){
+     if(Number(this.dados)){
       this.consultaProdutoService.getBuscarProdutoCodigo(this.dados).subscribe(response =>{
         this.estoqueResponse = response;
         console.log(this.estoqueResponse);
       });
     } else {
-
     this.consultaProdutoService.getBuscarProdutoNome(this.dados).subscribe(response =>{
       this.estoqueResponse = response;
       console.log(this.estoqueResponse);
