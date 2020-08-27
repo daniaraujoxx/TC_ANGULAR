@@ -16,7 +16,7 @@ import { SelecionarclienteComponent } from './selecionarcliente/selecionarclient
 import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+git pu
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
