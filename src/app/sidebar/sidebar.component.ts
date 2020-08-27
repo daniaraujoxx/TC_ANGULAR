@@ -35,5 +35,10 @@ export class SidebarComponent implements OnInit {
 
   }
 
+  sair(): void{
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
+
 
 }
