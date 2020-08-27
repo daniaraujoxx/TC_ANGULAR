@@ -1,6 +1,6 @@
     <!--Menu Side-bar-->
     <div *ngIf="!(router.url.includes('login') || router.url.includes('selecionarcliente') || router.url.includes('relatoriocliente'))">
-        <form id="form1">
+        <form #formProduto = "ngForm">
         <div class="form-row my-3">
             <!--
                 <div class="col-12">
@@ -8,10 +8,10 @@
             </div>
             -->
             <div class="col-10 pr-0">
-                <input type="text" class="form-control pesqProduto" name="produto" id="produto" placeholder="O que deseja encontrar?">
+                <input type="text" class="form-control pesqProduto" name="produto" [(ngModel)] = "produto" placeholder="O que deseja encontrar?">
             </div>
             <div class="col-2 pl-0">
-                <a type="submit" class="btn btn-primary lupa"></a>
+            <a type="submit" class="btn btn-primary lupa" (click)= "pesquisar()"></a>
             </div>
         </div>
     </form>
@@ -42,14 +42,14 @@
     <div class="row">
         <div class="col-12 mt-3"><a routerLink="/selecionarcliente" class="btn btn-primary form-control btn-novo"><b> Novo
                     Atendimento</b></a></div>
-                   
+
         <div class="col-12 mt-3"><a routerLink="/reservaproduto" class="btn btn-primary form-control btn-reserva"><b>Reserva de
                     Produtos</b></a></div>
         <div class="col-12 mt-3"><a routerLink="/devolucao" class="btn btn-primary form-control btn-troca"><b>Troca de
                     Produtos</b></a></div>
         <div class="col-12 mt-3"><a routerLink="/ofertacupom" class="btn btn-primary form-control btn-cupom"><b>Cupom de
                     Desconto</b></a></div>
-        <div class="col-12 mt-3"><a routerLink="/login" class="btn btn-primary form-control btn-sair"><b>Sair</b></a></div>
+        <div class="col-12 mt-3"><a (click)="sair()" class="btn btn-primary form-control btn-sair"><b>Sair</b></a></div>
     </div>
     <div class="row" id="onlySpace">
 

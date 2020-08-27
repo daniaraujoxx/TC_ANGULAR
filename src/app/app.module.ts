@@ -1,3 +1,4 @@
+import { AuthGuardService } from './auth/auth-grarg.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -34,9 +35,9 @@ import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.compone
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

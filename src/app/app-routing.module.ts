@@ -7,6 +7,9 @@ import { DevolucaoComponent } from './devolucao/devolucao.component';
 import { OfertacupomComponent } from './ofertacupom/ofertacupom.component';
 import { SelecionarclienteComponent } from './selecionarcliente/selecionarcliente.component';
 import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.component';
+import {
+  AuthGuardService as AuthGuard
+} from './auth/auth-grarg.service';
 
 export const routes: Routes = [
   {
@@ -23,36 +26,43 @@ export const routes: Routes = [
   },
   {
     path: 'selecionarcliente',
-    component: SelecionarclienteComponent
+    component: SelecionarclienteComponent,
+    canActivate: [AuthGuard]
 
   },
 
   {
     path: 'relatoriocliente/:dados',
-    component: RelatorioclienteComponent
+    component: RelatorioclienteComponent,
+    canActivate: [AuthGuard]
 
   },
 
 
   {
-    path: 'consultaproduto',
-    component: ConsultaprodutoComponent
+    path: 'consultaproduto/:produto',
+    component: ConsultaprodutoComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'consultaproduto',
-    component: ConsultaprodutoComponent
+    component: ConsultaprodutoComponent,
+    canActivate: [AuthGuard]
   },
   {
       path: 'devolucao',
-      component: DevolucaoComponent
+      component: DevolucaoComponent,
+      canActivate: [AuthGuard]
   },
   {
       path: 'ofertacupom',
-      component: OfertacupomComponent
+      component: OfertacupomComponent,
+      canActivate: [AuthGuard]
   },
   {
       path: 'reservaproduto',
-      component: ReservaprodutoComponent
+      component: ReservaprodutoComponent,
+      canActivate: [AuthGuard]
   }
 ];
 
