@@ -1,3 +1,5 @@
+import { CategoriaProduto } from './shared/categoriaProduto.model';
+import { Produto } from './shared/produto.model';
 import { Component, OnInit } from '@angular/core';
 import { EstoqueResponse } from './shared/estoqueResponse.model';
 import { Estoque } from './shared/estoque.model';
@@ -17,6 +19,24 @@ export class ConsultaprodutoComponent implements OnInit {
     mensagem: null,
     retorno: []
   }
+
+  categoria: CategoriaProduto ={
+    idCategoria: null,
+    dsCategoria: null,
+    subCategoria: null,
+  }
+
+  produtoDesc: Produto={
+    cdProduto: null,
+    idStatusProduto: null,
+    categoria: this.categoria,
+    idTipoProduto: null,
+    nmFantasia: null,
+    nmFabricante: null,
+    vlUnidade: null,
+    dsProduto: null,
+    lmpmItem: null,
+  };
 
   dados: string;
   cliente: Cliente = JSON.parse(localStorage['cliente']);
@@ -42,6 +62,14 @@ export class ConsultaprodutoComponent implements OnInit {
     });
   }
 
+  }
+  produtoDescricao(id: number){
+    this.estoqueResponse.retorno.forEach(element => {
+        if(id == element.cdEstoque){
+          this.produtoDesc = element.produto;
+          console.log(this.produtoDesc);
+        }
+    });
   }
 
 

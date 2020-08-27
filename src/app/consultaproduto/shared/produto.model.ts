@@ -9,6 +9,8 @@ export interface Produto {
     nmFantasia: string;
     nmFabricante: string;
     vlUnidade: number;
+    dsProduto: string;
     lmpmItem: LmpmItem;
+
 
 }

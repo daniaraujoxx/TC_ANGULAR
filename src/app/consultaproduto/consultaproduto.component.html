@@ -12,15 +12,15 @@
         <div class="row">
             <div class="col-8">
                 <label class="labelDescription"><b>Categoria: </b></label>
-                <label class="labelDescription"> Chupeta</label>
+                <label class="labelDescription"> {{produtoDesc.categoria.dsCategoria}}</label>
             </div>
             <div class="col-4">
                 <label class="labelDescription"><b>Status: </b></label>
-                <label class="labelDescription"> Fine!</label>
+                <label class="labelDescription"> {{produtoDesc.idStatusProduto}}</label>
             </div>
             <div class="col-12">
                 <label class="labelDescription"><b>Descrição Completa: </b></label>
-                <label class="labelDescription"> Chupeta Super Ventilada Ortodôntica Rosa Fase 2</label>
+                <label class="labelDescription"> {{produtoDesc.dsProduto}}</label>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <tbody *ngFor="let produto of estoqueResponse.retorno">
-                <tr>
+                <tr (mouseenter)="produtoDescricao(produto.cdEstoque)">
                     <th *ngIf="produto.produto.categoria.dsCategoria == 'GENERICO'" scope="row" id="Generic">G</th>
                     <th *ngIf="produto.produto.categoria.dsCategoria == 'SEMELHANTE'" scope="row" id="Semelhante">S</th>
                     <th *ngIf="produto.produto.categoria.dsCategoria != 'SEMELHANTE' || produto.produto.categoria.dsCategoria != 'GENERICO'" scope="row" id="Semelhante"></th>
