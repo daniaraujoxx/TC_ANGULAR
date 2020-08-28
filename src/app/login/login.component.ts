@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;
 
+
   operador: Operador = {
         idOperador: 0,
         nmOperador: '',
@@ -25,6 +26,9 @@ export class LoginComponent implements OnInit {
         cdFilial: 0,
         pwOperador: '1234'
   }
+
+  mensagemError: string;
+  error: boolean = false;
 
   loginResponse: LoginResponse;
 
@@ -45,7 +49,17 @@ export class LoginComponent implements OnInit {
         console.log(this.loginResponse);
         localStorage['operador'] = JSON.stringify(this.loginResponse.retorno);
         this.router.navigate(['/selecionarcliente']);
-      });
+      },
+      error => {
+        this.handleError(error);
+      }
+      );
+    }
+  }
+  handleError(error: Response) {
+    if (error.status == 401) {
+      this.mensagemError = "Matricula ou Senha Incorretas!";
+      this.error =  true;
     }
   }
 }
