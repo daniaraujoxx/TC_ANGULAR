@@ -18,14 +18,14 @@
                                     </div>
                                     <div class="form-group col-12 my-4">
                                         <label for="usuario" class="text-green">Matrícula Usuário:</label>
-                                        <input type="number" class="form-control" [(ngModel)] = "operador.nrMatricula" name="nrMatricula" [ngClass]="{'is-invalid': error == true}">
+                                        <input type="number" class="form-control" [(ngModel)] = "operador.nrMatricula" name="nrMatricula" required [ngClass]="{'is-invalid': error == true}">
                                     </div>
                                     <div class="form-group col-12 my-4">
                                         <label for="senha" class="text-green">Senha:</label>
-                                        <input type="password" class="form-control" [(ngModel)] = "operador.pwOperador" name="pwOperador" [ngClass]="{'is-invalid': error == true}">
+                                        <input type="password" class="form-control" [(ngModel)] = "operador.pwOperador" name="pwOperador" required [ngClass]="{'is-invalid': error == true}">
                                     </div>
                                     <div class="form-group col-12 my-4 text-center">
-                                       <a (click) = "logar()" class="btn btn-primary btn-lg pl-5 pr-5 person-icon">Login</a>
+                                       <button (click) = "logar()" [disabled]="formLogin.form.invalid" class="btn btn-primary btn-lg pl-5 pr-5 person-icon">Login</button>
                                     </div>
                                 </div>
                             </div>
