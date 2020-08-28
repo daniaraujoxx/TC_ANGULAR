@@ -36,7 +36,7 @@ export const routes: Routes = [
 
   {
     path: 'consultaproduto/:produto',
-    component: ConsultaprodutoComponent
+    component: ConsultaprodutoComponent,
   },
   {
     path: 'consultaproduto',
