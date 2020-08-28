@@ -26,6 +26,7 @@ export class ConsultaprodutoComponent implements OnInit {
     subCategoria: null,
   }
 
+
   produtoDesc: Produto={
     cdProduto: null,
     idStatusProduto: null,
@@ -41,7 +42,7 @@ export class ConsultaprodutoComponent implements OnInit {
   dados: string;
   cliente: Cliente = JSON.parse(localStorage['cliente']);
 
-
+ mousePass: number;
 
   constructor(
     private consultaProdutoService: ConsultaprodutoService,
@@ -64,6 +65,7 @@ export class ConsultaprodutoComponent implements OnInit {
 
   }
   produtoDescricao(id: number){
+    this.mousePass = id;
     this.estoqueResponse.retorno.forEach(element => {
         if(id == element.cdEstoque){
           this.produtoDesc = element.produto;
@@ -71,6 +73,5 @@ export class ConsultaprodutoComponent implements OnInit {
         }
     });
   }
-
 
 }

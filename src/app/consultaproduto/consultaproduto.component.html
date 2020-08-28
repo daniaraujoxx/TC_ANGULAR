@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <tbody *ngFor="let produto of estoqueResponse.retorno">
-                <tr (mouseenter)="produtoDescricao(produto.cdEstoque)">
+                <tr (mouseenter)="produtoDescricao(produto.cdEstoque);" [ngClass]="{'table-success': mousePass === produto.cdEstoque}" >
                     <th *ngIf="produto.produto.categoria.dsCategoria == 'GENERICO'" scope="row" id="Generic">G</th>
                     <th *ngIf="produto.produto.categoria.dsCategoria == 'SEMELHANTE'" scope="row" id="Semelhante">S</th>
                     <th *ngIf="produto.produto.categoria.dsCategoria != 'SEMELHANTE' || produto.produto.categoria.dsCategoria != 'GENERICO'" scope="row" id="Semelhante"></th>
@@ -64,6 +64,8 @@
                 </tr>
             </tbody>
         </table>
+
     </div>
 </div>
 </div>
+
