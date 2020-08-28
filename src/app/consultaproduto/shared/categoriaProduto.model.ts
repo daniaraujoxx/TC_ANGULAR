@@ -1,8 +1,7 @@
 import { SubCategoria } from "./subCategoria.model";
 
-export interface CategoriaProduto { 
+export interface CategoriaProduto {
     idCategoria: number;
     dsCategoria: string;
-    subCategoria: SubCategoria;
 }
 

@@ -23,7 +23,6 @@ export class ConsultaprodutoComponent implements OnInit {
   categoria: CategoriaProduto ={
     idCategoria: null,
     dsCategoria: null,
-    subCategoria: null,
   }
 
 

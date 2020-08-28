@@ -3,7 +3,7 @@
       <app-sidebar></app-sidebar>
     </div>
     <div class="col-lg-9 col-md-8 col-sm-12">
-        
+
             <div class="row">
                 <!--Conteudo Principal-->
                 <table class="table" id="tableOferta">
@@ -18,7 +18,7 @@
                     <tbody *ngFor="let cupom of relatorioCupom.retorno.itensCupom">
                       <tr style="height: 10vh;">
                           <th scope="row">{{cupom.produto.categoria.dsCategoria}}</th>
-                          <td>{{cupom.produto.categoria.subCategoria.dsSubCategoria}}</td>
+                          <td>{{cupom.produto.categoria.dsCategoria}}</td>
                           <td>{{cupom.produto.nmFantasia}}</td>
                           <td style="color: #01784E; font-size: 18px; font-weight: bold;">{{cupom.pcDesconto |percent}}</td>
                       </tr>
