@@ -1,10 +1,10 @@
+import { ReservaResponse, Reserva, ReservaAdd } from './reserva.model';
 import { RelatorioReserva } from './relatorioreserva.model';
 import { Cliente } from './../../relatoriocliente/shared/cliente.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-
 
 
 @Injectable({
@@ -27,5 +27,9 @@ export class RelatorioReservaService {
 
   getCliente(dados: string): Observable<RelatorioReserva>{
     return this.http.get<RelatorioReserva>(this.API + this.resto + this.cliente.idCliente, this.httpOptions);
+  }
+
+  postReserva(reserva: Reserva): Observable<ReservaResponse>{
+    return this.http.post<ReservaResponse>(this.API, reserva, this.httpOptions)
   }
 }

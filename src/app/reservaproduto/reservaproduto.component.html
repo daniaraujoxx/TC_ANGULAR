@@ -6,22 +6,22 @@
 
     <h1>Reserva de Produtos</h1>
     <hr>
-    <form #formLogin="ngForm">
+    <form #formAdd="ngForm">
       <div class="form-row">
         <div class="col-2 name1">
           <h6>Código do produto</h6>
-          <input type="number" class="form-control" placeholder="Codigo">
+          <input type="number" class="form-control"[(ngModel)] = "itemreserva.produto.cdProduto" name="cdProduto" placeholder="Codigo">
         </div>
         <div class="col-6 name1">
           <h6>Nome do produto</h6>
-          <input type="text" class="form-control" placeholder="Descrição">
+          <input type="text" class="form-control" [(ngModel)] = "itemreserva.produto.nmFantasia" name="nmFantasia" placeholder="Descrição">
         </div>
         <div class="col-2 name1">
           <h6>Quantidade</h6>
-          <input type="number" class="form-control" placeholder="Quantidade">
+          <input type="number" class="form-control" [(ngModel)] = "itemreserva.qtproduto" name="qtProduto" placeholder="Quantidade">
         </div>
         <div class="col add ml-0 ">
-          <button type="button" class="btn btn-primary">Adicionar</button>
+          <button (click) = "Add()"  type="button" class="btn btn-primary">Adicionar</button>
         </div>
       </div>
     </form>
