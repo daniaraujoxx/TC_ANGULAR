@@ -1,3 +1,5 @@
+import { SubCategoria } from './shared/subCategoria.model';
+import { StatusProduto } from './shared/statusProduto.model';
 import { CategoriaProduto } from './shared/categoriaProduto.model';
 import { Produto } from './shared/produto.model';
 import { Component, OnInit } from '@angular/core';
@@ -25,10 +27,20 @@ export class ConsultaprodutoComponent implements OnInit {
     dsCategoria: null,
   }
 
+  statusProduto: StatusProduto = {
+    idStatusProduto: null,
+    dsStatusProduto: null,
+  }
+
+  subCategoria: SubCategoria = {
+    idSubCategoria: null,
+    dsSubCategoria: null,
+  }
+
 
   produtoDesc: Produto={
     cdProduto: null,
-    idStatusProduto: null,
+    statusProduto: this.statusProduto,
     categoria: this.categoria,
     idTipoProduto: null,
     nmFantasia: null,
@@ -36,6 +48,7 @@ export class ConsultaprodutoComponent implements OnInit {
     vlUnidade: null,
     dsProduto: null,
     lmpmItem: null,
+    subCategoria: this.subCategoria,
   };
 
   dados: string;

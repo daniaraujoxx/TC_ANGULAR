@@ -18,8 +18,8 @@
                     <tbody *ngFor="let cupom of relatorioCupom.retorno.itensCupom">
                       <tr style="height: 10vh;">
                           <th scope="row">{{cupom.produto.categoria.dsCategoria}}</th>
-                          <td>{{cupom.produto.categoria.dsCategoria}}</td>
                           <td>{{cupom.produto.nmFantasia}}</td>
+                          <td>{{cupom.produto.subCategoria.dsSubCategoria}}</td>
                           <td style="color: #01784E; font-size: 18px; font-weight: bold;">{{cupom.pcDesconto |percent}}</td>
                       </tr>
                   </tbody>

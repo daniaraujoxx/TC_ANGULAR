@@ -13,6 +13,12 @@ export class SelecionarclienteComponent implements OnInit {
 
   @ViewChild('formCliente', {static: true}) formCliente: NgForm;
   pesqCli: String = "";
+  categoriaCliente ={
+    idCategoriaCliente: null,
+    dsCategoriaCliente: '',
+    pcDescontoCliente: 0,
+  }
+
   cliente: Cliente = {
     idCliente: null,
     nmCliente: null,
@@ -23,7 +29,7 @@ export class SelecionarclienteComponent implements OnInit {
     dtNascimento: null,
     dsGenero: null,
     nrTelefoneCliente: null,
-    categoriaClienteDTO: null,
+    categoriaClienteDTO: this.categoriaCliente,
   };
 
 

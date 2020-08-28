@@ -1,9 +1,11 @@
+import { StatusProduto } from './statusProduto.model';
+import { SubCategoria } from './subCategoria.model';
 import { CategoriaProduto } from "./categoriaProduto.model";
 import { LmpmItem } from "./lmpmLista.model";
 
 export interface Produto {
     cdProduto: number;
-    idStatusProduto: number;
+    statusProduto: StatusProduto;
     categoria: CategoriaProduto;
     idTipoProduto: number;
     nmFantasia: string;
@@ -11,6 +13,7 @@ export interface Produto {
     vlUnidade: number;
     dsProduto: string;
     lmpmItem: LmpmItem;
+    subCategoria: SubCategoria;
 
 
 }
