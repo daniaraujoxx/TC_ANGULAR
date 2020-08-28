@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit {
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;
 
   operador: Operador = {
-        idOperador: 0,
+        idOperador: null,
         nmOperador: '',
         nrCPF: '',
-        nrMatricula: 157977,
+        nrMatricula: null,
         dsCargo: '',
-        cdFilial: 0,
-        pwOperador: '1234'
+        cdFilial: null,
+        pwOperador: ""
   }
 
   loginResponse: LoginResponse;
