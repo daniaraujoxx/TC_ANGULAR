@@ -11,10 +11,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class OfertacupomComponent implements OnInit {
   dados: string = "";
+  cupom: Cupom = {
+    idCupom: null,
+    dtInicial: null,
+    dtFinal: null,
+    cliente: null,
+    itensCupom: [],
+  }
   relatorioCupom: RelatorioCupom={
     status: 0,
     mensagem: '',
-    retorno: null
+    retorno: this.cupom,
     };
 
   constructor(
