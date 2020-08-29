@@ -17,6 +17,7 @@ import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.c
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.compone
     SelecionarclienteComponent,
     RelatorioclienteComponent,
     RelatoriocupomComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

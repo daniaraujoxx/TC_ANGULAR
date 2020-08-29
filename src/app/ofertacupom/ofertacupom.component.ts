@@ -3,6 +3,7 @@ import { RelatoriocupomService } from './../consultaproduto/shared/relatoriocupo
 import { RelatorioCupom } from './../consultaproduto/shared/relatoriocupom.model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Cliente } from '../relatoriocliente/shared/cliente.model';
 
 @Component({
   selector: 'app-ofertacupom',
@@ -10,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./ofertacupom.component.css']
 })
 export class OfertacupomComponent implements OnInit {
+  cliente: Cliente = JSON.parse(localStorage["cliente"]);
   dados: string = "";
   cupom: Cupom = {
     idCupom: null,
