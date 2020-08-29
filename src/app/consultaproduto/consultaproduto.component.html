@@ -55,7 +55,7 @@
                     <td>{{(produto.produto.vlUnidade - (cliente.categoriaClienteDTO.pcDescontoCliente * produto.produto.vlUnidade) | currency:'BRL':true)}}</td>
                     <td>{{cliente.categoriaClienteDTO.pcDescontoCliente | percent}}</td>
                     <td><span *ngIf="produto.produto.lmpmItem!=null">{{produto.produto.lmpmItem.qtProduto}}</span></td>
-                    <td><span *ngIf="produto.produto.lmpmItem!=null">{{produto.produto.vlUnidade - (produto.produto.lmpmItem.pcDesconto * produto.produto.vlUnidade)}}</span></td>
+                    <td><span *ngIf="produto.produto.lmpmItem!=null">{{(produto.produto.vlUnidade - (produto.produto.lmpmItem.pcDesconto * produto.produto.vlUnidade))|currency:'BRL':true}}</span></td>
                     <td><a routerLink="/reservaproduto" class="btn btn-success form-control" style="background-color: #01784E; border-color: #01784E;"><b> Reserva
                     </b></a></td>
                 </tr>

@@ -1,39 +1,43 @@
 <div class="row">
-    <div class="side-bar col-lg-3 col-md-4 col-sm-0">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="col-lg-9 col-md-8 col-sm-12">
+  <div class="side-bar col-lg-3 col-md-4 col-sm-0">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-lg-9 col-md-8 col-sm-12">
 
-        <div class="Space_Descricao">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <label class="labelDescription display-6"><h3> RaiaDrogasil & Você </h3></label>
-                </div>
-                <div class="col-12 text-center">
-                    <label class="labelDescription"><p> {{cliente.nmCliente}}, está são as suas ofertas do dia! </p></label>
-                </div>
-            </div>
+    <div class="Space_Descricao">
+      <div class="row">
+        <div class="col-12 text-center">
+          <label class="labelDescription display-6">
+            <h3> RaiaDrogasil & Você </h3>
+          </label>
         </div>
+        <div class="col-12 text-center">
+          <label class="labelDescription">
+            <p> {{cliente.nmCliente}}, está são as suas ofertas do dia! </p>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 div-table-prod">
+      <!--Conteudo Principal-->
+      <table class="table" >
+        <thead class="thead" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
+          <tr>
+            <th scope="col" style="align-content:  center;">Categoria</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Desconto</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let cupom of relatorioCupom.retorno.itensCupom">
+          <tr style="height: 10vh;">
+            <th scope="row">{{cupom.produto.categoria.dsCategoria}}</th>
+            <td>{{cupom.produto.nmFantasia}}</td>
+            <td>{{cupom.produto.subCategoria.dsSubCategoria}}</td>
+            <td style="color: #01784E; font-size: 18px; font-weight: bold;">{{cupom.pcDesconto |percent}}</td>
+          </tr>
+        </tbody>
+      </table>
 
-            <div class="row">
-                <!--Conteudo Principal-->
-                <table class="table" id="tableOferta">
-                    <thead class="thead" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
-                        <tr>
-                            <th scope="col" style="align-content:  center;">Categoria</th>
-                            <th scope="col">Produto</th>
-                            <th scope="col">Descrição</th>
-                            <th scope="col">Desconto</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let cupom of relatorioCupom.retorno.itensCupom">
-                      <tr style="height: 10vh;">
-                          <th scope="row">{{cupom.produto.categoria.dsCategoria}}</th>
-                          <td>{{cupom.produto.nmFantasia}}</td>
-                          <td>{{cupom.produto.subCategoria.dsSubCategoria}}</td>
-                          <td style="color: #01784E; font-size: 18px; font-weight: bold;">{{cupom.pcDesconto |percent}}</td>
-                      </tr>
-                  </tbody>
-                </table>
-            </div>
-
+    </div>
+  </div>
