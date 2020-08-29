@@ -28,7 +28,6 @@
         <table class="table ">
             <thead class="thead" style="background-color: rgb(115, 115, 115); color: white; font-size: 14px;">
                 <tr>
-                    <th scope="col">Tp</th>
                     <th scope="col">Forn</th>
                     <th scope="col">Cod</th>
                     <th scope="col">Descrição</th>
@@ -45,9 +44,7 @@
             </thead>
             <tbody *ngFor="let produto of estoqueResponse.retorno">
                 <tr (mouseenter)="produtoDescricao(produto.cdEstoque);" [ngClass]="{'table-success': mousePass === produto.cdEstoque}" >
-                    <th *ngIf="produto.produto.categoria.dsCategoria == 'GENERICO'" scope="row" id="Generic">G</th>
-                    <th *ngIf="produto.produto.categoria.dsCategoria == 'SEMELHANTE'" scope="row" id="Semelhante">S</th>
-                    <th *ngIf="produto.produto.categoria.dsCategoria != 'SEMELHANTE' || produto.produto.categoria.dsCategoria != 'GENERICO'" scope="row" id="Semelhante"></th>
+                    
                     <td>{{produto.produto.nmFabricante}}</td>
                     <td>{{produto.produto.cdProduto}}</td>
                     <td>{{produto.produto.nmFantasia}}</td>
