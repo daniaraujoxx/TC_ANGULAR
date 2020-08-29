@@ -44,15 +44,15 @@
             </thead>
             <tbody *ngFor="let produto of estoqueResponse.retorno">
                 <tr (mouseenter)="produtoDescricao(produto.cdEstoque);" [ngClass]="{'table-success': mousePass === produto.cdEstoque}" >
-                    
+
                     <td>{{produto.produto.nmFabricante}}</td>
                     <td>{{produto.produto.cdProduto}}</td>
                     <td>{{produto.produto.nmFantasia}}</td>
                     <td>{{produto.qtEstoque}}</td>
                     <td>{{produto.qtBase}}</td>
                     <td>%</td>
-                    <td>{{produto.produto.vlUnidade}}</td>
-                    <td>{{produto.produto.vlUnidade - (cliente.categoriaClienteDTO.pcDescontoCliente * produto.produto.vlUnidade | number: '1.0-0')}}</td>
+                    <td>{{produto.produto.vlUnidade|currency:'BRL':true}}</td>
+                    <td>{{(produto.produto.vlUnidade - (cliente.categoriaClienteDTO.pcDescontoCliente * produto.produto.vlUnidade) | currency:'BRL':true)}}</td>
                     <td>{{cliente.categoriaClienteDTO.pcDescontoCliente | percent}}</td>
                     <td><span *ngIf="produto.produto.lmpmItem!=null">{{produto.produto.lmpmItem.qtProduto}}</span></td>
                     <td><span *ngIf="produto.produto.lmpmItem!=null">{{produto.produto.vlUnidade - (produto.produto.lmpmItem.pcDesconto * produto.produto.vlUnidade)}}</span></td>
