@@ -3,6 +3,8 @@ import { RelatorioReserva } from './shared/relatorioreserva.model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare var $: any;
+
 @Component({
   selector: 'app-reservaproduto',
   templateUrl: './reservaproduto.component.html',

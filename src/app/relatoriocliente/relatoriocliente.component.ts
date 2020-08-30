@@ -2,7 +2,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { RelatorioclienteService } from './shared/relatoriocliente.service';
 import { ClienteResponse } from './shared/relatoriocliente.model';
-import {Cliente} from './shared/cliente.model';
+
+
+declare var $: any;
 
 @Component({
   selector: 'app-relatoriocliente',
@@ -37,8 +39,7 @@ export class RelatorioclienteComponent implements OnInit {
 
     },
     error => {
-      if(confirm("Cliente não encontrado!")){
-      this.router.navigate(['/selecionarcliente'])}
+      $('#exampleModal').modal('show');
     }
     );
   }
@@ -53,5 +54,10 @@ export class RelatorioclienteComponent implements OnInit {
         this.router.navigate(["/consultaproduto"]);
       }
     });
+  }
+
+  closeModal(){
+    $('#exampleModal').modal('hide');
+    this.router.navigate(["/selecionarcliente"]);
   }
 }
