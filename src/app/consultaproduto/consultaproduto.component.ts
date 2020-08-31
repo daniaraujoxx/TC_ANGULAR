@@ -76,6 +76,7 @@ export class ConsultaprodutoComponent implements OnInit {
   }
 
   }
+
   produtoDescricao(id: number){
     this.mousePass = id;
     this.estoqueResponse.retorno.forEach(element => {

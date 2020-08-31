@@ -12,6 +12,7 @@ import { LoginResponse } from './login/shared/login.model';
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
+
 export class LoginComponent implements OnInit {
 
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;

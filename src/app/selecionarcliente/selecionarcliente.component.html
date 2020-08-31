@@ -14,8 +14,7 @@
                     <form #formCliente="ngForm">
                         <div class="form-group mt-3">
                             <input type="text" class="form-control" [(ngModel)]="pesqCli" name="pesqCli" aria-describedby="Text" placeholder="Digite os dados para consulta" required>
-                            <small id="textHelp" class="form-text text-muted">Digite CPF, RG ou Nome
-                                completo.</small>
+                            <small id="textHelp" class="form-text text-muted">Digite CPF, RG ou Nome.</small>
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <button (click) = "pesquisar()" class="btn btn-primary" [disabled]="formCliente.form.invalid">Buscar </button>
