@@ -33,6 +33,7 @@
                     <th scope="col">Descrição</th>
                     <th scope="col">Est</th>
                     <th scope="col">VB</th>
+                    <th scope="col">Empenho</th>
                     <th scope="col">MP</th>
                     <th scope="col">PMC</th>
                     <th scope="col">$V Exclu</th>
@@ -50,6 +51,7 @@
                     <td>{{produto.produto.nmFantasia}}</td>
                     <td>{{produto.qtEstoque}}</td>
                     <td>{{produto.qtBase}}</td>
+                    <td>{{produto.qtEmpenho}}</td>
                     <td>%</td>
                     <td>{{produto.produto.vlUnidade|currency:'BRL':true}}</td>
                     <td>{{(produto.produto.vlUnidade - (cliente.categoriaClienteDTO.pcDescontoCliente * produto.produto.vlUnidade) | currency:'BRL':true)}}</td>

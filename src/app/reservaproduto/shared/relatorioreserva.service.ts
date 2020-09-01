@@ -28,4 +28,6 @@ export class RelatorioReservaService {
   getCliente(dados: string): Observable<RelatorioReserva>{
     return this.http.get<RelatorioReserva>(this.API + this.resto + this.cliente.idCliente, this.httpOptions);
   }
+
+
 }

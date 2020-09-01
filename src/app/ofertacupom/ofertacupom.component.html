@@ -26,7 +26,9 @@
             <th scope="col" style="align-content:  center;">Categoria</th>
             <th scope="col">Produto</th>
             <th scope="col">Descrição</th>
+            <th scope="col">Valor</th>
             <th scope="col">Desconto</th>
+            <th scope="col">Valor Desconto</th>
           </tr>
         </thead>
         <tbody *ngFor="let cupom of relatorioCupom.retorno.itensCupom">
@@ -34,7 +36,9 @@
             <th scope="row">{{cupom.produto.categoria.dsCategoria}}</th>
             <td>{{cupom.produto.nmFantasia}}</td>
             <td>{{cupom.produto.subCategoria.dsSubCategoria}}</td>
+            <td>{{cupom.produto.vlUnidade|currency:'BRL':true}}</td>
             <td style="color: #01784E; font-size: 18px; font-weight: bold;">{{cupom.pcDesconto |percent}}</td>
+            <td>{{(cupom.produto.vlUnidade - (cupom.produto.vlUnidade*cupom.pcDesconto)|currency:'BRL':true)}}</td>
           </tr>
         </tbody>
       </table>
