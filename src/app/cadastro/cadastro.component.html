@@ -14,14 +14,14 @@
 <h1> Cadastro de Cliente.</h1>
 
 <form>
-  <div class="form-row">
+  <div class="form-row" id = "cadastro">
     <div class="form-group col-md-8">
-      <label for="inputCity">Nome Completo</label>
+      <label for="inputName" width="300">Nome Completo</label>
       <input type="text" class="form-control" id="inputName">
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="form-row" id = "cpf">
     <div class="form-group col-md-4">
       <label for="inputCPF">CPF</label>
       <input type="cpf" class="form-control" id="inputCPF">
@@ -32,22 +32,43 @@
     </div>
   </div>
 
+
   <div class="form-row">
     <div class="form-group col-md-3">
-      <label for="inputRG">Cidade</label>
-      <input type="rg" class="form-control" id="inputRG">
+      <label for="inputCity">Nome da Rua</label>
+      <input type="city" class="form-control" id="inputCity">
     </div>
 
     <div class="form-group col-md-3">
-      <label for="inputCPF">Estado</label>
-      <input type="cpf" class="form-control" id="inputCPF">
+      <label for="inputEstado">Nr Endereço</label>
+      <input type="estado" class="form-control" id="inputEstado">
     </div>
+
+    <div class="form-group col-md-3">
+      <label for="inputEstado">Cep</label>
+      <input type="estado" class="form-control" id="inputEstado">
+    </div>
+    
+
+    <div class="form-group col-md-3">
+      <label for="inputEstado">Estado</label>
+      <input type="estado" class="form-control" id="inputEstado">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputEstado">Cidade</label>
+      <input type="estado" class="form-control" id="inputEstado">
+    </div>
+
   
     
     <div class="form-group col-md-3">
-      <label for="inputCPF">Data de Nascimento</label>
-      <input type="cpf" class="form-control" id="inputCPF">
+      <div class="input-box customer-dob">
+        <div class="dob-day">
+      <label for="month">Data de Nascimento</label>
+      <input type="text" class="form-control" id="day">
     </div>
+  </div>
+</div>
     <div class="form-group col-md-3">
         <label for="inlineFormCustomSelect">Gênero</label>
         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
@@ -63,23 +84,25 @@
 
   <h3>Contatos</h3>
 
-  <div class="form-row">
+  <div class="form-row" id="email">
     <div class="form-group col-6">
       <label for="inputEmail4">Email</label>
       <input type="email" class="form-control" id="inputEmail4">
     </div>   
   </div>
 
-  <div class="form-row">
+  <div class="form-row" id="contato">
     <div class="form-group col-md-4">
-      <label for="inputCPF">Telefone</label>
-      <input type="cpf" class="form-control" id="inputCPF">
+      <label for="inputNumber">Telefone</label>
+      <input type="number" class="form-control" id="inputNumber">
     </div>
     <div class="form-group col-md-4">
-      <label for="inputRG">Celular</label>
-      <input type="rg" class="form-control" id="inputRG">
+      <label for="inputNumber">Celular</label>
+      <input type="number" class="form-control" id="inputNumber">
     </div>
   </div>
 
   <button type="submit" routerLink="/selecionarcliente" class="btn btn-primary">Cadastrar</button>
+
+  
 </form>
