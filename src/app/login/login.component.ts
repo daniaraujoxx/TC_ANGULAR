@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginResponse } from './login/shared/login.model';
 
+declare var $: any;
 
 
 @Component({
@@ -40,6 +41,12 @@ export class LoginComponent implements OnInit {
    ) { }
 
   ngOnInit(): void {
+
+  }
+
+  abreModal(){
+
+    $('#senhaModal').modal('show');
 
   }
   logar(): void {
