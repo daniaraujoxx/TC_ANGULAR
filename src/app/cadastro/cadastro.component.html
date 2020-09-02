@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center align-items-center" style="height: 60px;">
+      <div class="col">
+          <div class="row">
+              <div class="col-12  br-rd">
+                  <div class="row">
+                      <div class="col">
+                          <img src="assets/images/cabecalho/logo.png" width="300" class="my-3">
+                      </div>
+                  </div>
+                </div>
+</div>
+
+<h1> Cadastro de Cliente.</h1>
+
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <label for="inputCity">Nome Completo</label>
+      <input type="text" class="form-control" id="inputName">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputCPF">CPF</label>
+      <input type="cpf" class="form-control" id="inputCPF">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputRG">RG</label>
+      <input type="rg" class="form-control" id="inputRG">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputRG">Cidade</label>
+      <input type="rg" class="form-control" id="inputRG">
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="inputCPF">Estado</label>
+      <input type="cpf" class="form-control" id="inputCPF">
+    </div>
+  
+    
+    <div class="form-group col-md-3">
+      <label for="inputCPF">Data de Nascimento</label>
+      <input type="cpf" class="form-control" id="inputCPF">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="inlineFormCustomSelect">Gênero</label>
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+          <option selected>Opção...</option>
+          <option value="1">F</option>
+          <option value="2">M</option>
+        </select>
+      </div>
+    
+    
+    
+  </div>
+
+  <h3>Contatos</h3>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4">
+    </div>   
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputCPF">Telefone</label>
+      <input type="cpf" class="form-control" id="inputCPF">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputRG">Celular</label>
+      <input type="rg" class="form-control" id="inputRG">
+    </div>
+  </div>
+
+  <button type="submit" routerLink="/selecionarcliente" class="btn btn-primary">Cadastrar</button>
+</form>

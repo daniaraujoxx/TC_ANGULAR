@@ -5,6 +5,7 @@ import { ReservaprodutoComponent } from './reservaproduto/reservaproduto.compone
 import { ConsultaprodutoComponent } from './consultaproduto/consultaproduto.component';
 import { DevolucaoComponent } from './devolucao/devolucao.component';
 import { OfertacupomComponent } from './ofertacupom/ofertacupom.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
 import { SelecionarclienteComponent } from './selecionarcliente/selecionarcliente.component';
 import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.component';
 import {
@@ -63,7 +64,12 @@ export const routes: Routes = [
       path: 'reservaproduto',
       component: ReservaprodutoComponent,
       canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'cadastro',
+    component: CadastroComponent,
+    canActivate: [AuthGuard]
+}
 ];
 
 
