@@ -47,12 +47,19 @@
         <form>
           <div class="form-group">
             <label for="numerocpf">Número De CPF</label>
-            <input type="cpf" class="form-control" id="numerocpf" aria-describedby="cpfHelp">
+            <input type="cpf" class="form-control" id="numerocpf" required aria-describedby="cpfHelp">
             <small id="cpfHelp" class="form-text text-muted">Seu cpf é sua segurança, não compartilhe com ninguém.</small>
           </div>
           <div class="form-group">
-            <label for="newpassword">Nova senha</label>
-            <input type="password" class="form-control" id="newpassword">
+            <label for="password">Nova senha</label>
+            <input type="password"  class="form-control" name="password" [(ngModel)]="data.password" required>
+          </div>
+          <div class="form-group">
+            <label for="password_confirm">Confirmar senha</label>
+            <input type="password"  class="form-control" name="password_confirm" [(ngModel)]="data.password_confirm" required [ngClass]="{'is-invalid': data.password != data.password_confirm}">
+            <div class=" col-12 my-4 alert alert-danger" *ngIf="data.password != data.password_confirm">
+              {{"Os Campos devem ser iguais!"}}
+          </div>
           </div>
           <div class="modal-footer">
         <button type="button, submit" class="btn btn-primary">Alterar</button>

@@ -15,9 +15,12 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
+  @ViewChild('formSenha', {static: true}) formSenha: NgForm;
+  data = {
+    password: '',
+    password_confirm: '',
+  };
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;
-
-
   operador: Operador = {
         idOperador: 0,
         nmOperador: '',
