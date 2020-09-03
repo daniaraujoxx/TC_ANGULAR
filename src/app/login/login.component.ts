@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginResponse } from './login/shared/login.model';
 
+declare var $: any;
 
 
 @Component({
@@ -14,9 +15,12 @@ import { LoginResponse } from './login/shared/login.model';
 })
 export class LoginComponent implements OnInit {
 
+  @ViewChild('formSenha', {static: true}) formSenha: NgForm;
+  data = {
+    password: '',
+    password_confirm: '',
+  };
   @ViewChild('formLogin', {static: true}) formLogin: NgForm;
-
-
   operador: Operador = {
         idOperador: 0,
         nmOperador: '',
@@ -40,6 +44,12 @@ export class LoginComponent implements OnInit {
    ) { }
 
   ngOnInit(): void {
+
+  }
+
+  abreModal(){
+
+    $('#senhaModal').modal('show');
 
   }
   logar(): void {

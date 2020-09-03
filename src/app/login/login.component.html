@@ -23,6 +23,7 @@
                                     <div class="form-group col-12 my-4">
                                         <label for="senha" class="text-green">Senha:</label>
                                         <input type="password" class="form-control" [(ngModel)] = "operador.pwOperador" name="pwOperador" required [ngClass]="{'is-invalid': error == true}">
+                                        <a class="link" (click) = "abreModal()">Esqueci minha senha</a>
                                     </div>
                                     <div class="form-group col-12 my-4 text-center">
                                        <button (click) = "logar()" [disabled]="formLogin.form.invalid" class="btn btn-primary btn-lg pl-5 pr-5 person-icon">Login</button>
@@ -35,4 +36,37 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="senhaModal" tabindex="-1" aria-labelledby="senhaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="senhaModalLabel">Aviso, solicitando troca de senha!</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="numerocpf">Número De CPF</label>
+            <input type="cpf" class="form-control" id="numerocpf" required aria-describedby="cpfHelp">
+            <small id="cpfHelp" class="form-text text-muted">Seu cpf é sua segurança, não compartilhe com ninguém.</small>
+          </div>
+          <div class="form-group">
+            <label for="password">Nova senha</label>
+            <input type="password"  class="form-control" name="password" [(ngModel)]="data.password" required>
+          </div>
+          <div class="form-group">
+            <label for="password_confirm">Confirmar senha</label>
+            <input type="password"  class="form-control" name="password_confirm" [(ngModel)]="data.password_confirm" required [ngClass]="{'is-invalid': data.password != data.password_confirm}">
+            <div class=" col-12 my-4 alert alert-danger" *ngIf="data.password != data.password_confirm">
+              {{"Os Campos devem ser iguais!"}}
+          </div>
+          </div>
+          <div class="modal-footer">
+        <button type="button, submit" class="btn btn-primary">Alterar</button>
+      </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>
