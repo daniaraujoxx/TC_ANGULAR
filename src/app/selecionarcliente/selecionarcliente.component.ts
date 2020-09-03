@@ -1,3 +1,4 @@
+import { Endereco } from './../relatoriocliente/shared/endereço.model';
 import { Cliente } from './../relatoriocliente/shared/cliente.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -32,6 +33,7 @@ export class SelecionarclienteComponent implements OnInit {
     dsGenero: null,
     nrTelefoneCliente: null,
     categoriaClienteDTO: this.categoriaCliente,
+    enderecos: []
   };
 
 

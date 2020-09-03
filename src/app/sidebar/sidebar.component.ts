@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit {
     dsGenero: null,
     nrTelefoneCliente: null,
     categoriaClienteDTO: this.categoriaCliente,
+    enderecos: []
   };
   produto: string = '';
 

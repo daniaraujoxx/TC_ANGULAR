@@ -1,3 +1,4 @@
+import { Endereco } from './endereço.model';
 import { CategoriaCliente } from './categoriaCliente.model';
 
 export interface Cliente{
@@ -11,4 +12,5 @@ export interface Cliente{
   dsGenero: string,
   nrTelefoneCliente: string,
   categoriaClienteDTO: CategoriaCliente,
+  enderecos: Array<Endereco>;
 }
