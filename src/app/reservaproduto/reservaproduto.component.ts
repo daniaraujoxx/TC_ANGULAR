@@ -1,10 +1,11 @@
+import { Reserva } from './shared/reserva.model';
 import { Produto } from './../consultaproduto/shared/produto.model';
 import { ConsultaprodutoService } from './../consultaproduto/shared/consultaproduto.service';
 import { EstoqueResponse } from './../consultaproduto/shared/estoqueResponse.model';
 import { ItensReserva } from './shared/itensReserva.model';
 import { RelatorioReservaService } from './shared/relatorioreserva.service';
 import { RelatorioReserva } from './shared/relatorioreserva.model';
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, ɵConsole, ɵ_sanitizeHtml } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -85,9 +86,14 @@ export class ReservaprodutoComponent implements OnInit {
 
 
 
+  newReserva: Reserva={
+    cliente: null,
+    dtInicial: null,
+    dtFinal: null,
+    idReserva: null,
+    itensReserva: []
+  }
 
-
-  itensAdd: ItensReserva[];
 
 
   constructor(
@@ -102,6 +108,7 @@ export class ReservaprodutoComponent implements OnInit {
       this.RelatorioReserva = response;
       console.log(this.RelatorioReserva);
     });
+    //console.log(this.itensAdd.length);
   }
 
 
@@ -133,24 +140,30 @@ export class ReservaprodutoComponent implements OnInit {
   }
 
   adicionar(){
-    console.log(this.itemAdd);
-    let encontrado: boolean = false;
-    if(this.itensAdd !== null){
-      this.itensAdd.forEach(item => {
-        if(this.itemAdd.produto == item.produto ){
-          encontrado = true;
+    console.log(this.newReserva.itensReserva);
+    let encontrado: boolean = true;
+    if(this.newReserva.itensReserva.length > 0){
+      this.newReserva.itensReserva.forEach(item => {
+        console.log(item.produto);
+        if(this.cdPrdutoElement.nativeElement.value == item.produto){
+          encontrado = false;
         }
       });
     }
     if(encontrado){
-      this.itensAdd.push(this.itemAdd);
-      this.itemAdd.produto = null;
-      this.itemAdd.qtProduto = null;
+      this.newReserva.itensReserva.push({
+        produto: this.cdPrdutoElement.nativeElement.value,
+        qtProduto: this.qtdPrdutoElement.nativeElement.value
+      });
+      this.itemAdd.produto.cdProduto=null;
+      this.itemAdd.qtProduto=null;
+      this.estoqueResponse = this.estoqueNull;
+      this.qtdDisponivelReserva = null;
+      this.qtdPrdutoElement.nativeElement.disabled = true;
       this.cdPrdutoElement.nativeElement.focus();
       this.btnAdicionar.nativeElement.disabled = true;
-      console.log(this.itensAdd);
     }else{
-      this.mensagem = "Produto ja cadastrado nessa reserva!";
+      this.mensagem ="Este codigo de produto ja foi adicionado a reserva!";
       this.mensagemShow();
     }
   }
@@ -169,11 +182,11 @@ export class ReservaprodutoComponent implements OnInit {
   }
 
   mensagemShow(){
-    $('#MensagemShow').modal('show');
+    $('#MensagemModal').modal('show');
   }
 
   mensagemClose(){
-    $('#MensagemShow').modal('hide');
+    $('#MensagemModal').modal('hide');
     this.mensagem=null;
   }
 

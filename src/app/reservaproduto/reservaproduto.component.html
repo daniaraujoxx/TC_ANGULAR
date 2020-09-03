@@ -38,6 +38,17 @@
           <th scope="col" class="text-right">Remover</th>
         </tr>
       </thead>
+      <tbody *ngFor="let itemNew of newReserva.itensReserva">
+        <tr >
+          <th scope="row">{{itemNew.produto}}</th>
+          <td>{{itemNew.produto.nmFantasia}}</td>
+          <td class="text-center">{{itemNew.qtProduto}}</td>
+          <td class="text-right">
+            <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
+              data-target="#exampleModal"></button>
+          </td>
+        </tr>
+      </tbody>
       <tbody *ngFor="let retorno of RelatorioReserva.retorno">
         <tr *ngFor="let reserva of retorno.itens ">
           <th scope="row">{{reserva.produto.cdProduto}}</th>
@@ -116,7 +127,7 @@
           <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
         </div>
         <div class="modal-body">
-          Quantidade para reserva invalida!
+          {{mensagem}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="mensagemClose()">OK</button>
