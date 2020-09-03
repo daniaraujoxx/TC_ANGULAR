@@ -1,4 +1,4 @@
-import { itensReserva } from './itensReserva.model';
+import { ItensReserva } from './itensReserva.model';
 import { Cliente } from './../../relatoriocliente/shared/cliente.model';
 
 export interface Reserva{
@@ -6,5 +6,5 @@ export interface Reserva{
   dtInicial: Date;
   dtFinal: Date;
   idReserva: number;
-  itensReserva: Array<itensReserva>;
+  itensReserva: Array<ItensReserva>;
 }

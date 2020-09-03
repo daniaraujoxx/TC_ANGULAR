@@ -1,6 +1,6 @@
 import { Produto } from './../../consultaproduto/shared/produto.model';
 
-export interface itensReserva{
+export interface ItensReserva{
   produto: Produto;
-  qtproduto: number;
+  qtProduto: number;
 }

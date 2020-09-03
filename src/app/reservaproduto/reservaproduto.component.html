@@ -10,18 +10,22 @@
       <div class="form-row">
         <div class="col-2 name1">
           <h6>Código do produto</h6>
-          <input type="number" class="form-control" placeholder="Codigo">
+          <input type="number" class="form-control" #inputProduto placeholder="Codigo"  [(ngModel)] ="itemAdd.produto.cdProduto" name="produto" (keyup.enter)="verificaEstoque()">
         </div>
-        <div class="col-6 name1">
+        <div class="col-4 name1">
           <h6>Nome do produto</h6>
-          <input type="text" class="form-control" placeholder="Descrição">
+          <input type="text" class="form-control" placeholder="Descrição" disabled [(ngModel)] = "estoqueResponse.retorno[0].produto.nmFantasia" name="nmFantasia">
         </div>
         <div class="col-2 name1">
-          <h6>Quantidade</h6>
-          <input type="number" class="form-control" placeholder="Quantidade">
+          <h6>Qtd Estoque</h6>
+          <input type="number" class="form-control" disabled [(ngModel)] ="qtdDisponivelReserva" name="qtdDisponivelReserva">
+        </div>
+        <div class="col-2 name1">
+          <h6>Qtd Reserva</h6>
+          <input type="number" class="form-control" disabled #inputQuantidade placeholder="Quantidade" (keyup.enter)="verificaQuantidade()" [(ngModel)] ="itemAdd.qtProduto" min="1" max="{{qtdDisponivelReserva}}" name="qtProduto">
         </div>
         <div class="col add ml-0 ">
-          <button type="button" class="btn btn-primary">Adicionar</button>
+          <button type="button" class="btn btn-primary" #btnAdicionar disabled (click)="adicionar()">Adicionar</button>
         </div>
       </div>
     </form>
@@ -53,7 +57,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -73,6 +77,52 @@
               </div>
           </div>
       </div>
+  </div>
+  <div class="modal fade" id="MixEstoque" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
+        </div>
+        <div class="modal-body">
+          Produto {{itemAdd.produto.cdProduto}} fora do mix da loja!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeMixEstoqueModal()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="QtdReservaInvalid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
+        </div>
+        <div class="modal-body">
+          Quantidade para reserva invalida!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeQtdReservaInvalidModal()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="MensagemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
+        </div>
+        <div class="modal-body">
+          Quantidade para reserva invalida!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="mensagemClose()">OK</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 
