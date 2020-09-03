@@ -103,62 +103,62 @@
 <div class="conteudo mt-4 container text-green">
   <h1>Cadastro De Cliente</h1>
   <hr>
-  <form>
+  <form #formCadastro = "ngForm">
       <div class="form-group row">
           <div class="col-12 my-2">
             <label for="Nome">Nome completo</label>
-            <input class="form-control form-control-lg" id="Nome" type="nome" placeholder="Nome completo">
+            <input class="form-control form-control-lg" id="Nome" type="nome" placeholder="Nome completo" [(ngModel)] = "cliente.nmCliente" name="nmCliente">
         </div>
         <div class="col-6 my-2">
           <label for="cpf">CPF</label>
-          <input class="form-control form-control-lg" id="cpf" type="number" placeholder="CPF">
+          <input class="form-control form-control-lg" id="cpf" type="number" placeholder="CPF" [(ngModel)] = "cliente.nrCPF" name="nrCPF">
         </div>
         <div class="col-6 my-2">
           <label for="rg">RG</label>
-          <input class="form-control form-control-lg" id="rg" type="number" placeholder="RG">
+          <input class="form-control form-control-lg" id="rg" type="number" placeholder="RG" [(ngModel)] = "cliente.nrRg" name="nrRG">
         </div>
         <div class="col-6 my-2">
           <label for="dtNascimento">Data de Nascimento</label>
-          <input class="form-control form-control-lg" id="dtNascimento" type="date" placeholder="Data de Nascimento">
+          <input class="form-control form-control-lg" id="dtNascimento" type="date" placeholder="Data de Nascimento" [(ngModel)] = "cliente.dtNascimento" name="dtNascimento" (blur)="calculaIdade()">
       </div>
 
       <div class="col-6 my-2">
         <label class="my-1 mr-2" for="genero">Gênero</label>
-        <select class="custom-select my-1 mr-sm-2" id="genero">
+        <select class="custom-select my-1 mr-sm-2" id="genero" [(ngModel)] = "cliente.dsGenero" name="dsGenero">
             <option selected>Escolher...</option>
-            <option value="1">Masculino</option>
-            <option value="2">Feminino</option>
-            <option value="3">Não informado</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+            <option value="N">Não informado</option>
         </select>
       </div>
       <div class="col-12 my-2"><h2>Endereço</h2></div>
       <div class="col-6 my-2">
         <label for="cep">CEP</label>
-        <input class="form-control form-control-lg" id="cep" type="number" placeholder="CEP">
+        <input class="form-control form-control-lg" id="cep" type="number" placeholder="CEP" [(ngModel)] = "endereco.nrCep" name="nrCep">
     </div>
         <div class="col-6 my-2">
           <label for="endereco">Nome da rua</label>
-          <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Nome da rua">
+          <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Nome da rua" [(ngModel)] = "endereco.dsEndereco" name="dsEndereco">
       </div>
 
           <div class="col-6 my-2">
               <label for="nEndereco">Número</label>
-              <input class="form-control form-control-lg" id="nEndereco" type="number" placeholder="Número">
+              <input class="form-control form-control-lg" id="nEndereco" type="number" placeholder="Número" [(ngModel)] = "endereco.nrEndereco" name="nrEndereco">
           </div>
 
           <div class="col-6 my-2">
             <label for="bairro">Bairro</label>
-            <input class="form-control form-control-lg" id="bairro" type="bairro" placeholder="Bairro">
+            <input class="form-control form-control-lg" id="bairro" type="bairro" placeholder="Bairro" [(ngModel)] = "endereco.dsBairro" name="dsBairro">
         </div>
 
           <div class="col-6 my-2">
             <label for="endereco">Cidade</label>
-            <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Cidade">
+            <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Cidade" [(ngModel)] = "endereco.cidade" name="cidade">
         </div>
 
         <div class="col-6 my-2">
           <label for="uf">UF</label>
-          <input class="form-control form-control-lg" id="uf" type="uf" placeholder="UF">
+          <input class="form-control form-control-lg" id="uf" type="uf" placeholder="UF" [(ngModel)] = "endereco.sgEstado" name="sgEstado">
       </div>
 
       <div class="col-12 my-2"><h2>Contatos</h2></div>
@@ -166,23 +166,18 @@
 
           <div class="col-6 my-2">
             <label for="email]">Email</label>
-            <input class="form-control form-control-lg" id="email" type="email" placeholder="E  mail">
+            <input class="form-control form-control-lg" id="email" type="email" placeholder="Email" [(ngModel)] = "cliente.dsEmail" name="dsEmail">
         </div>
         <div class="col-6 my-2">
-          <label for="telefoneFixo">Telefone fixo</label>
-          <input class="form-control form-control-lg" id="telefoneFixo" type="number" placeholder="Telefone fixo">
+          <label for="telefone">Telefone</label>
+          <input class="form-control form-control-lg" id="telefone" type="number" placeholder="Telefone" [(ngModel)] = "cliente.nrTelefoneCliente" name="nrTelefoneCliente">
       </div>
-      <div class="col-6 my-2">
-        <label for="telefoneCelular">Telefone Celular</label>
-        <input class="form-control form-control-lg" id="telefoneCelular" type="number" placeholder="Telefone Celular">
-    </div>
-
 
         </div>
           <div class="col-12 mt-3">
               <div class="row d-flex justify-content-end">
                   <div class="col-3">
-                      <a type="submit" class="btn btn-primary form-control btn-lg btn-block">Cadastrar</a>
+                      <a (click) = "cadastrar()" type="submit" class="btn btn-primary form-control btn-lg btn-block">Cadastrar</a>
                   </div>
               </div>
           </div>
