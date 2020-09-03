@@ -37,6 +37,11 @@ export class OfertacupomComponent implements OnInit {
       this.relatorioCupom = response;
       console.log(this.relatorioCupom);
     });
+    
+  }
+
+  enviarEmail(){
+    this.relatorioCupomService.getEnviarEmail().subscribe();
   }
 
 }

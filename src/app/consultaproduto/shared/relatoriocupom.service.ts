@@ -28,4 +28,9 @@ export class RelatoriocupomService {
   getCliente(dados: string): Observable<RelatorioCupom>{
     return this.http.get<RelatorioCupom>(this.API + this.cliente.idCliente, this.httpOptions);
   }
+
+  getEnviarEmail(): Observable<any>{
+    return this.http.get<RelatorioCupom>(this.API + "enviar/" + this.cliente.idCliente, this.httpOptions);
+    
+  }
 }
