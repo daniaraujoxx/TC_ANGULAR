@@ -135,7 +135,7 @@ export class ReservaprodutoComponent implements OnInit {
   adicionar(){
     console.log(this.itemAdd);
     let encontrado: boolean = false;
-    if(this.itensAdd.length == null){
+    if(this.itensAdd !== null){
       this.itensAdd.forEach(item => {
         if(this.itemAdd.produto == item.produto ){
           encontrado = true;
