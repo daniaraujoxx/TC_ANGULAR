@@ -1,3 +1,6 @@
+import { Cliente } from './../relatoriocliente/shared/cliente.model';
+import { ItensReserva } from './../reservaproduto/shared/itensReserva.model';
+import { Produto } from './../consultaproduto/shared/produto.model';
 import { RelatorioReservaService } from './../reservaproduto/shared/relatorioreserva.service';
 import { Reserva } from './../reservaproduto/shared/reserva.model';
 import { ConsultaprodutoService } from './../consultaproduto/shared/consultaproduto.service';
@@ -14,6 +17,7 @@ declare var $: any;
 })
 export class CadastroReservaComponent implements OnInit {
   mensagem: string = "";
+  Itemselect:ItensReserva;
 
   @ViewChild('inputProduto') cdPrdutoElement: ElementRef;
   @ViewChild('inputQuantidade') qtdPrdutoElement: ElementRef;
@@ -130,6 +134,20 @@ export class CadastroReservaComponent implements OnInit {
       this.mensagem ="Este codigo de produto ja foi adicionado a reserva!";
       this.mensagemShow();
     }
+  }
+
+  remover(){
+    console.log(this.Itemselect);
+    this.newReserva.itensReserva.splice(this.newReserva.itensReserva.indexOf(this.Itemselect), 1);
+    $('#exampleModal').modal('hide');
+  }
+
+  confirmar(){
+    let cliente: Cliente = JSON.parse(localStorage['cliente']);
+    let date = new Date();
+    console.log(date);
+    this.newReserva.cliente = cliente;
+    this.newReserva.dtInicial = date;
   }
 
   closeMixEstoqueModal(){
