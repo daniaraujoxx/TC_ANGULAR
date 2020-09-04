@@ -24,12 +24,13 @@ export class LoginComponent implements OnInit {
   operador: Operador = {
         idOperador: 0,
         nmOperador: '',
-        nrCPF: '',
-        nrMatricula: 157977,
+        nrCpf: '',
+        nrMatricula: null,
         dsCargo: '',
         cdFilial: 0,
-        pwOperador: '1234'
+        pwOperador: ''
   }
+
 
   mensagemError: string;
   error: boolean = false;
@@ -71,5 +72,11 @@ export class LoginComponent implements OnInit {
       this.mensagemError = "Matricula ou Senha Incorretas!";
       this.error =  true;
     }
+  }
+  alterarSenha(){
+    console.log(this.operador);
+    this.loginService.putLogin(this.operador).subscribe(response => {
+
+    });
   }
 }

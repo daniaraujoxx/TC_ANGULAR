@@ -27,4 +27,8 @@ export class LoginService {
     return this.http.post<LoginResponse>(this.API, operador, this.httpOptions);
   }
 
+  putLogin(operador: Operador):Observable<any>{
+    return this.http.put<any>(this.API, operador, this.httpOptions);
+
+  }
 }

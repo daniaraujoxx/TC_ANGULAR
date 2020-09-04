@@ -46,23 +46,27 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="numerocpf">Número De CPF</label>
-            <input type="cpf" class="form-control" id="numerocpf" required aria-describedby="cpfHelp">
+            <label for="numeroCpf">Número De CPF</label>
+            <input type="cpf" class="form-control" name="nrCpf" [(ngModel)]="operador.nrCpf"  id="numeroCpf" required aria-describedby="cpfHelp">
             <small id="cpfHelp" class="form-text text-muted">Seu cpf é sua segurança, não compartilhe com ninguém.</small>
           </div>
           <div class="form-group">
+            <label for="numerocpf">Número De Matricula</label>
+            <input type="cpf" class="form-control" name="nrMatricula" [(ngModel)]="operador.nrMatricula"  id="nrMatricula" required aria-describedby="cpfHelp">
+          </div>
+          <div class="form-group">
             <label for="password">Nova senha</label>
-            <input type="password"  class="form-control" name="password" [(ngModel)]="data.password" required>
+            <input type="password"  class="form-control" name="pwOperador" [(ngModel)]="operador.pwOperador" required>
           </div>
           <div class="form-group">
             <label for="password_confirm">Confirmar senha</label>
-            <input type="password"  class="form-control" name="password_confirm" [(ngModel)]="data.password_confirm" required [ngClass]="{'is-invalid': data.password != data.password_confirm}">
-            <div class=" col-12 my-4 alert alert-danger" *ngIf="data.password != data.password_confirm">
+            <input type="password"  class="form-control" name="password_confirm" [(ngModel)]="data.password_confirm" required [ngClass]="{'is-invalid': operador.pwOperador != data.password_confirm}">
+            <div class=" col-12 my-4 alert alert-danger" *ngIf="operador.pwOperador != data.password_confirm">
               {{"Os Campos devem ser iguais!"}}
           </div>
           </div>
           <div class="modal-footer">
-        <button type="button, submit" class="btn btn-primary">Alterar</button>
+        <button type="button, submit" (click) = " alterarSenha()" class="btn btn-primary">Alterar</button>
       </div>
         </form>
       </div>

@@ -1,7 +1,7 @@
 export interface Operador{
   idOperador: number,
   nmOperador: string,
-  nrCPF: string,
+  nrCpf: string,
   nrMatricula: number,
   dsCargo: string,
   cdFilial: number,
