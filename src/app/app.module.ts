@@ -5,7 +5,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt, 'pt-BR');
-
+import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,7 +18,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoginComponent } from './login/login.component';
 import { SelecionarclienteComponent } from './selecionarcliente/selecionarcliente.component';
 import { RelatorioclienteComponent } from './relatoriocliente/relatoriocliente.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.component';
 import { FooterComponent } from './footer/footer.component';
@@ -44,8 +44,10 @@ import { CadastroComponent } from './cadastro/cadastro.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
+    DatePipe,
     AuthGuardService,
     {provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
