@@ -60,4 +60,8 @@ export class RelatorioclienteComponent implements OnInit {
     $('#exampleModal').modal('hide');
     this.router.navigate(["/selecionarcliente"]);
   }
+  cadastrarCliente(){
+    $('#exampleModal').modal('hide');
+    this.router.navigate(["/cadastrarCliente"]);
+  }
 }
