@@ -6,29 +6,6 @@
 
     <h1>Reserva de Produtos</h1>
     <hr>
-    <form #formLogin="ngForm">
-      <div class="form-row">
-        <div class="col-2 name1">
-          <h6>Código do produto</h6>
-          <input type="number" class="form-control" #inputProduto placeholder="Codigo"  [(ngModel)] ="itemAdd.produto.cdProduto" name="produto" (keyup.enter)="verificaEstoque()">
-        </div>
-        <div class="col-4 name1">
-          <h6>Nome do produto</h6>
-          <input type="text" class="form-control" placeholder="Descrição" disabled [(ngModel)] = "estoqueResponse.retorno[0].produto.nmFantasia" name="nmFantasia">
-        </div>
-        <div class="col-2 name1">
-          <h6>Qtd Estoque</h6>
-          <input type="number" class="form-control" disabled [(ngModel)] ="qtdDisponivelReserva" name="qtdDisponivelReserva">
-        </div>
-        <div class="col-2 name1">
-          <h6>Qtd Reserva</h6>
-          <input type="number" class="form-control" disabled #inputQuantidade placeholder="Quantidade" (keyup.enter)="verificaQuantidade()" [(ngModel)] ="itemAdd.qtProduto" min="1" max="{{qtdDisponivelReserva}}" name="qtProduto">
-        </div>
-        <div class="col add ml-0 ">
-          <button type="button" class="btn btn-primary" #btnAdicionar disabled (click)="adicionar()">Adicionar</button>
-        </div>
-      </div>
-    </form>
     <table class="table">
       <thead class="thead comeco" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
         <tr>
@@ -38,17 +15,6 @@
           <th scope="col" class="text-right">Remover</th>
         </tr>
       </thead>
-      <tbody *ngFor="let itemNew of newReserva.itensReserva">
-        <tr >
-          <th scope="row">{{itemNew.produto}}</th>
-          <td>{{itemNew.produto.nmFantasia}}</td>
-          <td class="text-center">{{itemNew.qtProduto}}</td>
-          <td class="text-right">
-            <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
-              data-target="#exampleModal"></button>
-          </td>
-        </tr>
-      </tbody>
       <tbody *ngFor="let retorno of RelatorioReserva.retorno">
         <tr *ngFor="let reserva of retorno.itens ">
           <th scope="row">{{reserva.produto.cdProduto}}</th>
@@ -61,13 +27,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="form-group col-12 my-4 text-center">
-      <div class="row d-flex justify-content-end">
-        <div class="col-3">
-          <button type="button" class="btn btn-primary btn-lg btn-block">Confirmar</button>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,52 +49,8 @@
           </div>
       </div>
   </div>
-  <div class="modal fade" id="MixEstoque" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
-        </div>
-        <div class="modal-body">
-          Produto {{itemAdd.produto.cdProduto}} fora do mix da loja!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="closeMixEstoqueModal()">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="QtdReservaInvalid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
-        </div>
-        <div class="modal-body">
-          Quantidade para reserva invalida!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="closeQtdReservaInvalidModal()">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal fade" id="MensagemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
-        </div>
-        <div class="modal-body">
-          {{mensagem}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="mensagemClose()">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
 
 

@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.component';
 import { FooterComponent } from './footer/footer.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
     RelatoriocupomComponent,
     FooterComponent,
     CadastroComponent,
+    CadastroReservaComponent,
   ],
   imports: [
     BrowserModule,
