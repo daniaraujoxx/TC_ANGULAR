@@ -1,3 +1,4 @@
+import { Reserva } from './reserva.model';
 import { RelatorioReserva } from './relatorioreserva.model';
 import { Cliente } from './../../relatoriocliente/shared/cliente.model';
 import { Injectable } from '@angular/core';
@@ -29,5 +30,7 @@ export class RelatorioReservaService {
     return this.http.get<RelatorioReserva>(this.API + this.resto + this.cliente.idCliente, this.httpOptions);
   }
 
-
+  putCadastroReserva(reserva: Reserva): Observable<any>{
+    return this.http.post<any>(this.API, reserva, this.httpOptions)
+  }
 }

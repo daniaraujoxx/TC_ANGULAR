@@ -7,6 +7,7 @@ import { ConsultaprodutoService } from './../consultaproduto/shared/consultaprod
 import { EstoqueResponse } from './../consultaproduto/shared/estoqueResponse.model';
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common'
 
 declare var $: any;
 
@@ -61,11 +62,11 @@ export class CadastroReservaComponent implements OnInit {
   qtdDisponivelReserva: number = null;
 
   newReserva: Reserva={
-    cliente: null,
-    dtInicial: null,
-    dtFinal: null,
-    idReserva: null,
-    itensReserva: []
+    clienteDTO: null,
+    dtInicialReserva: null,
+    dtFinalReserva: null,
+    idTcReserva: null,
+    itens: []
   }
 
 
@@ -73,6 +74,7 @@ export class CadastroReservaComponent implements OnInit {
     private consultaProdutoService: ConsultaprodutoService,
     private route: ActivatedRoute,
     private router: Router,
+    public datepipe: DatePipe,
     private relatorioReservaService: RelatorioReservaService
   ) { }
 
@@ -108,10 +110,10 @@ export class CadastroReservaComponent implements OnInit {
   }
 
   adicionar(){
-    console.log(this.newReserva.itensReserva);
+    console.log(this.newReserva.itens);
     let encontrado: boolean = true;
-    if(this.newReserva.itensReserva.length > 0){
-      this.newReserva.itensReserva.forEach(item => {
+    if(this.newReserva.itens.length > 0){
+      this.newReserva.itens.forEach(item => {
         console.log(item.produto);
         if(this.estoqueResponse.retorno[0].produto.cdProduto == item.produto.cdProduto){
           encontrado = false;
@@ -119,7 +121,7 @@ export class CadastroReservaComponent implements OnInit {
       });
     }
     if(encontrado){
-      this.newReserva.itensReserva.push({
+      this.newReserva.itens.push({
         produto: this.estoqueResponse.retorno[0].produto,
         qtProduto: this.qtdPrdutoElement.nativeElement.value
       });
@@ -138,16 +140,28 @@ export class CadastroReservaComponent implements OnInit {
 
   remover(){
     console.log(this.Itemselect);
-    this.newReserva.itensReserva.splice(this.newReserva.itensReserva.indexOf(this.Itemselect), 1);
+    this.newReserva.itens.splice(this.newReserva.itens.indexOf(this.Itemselect), 1);
     $('#exampleModal').modal('hide');
   }
 
   confirmar(){
     let cliente: Cliente = JSON.parse(localStorage['cliente']);
+
     let date = new Date();
-    console.log(date);
-    this.newReserva.cliente = cliente;
-    this.newReserva.dtInicial = date;
+
+    this.newReserva.clienteDTO = cliente;
+    this.newReserva.dtInicialReserva = this.datepipe.transform(date, 'yyyy-MM-dd');
+
+    let dateFinal = new Date();
+    dateFinal.setDate(date.getDate() +3);
+
+    this.newReserva.dtFinalReserva = this.datepipe.transform(dateFinal, 'yyyy-MM-dd');
+    console.log(this.newReserva);
+
+    this.relatorioReservaService.putCadastroReserva(this.newReserva).subscribe(response=>{
+      console.log(response);
+    });
+
   }
 
   closeMixEstoqueModal(){

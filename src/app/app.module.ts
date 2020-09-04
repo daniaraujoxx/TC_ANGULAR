@@ -5,6 +5,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt, 'pt-BR');
+import { DatePipe } from '@angular/common'
 
 
 import { AppComponent } from './app.component';
@@ -48,6 +49,7 @@ import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.co
     HttpClientModule,
   ],
   providers: [
+    DatePipe,
     AuthGuardService,
     {provide: LOCALE_ID, useValue: 'pt-BR'}
   ],

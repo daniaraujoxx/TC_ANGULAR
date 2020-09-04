@@ -38,14 +38,14 @@
           <th scope="col" class="text-right">Remover</th>
         </tr>
       </thead>
-      <tbody *ngFor="let itemNew of newReserva.itensReserva">
+      <tbody *ngFor="let itemNew of newReserva.itens">
         <tr >
           <th scope="row">{{itemNew.produto.cdProduto}}</th>
           <td>{{itemNew.produto.nmFantasia}}</td>
           <td class="text-center">{{itemNew.qtProduto}}</td>
           <td class="text-right">
             <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
-              data-target="#exampleModal" (click)="idItemselect=itemNew"></button>
+              data-target="#exampleModal" (click)="Itemselect=itemNew"></button>
           </td>
         </tr>
       </tbody>
