@@ -21,19 +21,19 @@
 
           </tr>
         </thead>
-        <tbody *ngFor="let retorno of RelatorioReserva.retorno">
-          <tr *ngFor="let reserva of retorno.itens ">
-            <th scope="row">{{retorno.idTcReserva}}</th>
-            <th scope="row">{{reserva.produto.cdProduto}}</th>
-            <td>{{reserva.produto.nmFantasia}}</td>
-            <td class="text-center">{{reserva.qtProduto}}</td>
+        <tbody *ngFor="let reserva of RelatorioReserva.retorno">
+          <tr *ngFor="let itemReserva of reserva.itens ">
+            <th scope="row">{{reserva.idTcReserva}}</th>
+            <th scope="row">{{itemReserva.produto.cdProduto}}</th>
+            <td>{{itemReserva.produto.nmFantasia}}</td>
+            <td class="text-center">{{itemReserva.qtProduto}}</td>
             <td class="text-right">
               <button type="button" class="btn btn-secondary btn-etiqueta" data-toggle="modal"
-                (click)="generatePdf(retorno)"></button>
+                (click)="generatePdf(reserva)"></button>
               <button type="button" class="btn btn-info btn-editar mx-2" data-toggle="modal"
-                data-target="#exampleModal"></button>
+               (click)="selectItemEdit(reserva, itemReserva)"></button>
               <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
-                data-target="#exampleModal" (click)="selectItemDelete(retorno.idTcReserva, reserva.produto.cdProduto)"></button>
+                data-target="#exampleModal" (click)="selectItemDelete(reserva, itemReserva)"></button>
             </td>
           </tr>
         </tbody>
@@ -62,6 +62,55 @@
       </div>
   </div>
 
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edição Item Reserva</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #formLogin="ngForm">
+            <div class="form-row">
+              <div class="col-4 name1">
+                <h6>Código do produto</h6>
+                <input type="number" class="form-control" #inputProduto placeholder="Codigo" name="cdProduto" disabled [(ngModel)] = "item.produto.cdProduto">
+              </div>
+              <div class="col-10 name1">
+                <h6>Nome do produto</h6>
+                <input type="text" class="form-control" placeholder="Descrição" disabled name="nmFantasia" [(ngModel)] = "item.produto.nmFantasia">
+              </div>
+              <div class="col-5 name1">
+                <h6>Qtd Disponivel</h6>
+                <input type="number" class="form-control" disabled [(ngModel)]="qtdDisponivelReserva"
+                  name="qtdDisponivelReserva">
+              </div>
+              <div class="col-5 name1">
+                <h6>Qtd Reserva</h6>
+                <input type="number" class="form-control" #inputQuantidade placeholder="Quantidade"
+                   min="1" max="{{qtdDisponivelReserva}}" name="qtProduto" disabled [(ngModel)] = "item.qtProduto" (keyup.enter)="verificaQuantidade()">
+              </div>
+            </div>
+          </form>
+          <div *ngIf="qtdInvalidEdit" class="alert alert-danger" role="alert">
+            "Qauntidade para reserva Invalida!"
+          </div>
+          <div *ngIf="editError" class="alert alert-danger" role="alert">
+            "Erro ao Editar Item da Reserva!"
+          </div>
+          <div *ngIf="editSuccess" class="alert alert-success" role="alert">
+            "Item Alterado com sucesso!"
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" #btnAlterar disabled (click)="editar()">Alterar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 

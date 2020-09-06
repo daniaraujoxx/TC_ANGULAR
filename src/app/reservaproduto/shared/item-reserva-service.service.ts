@@ -21,7 +21,7 @@ export class ItemReservaServiceService {
   constructor(private http: HttpClient) { }
 
   putItemReserva(reservaItem: ItensReserva): Observable<ResponseItemReserva>{
-    return this.http.post<ResponseItemReserva>(this.API, reservaItem, this.httpOptions);
+    return this.http.put<ResponseItemReserva>(this.API, reservaItem, this.httpOptions);
   }
 
   deleteItemReserva(idTcReserva: number, cdProduto: number): Observable<ResponseItemReserva>{
