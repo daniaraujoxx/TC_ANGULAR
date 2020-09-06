@@ -9,27 +9,36 @@
     </div>
 
     <hr>
-    <table class="table">
-      <thead class="thead comeco" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
-        <tr>
-          <th scope="col">Código</th>
-          <th scope="col">Descrição</th>
-          <th scope="col" class="text-center">Quantidade</th>
-          <th scope="col" class="text-right">Remover</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let retorno of RelatorioReserva.retorno">
-        <tr *ngFor="let reserva of retorno.itens ">
-          <th scope="row">{{reserva.produto.cdProduto}}</th>
-          <td>{{reserva.produto.nmFantasia}}</td>
-          <td class="text-center">{{reserva.qtProduto}}</td>
-          <td class="text-right">
-            <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
-              data-target="#exampleModal"></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div style=" height:530px; overflow:scroll;overflow-x:hidden; ">
+      <table class="table">
+        <thead class="thead comeco" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
+          <tr>
+            <th scope="col">Reserva</th>
+            <th scope="col">Código Produto</th>
+            <th scope="col">Descrição</th>
+            <th scope="col" class="text-center">Quantidade</th>
+            <th scope="col" class="text-center">Ação</th>
+
+          </tr>
+        </thead>
+        <tbody *ngFor="let retorno of RelatorioReserva.retorno">
+          <tr *ngFor="let reserva of retorno.itens ">
+            <th scope="row">{{retorno.idTcReserva}}</th>
+            <th scope="row">{{reserva.produto.cdProduto}}</th>
+            <td>{{reserva.produto.nmFantasia}}</td>
+            <td class="text-center">{{reserva.qtProduto}}</td>
+            <td class="text-right">
+              <button type="button" class="btn btn-secondary btn-etiqueta" data-toggle="modal"
+                data-target="#exampleModal"></button>
+              <button type="button" class="btn btn-info btn-editar mx-2" data-toggle="modal"
+                data-target="#exampleModal"></button>
+              <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
+                data-target="#exampleModal"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
 
     <!-- Modal -->
