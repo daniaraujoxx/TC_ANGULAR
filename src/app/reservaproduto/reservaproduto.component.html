@@ -3,63 +3,48 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="col-lg-9 col-md-8 col-sm-12">
-
-    <h1>Reserva de Produtos</h1>
-    <hr>
-    <form #formLogin="ngForm">
-      <div class="form-row">
-        <div class="col-2 name1">
-          <h6>Código do produto</h6>
-          <input type="number" class="form-control" #inputProduto placeholder="Codigo"  [(ngModel)] ="itemAdd.produto.cdProduto" name="produto" (keyup.enter)="verificaEstoque()">
-        </div>
-        <div class="col-4 name1">
-          <h6>Nome do produto</h6>
-          <input type="text" class="form-control" placeholder="Descrição" disabled [(ngModel)] = "estoqueResponse.retorno[0].produto.nmFantasia" name="nmFantasia">
-        </div>
-        <div class="col-2 name1">
-          <h6>Qtd Estoque</h6>
-          <input type="number" class="form-control" disabled [(ngModel)] ="qtdDisponivelReserva" name="qtdDisponivelReserva">
-        </div>
-        <div class="col-2 name1">
-          <h6>Qtd Reserva</h6>
-          <input type="number" class="form-control" disabled #inputQuantidade placeholder="Quantidade" (keyup.enter)="verificaQuantidade()" [(ngModel)] ="itemAdd.qtProduto" min="1" max="{{qtdDisponivelReserva}}" name="qtProduto">
-        </div>
-        <div class="col add ml-0 ">
-          <button type="button" class="btn btn-primary" #btnAdicionar disabled (click)="adicionar()">Adicionar</button>
-        </div>
-      </div>
-    </form>
-    <table class="table">
-      <thead class="thead comeco" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
-        <tr>
-          <th scope="col">Código</th>
-          <th scope="col">Descrição</th>
-          <th scope="col" class="text-center">Quantidade</th>
-          <th scope="col" class="text-right">Remover</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let retorno of RelatorioReserva.retorno">
-        <tr *ngFor="let reserva of retorno.itens ">
-          <th scope="row">{{reserva.produto.cdProduto}}</th>
-          <td>{{reserva.produto.nmFantasia}}</td>
-          <td class="text-center">{{reserva.qtProduto}}</td>
-          <td class="text-right">
-            <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
-              data-target="#exampleModal"></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="form-group col-12 my-4 text-center">
-      <div class="row d-flex justify-content-end">
-        <div class="col-3">
-          <button type="button" class="btn btn-primary btn-lg btn-block">Confirmar</button>
-        </div>
-      </div>
+    <div class="row my-3">
+      <div class="col-9"><h1>Reserva de Produtos</h1></div>
+      <div class="col-3"><button class="btn btn-primary form-control mt-1" type="button" routerLink="/cadastroreservaproduto">Cadastrar Reserva</button></div>
     </div>
 
+    <hr>
+    <div style=" height:530px; overflow:scroll;overflow-x:hidden; ">
+      <table class="table">
+        <thead class="thead comeco" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
+          <tr>
+            <th scope="col">Reserva</th>
+            <th scope="col">Pedido</th>
+            <th scope="col">Código Produto</th>
+            <th scope="col">Descrição</th>
+            <th scope="col" class="text-center">Quantidade</th>
+            <th scope="col" class="text-center">Ação</th>
+
+          </tr>
+        </thead>
+        <tbody *ngFor="let reserva of RelatorioReserva.retorno">
+          <tr *ngFor="let itemReserva of reserva.itens " [class.table-active]="reserva.nrPedido!=null">
+            <th scope="row">{{reserva.idTcReserva}}</th>
+            <th scope="row">{{reserva.nrPedido}}</th>
+            <th scope="row">{{itemReserva.produto.cdProduto}}</th>
+            <td>{{itemReserva.produto.nmFantasia}}</td>
+            <td class="text-center">{{itemReserva.qtProduto}}</td>
+            <td class="text-right">
+              <button type="button" class="btn btn-secondary btn-etiqueta" data-toggle="modal"
+                (click)="generatePdf(reserva)"></button>
+              <button type="button" class="btn btn-info btn-editar mx-2" data-toggle="modal"
+               (click)="selectItemEdit(reserva, itemReserva)" [disabled]="(reserva.nrPedido!=null)"></button>
+              <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
+                data-target="#exampleModal" (click)="selectItemDelete(reserva, itemReserva)" [disabled]="(reserva.nrPedido!=null)"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -73,57 +58,62 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-danger">Remover</button>
+                  <button type="button" class="btn btn-danger" (click)="delete()">Remover</button>
               </div>
           </div>
       </div>
   </div>
-  <div class="modal fade" id="MixEstoque" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Edição Item Reserva</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
-          Produto {{itemAdd.produto.cdProduto}} fora do mix da loja!
+          <form #formLogin="ngForm">
+            <div class="form-row">
+              <div class="col-4 name1">
+                <h6>Código do produto</h6>
+                <input type="number" class="form-control" #inputProduto placeholder="Codigo" name="cdProduto" disabled [(ngModel)] = "item.produto.cdProduto">
+              </div>
+              <div class="col-10 name1">
+                <h6>Nome do produto</h6>
+                <input type="text" class="form-control" placeholder="Descrição" disabled name="nmFantasia" [(ngModel)] = "item.produto.nmFantasia">
+              </div>
+              <div class="col-5 name1">
+                <h6>Qtd Disponivel</h6>
+                <input type="number" class="form-control" disabled [(ngModel)]="qtdDisponivelReserva"
+                  name="qtdDisponivelReserva">
+              </div>
+              <div class="col-5 name1">
+                <h6>Qtd Reserva</h6>
+                <input type="number" class="form-control" #inputQuantidade placeholder="Quantidade"
+                   min="1" max="{{qtdDisponivelReserva}}" name="qtProduto" disabled [(ngModel)] = "item.qtProduto" (keyup.enter)="verificaQuantidade()">
+              </div>
+            </div>
+          </form>
+          <div *ngIf="qtdInvalidEdit" class="alert alert-danger" role="alert">
+            "Qauntidade para reserva Invalida!"
+          </div>
+          <div *ngIf="editError" class="alert alert-danger" role="alert">
+            "Erro ao Editar Item da Reserva!"
+          </div>
+          <div *ngIf="editSuccess" class="alert alert-success" role="alert">
+            "Item Alterado com sucesso!"
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="closeMixEstoqueModal()">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="QtdReservaInvalid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
-        </div>
-        <div class="modal-body">
-          Quantidade para reserva invalida!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="closeQtdReservaInvalidModal()">OK</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" #btnAlterar disabled (click)="editar()">Alterar</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="modal fade" id="MensagemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Aviso!</h5>
-        </div>
-        <div class="modal-body">
-          Quantidade para reserva invalida!
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="mensagemClose()">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 

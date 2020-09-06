@@ -5,6 +5,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt, 'pt-BR');
+import { DatePipe } from '@angular/common'
 
 
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.component';
 import { FooterComponent } from './footer/footer.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
     RelatoriocupomComponent,
     FooterComponent,
     CadastroComponent,
+    CadastroReservaComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
     HttpClientModule,
   ],
   providers: [
+    DatePipe,
     AuthGuardService,
     {provide: LOCALE_ID, useValue: 'pt-BR'}
   ],

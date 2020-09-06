@@ -1,3 +1,4 @@
+import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -64,6 +65,16 @@ export const routes: Routes = [
       path: 'reservaproduto',
       component: ReservaprodutoComponent,
       canActivate: [AuthGuard]
+  },
+  {
+    path: 'cadastroreservaproduto',
+    component: CadastroReservaComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'cadastroreservaproduto/:cdProduto',
+    component: CadastroReservaComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'cadastro',

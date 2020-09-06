@@ -258,15 +258,37 @@ h6 {
     background-color: #01764a!important;
 }
 
+
 .btn-excluir::before {
+  content: "";
+  background: url("assets/images/reservaProduto/lixeira.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn-editar::before {
     content: "";
-    background: url("assets/images/reservaProduto/lixeira.png");
+    background: url("assets/images/reservaProduto/editar.png");
     background-repeat: no-repeat;
     background-position: center;
     display: block;
     width: 24px;
     height: 24px;
 }
+
+.btn-etiqueta::before {
+  content: "";
+  background: url("assets/images/reservaProduto/bartender.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
 
 .btn-novo::before {
     content: "";

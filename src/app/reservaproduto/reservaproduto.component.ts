@@ -1,12 +1,19 @@
+import { ResponseItemReserva } from './shared/resposeItemReserva.model';
+import { ItemReservaServiceService } from './shared/item-reserva-service.service';
+import { Reserva } from './shared/reserva.model';
 import { Produto } from './../consultaproduto/shared/produto.model';
 import { ConsultaprodutoService } from './../consultaproduto/shared/consultaproduto.service';
 import { EstoqueResponse } from './../consultaproduto/shared/estoqueResponse.model';
-import { ItensReserva } from './shared/itensReserva.model';
+import { ItensReserva, ItensReservaId } from './shared/itensReserva.model';
 import { RelatorioReservaService } from './shared/relatorioreserva.service';
 import { RelatorioReserva } from './shared/relatorioreserva.model';
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, ɵConsole, ɵ_sanitizeHtml } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 declare var $: any;
 
@@ -17,55 +24,17 @@ declare var $: any;
 })
 export class ReservaprodutoComponent implements OnInit {
   dados: string = "";
-  mensagem: string = "";
+  qtdInvalidEdit = false;
+  editError = false;
+  editSuccess = false;
 
   @ViewChild('inputProduto') cdPrdutoElement: ElementRef;
   @ViewChild('inputQuantidade') qtdPrdutoElement: ElementRef;
-  @ViewChild('btnAdicionar') btnAdicionar: ElementRef;
+  @ViewChild('btnAlterar') btnAlterar: ElementRef;
 
-  estoqueNull: EstoqueResponse = {
-    status: null,
-    mensagem: null,
-    retorno: [
-      {
-      cdEstoque: null,
-      filial: {
-        cdFilial: 1,
-        nmFilial: "BUTANTA",
-        nrCnpj: "61585865000151",
-        nrTelefoneFilial: "11998773940",
-      },
-      produto: {
-        cdProduto: null,
-        statusProduto: null,
-        categoria: null,
-        idTipoProduto: null,
-        nmFantasia: null,
-        nmFabricante: null,
-        vlUnidade: null,
-        dsProduto: null,
-        lmpmItem: null,
-        subCategoria: null,
-      },
-      qtBase: 5,
-      qtEmpenho: 0,
-      qtEstoque:0
-    }
-
-    ]
-  }
-
-  estoqueResponse: EstoqueResponse = this.estoqueNull;
-
-  qtdDisponivelReserva: number = null;
-
-  RelatorioReserva: RelatorioReserva={
-    status: 0,
-    mensagem: '',
-    retorno: null
-    };
-
-    produtoItemAdd: Produto={
+  item: ItensReservaId ={
+    reserva: null,
+    produto: {
       cdProduto: null,
       statusProduto: null,
       categoria: null,
@@ -76,105 +45,155 @@ export class ReservaprodutoComponent implements OnInit {
       dsProduto: null,
       lmpmItem: null,
       subCategoria: null,
+    },
+    qtProduto: null
+  };
+
+  RelatorioReserva: RelatorioReserva = {
+    status: 0,
+    mensagem: '',
+    retorno: null
     };
 
-  itemAdd: ItensReserva ={
-    produto: this.produtoItemAdd,
-    qtProduto: null,
-  }
+    estoqueNull: EstoqueResponse = {
+      status: null,
+      mensagem: null,
+      retorno: [
+        {
+        cdEstoque: null,
+        filial: {
+          cdFilial: null,
+          nmFilial: null,
+          nrCnpj: null,
+          nrTelefoneFilial: null,
+        },
+        produto: {
+          cdProduto: null,
+          statusProduto: null,
+          categoria: null,
+          idTipoProduto: null,
+          nmFantasia: null,
+          nmFabricante: null,
+          vlUnidade: null,
+          dsProduto: null,
+          lmpmItem: null,
+          subCategoria: null,
+        },
+        qtBase: null,
+        qtEmpenho: null,
+        qtEstoque: null
+      }
 
+      ]
+    };
 
+    resonseItemReserva: ResponseItemReserva;
 
+    estoqueResponse: EstoqueResponse = this.estoqueNull;
 
-
-  itensAdd: ItensReserva[];
-
+    qtdDisponivelReserva: number = null;
 
   constructor(
     private consultaProdutoService: ConsultaprodutoService,
     private route: ActivatedRoute,
     private router: Router,
-    private relatorioReservaService: RelatorioReservaService) { }
+    public datepipe: DatePipe,
+    private relatorioReservaService: RelatorioReservaService,
+    private itemReservaServide: ItemReservaServiceService) { }
 
   ngOnInit(): void {
-    this.dados = this.route.snapshot.paramMap.get('dados');
-    this.relatorioReservaService.getCliente(this.dados).subscribe(response =>{
+
+    this.relatorioReservaService.getCliente().subscribe(response =>{
       this.RelatorioReserva = response;
       console.log(this.RelatorioReserva);
     });
+    //console.log(this.itensAdd.length);
   }
 
+  selectItemDelete(reserva: Reserva, itemReserva: ItensReserva): void{
+    this.item.reserva  = reserva;
+    this.item.produto =  itemReserva.produto;
+    $('#deleteModal').modal('show');
+  }
+
+  delete(): void{
+    this.itemReservaServide.deleteItemReserva(this.item.reserva.idTcReserva, this.item.produto.cdProduto).subscribe(response =>{
+      this.resonseItemReserva = response;
+      this.itemReset();
+      window.location.reload();
+    });
+    this.verificaEstoque();
+    $('#deleteModal').modal('hide');
 
 
-  verificaEstoque(){
-    this.consultaProdutoService.getBuscarProdutoCodigo(this.itemAdd.produto.cdProduto.toString()).subscribe(response =>{
-      if(response.retorno.length > 0){
+  }
+
+  selectItemEdit(reserva: Reserva, itemReserva: ItensReserva): void{
+    this.item.reserva  = reserva;
+    this.item.produto =  itemReserva.produto;
+    this.item.qtProduto = itemReserva.qtProduto;
+    this.editError = false;
+    this.editSuccess = false;
+    $('#editModal').modal('show');
+    setTimeout( () => { this.verificaEstoque(); }, 100 );
+
+  }
+
+  verificaEstoque(): void{
+    this.consultaProdutoService.getBuscarProdutoCodigo(this.cdPrdutoElement.nativeElement.value).subscribe(response => {
         this.estoqueResponse = response;
         this.qtdDisponivelReserva = this.estoqueResponse.retorno[0].qtEstoque - this.estoqueResponse.retorno[0].qtEmpenho;
         this.qtdPrdutoElement.nativeElement.disabled = false;
         this.qtdPrdutoElement.nativeElement.focus();
-      }else{
-        this.estoqueResponse = this.estoqueNull;
-        this.qtdDisponivelReserva = null;
-        $('#MixEstoque').modal('show');
-      }
-
-      console.log(this.estoqueResponse);
+         console.log(this.estoqueResponse);
     });
   }
 
-  verificaQuantidade(){
-    if(this.itemAdd.qtProduto>this.qtdDisponivelReserva || this.itemAdd.qtProduto < 1){
-      $('#QtdReservaInvalid').modal('show');
+  verificaQuantidade(): void{
+    if (this.qtdPrdutoElement.nativeElement.value > this.qtdDisponivelReserva || this.qtdPrdutoElement.nativeElement.value < 1){
+      this.qtdInvalidEdit = true;
     }else{
-      this.btnAdicionar.nativeElement.disabled = false;
-      this.btnAdicionar.nativeElement.focus();
+      this.qtdInvalidEdit = false;
+      this.btnAlterar.nativeElement.disabled = false;
+      this.btnAlterar.nativeElement.focus();
     }
   }
 
-  adicionar(){
-    console.log(this.itemAdd);
-    let encontrado: boolean = false;
-    if(this.itensAdd !== null){
-      this.itensAdd.forEach(item => {
-        if(this.itemAdd.produto == item.produto ){
-          encontrado = true;
-        }
-      });
+  editar(): void{
+    this.itemReservaServide.putItemReserva(this.item).subscribe(response => {
+      this.resonseItemReserva = response;
+      this.editError = false;
+      this.editSuccess = true;
+      setTimeout( () => { window.location.reload(); }, 5000 );
+    },
+    error => {
+      this.editError = true;
+      this.editSuccess = false;
     }
-    if(encontrado){
-      this.itensAdd.push(this.itemAdd);
-      this.itemAdd.produto = null;
-      this.itemAdd.qtProduto = null;
-      this.cdPrdutoElement.nativeElement.focus();
-      this.btnAdicionar.nativeElement.disabled = true;
-      console.log(this.itensAdd);
-    }else{
-      this.mensagem = "Produto ja cadastrado nessa reserva!";
-      this.mensagemShow();
-    }
+    );
   }
 
-  closeMixEstoqueModal(){
-    $('#MixEstoque').modal('hide');
-    this.cdPrdutoElement.nativeElement.focus();
-    this.itemAdd.produto.cdProduto = null;
+  itemReset(): void{
+    this.item.reserva = null;
+    this.item.produto = null;
+    this.item.qtProduto = null;
+  }
+  generatePdf(reserva: Reserva): void{
+    const documentDefinition = { content: [
+        {canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
+        { text: 'Reserva: ' + reserva.idTcReserva, fontSize: 15 },
+        { text: 'Data Separação: ' + this.datepipe.transform(reserva.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 },
+        { text: 'Vencimento: ' + this.datepipe.transform(reserva.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 },
+        { text: 'Cliente: ' + reserva.clienteDTO.nmCliente, fontSize: 10 },
+        {canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
 
+    ]};
+    pdfMake.createPdf(documentDefinition).open();
   }
 
-  closeQtdReservaInvalidModal(){
-    $('#QtdReservaInvalid').modal('hide');
-    this.qtdPrdutoElement.nativeElement.focus();
-    this.itemAdd.qtProduto = null;
-  }
 
-  mensagemShow(){
-    $('#MensagemShow').modal('show');
-  }
 
-  mensagemClose(){
-    $('#MensagemShow').modal('hide');
-    this.mensagem=null;
-  }
+
+
 
 }
