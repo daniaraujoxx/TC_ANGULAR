@@ -1,3 +1,4 @@
+import { Operador } from './../../login/login/shared/operador.model';
 import { Reserva } from './reserva.model';
 import { RelatorioReserva } from './relatorioreserva.model';
 import { Cliente } from './../../relatoriocliente/shared/cliente.model';
@@ -22,12 +23,13 @@ export class RelatorioReservaService {
 
 
   cliente: Cliente = JSON.parse(localStorage['cliente']);
-  resto: string = "?idCliente=";
+  operador: Operador = JSON.parse(localStorage['operador']);
+
   constructor(private http: HttpClient) { }
   private readonly API = 'http://localhost:8080/reserva';
 
-  getCliente(dados: string): Observable<RelatorioReserva>{
-    return this.http.get<RelatorioReserva>(this.API + this.resto + this.cliente.idCliente, this.httpOptions);
+  getCliente(): Observable<RelatorioReserva>{
+    return this.http.get<RelatorioReserva>(this.API + `/${this.operador.cdFilial}/${this.cliente.idCliente}` , this.httpOptions);
   }
 
   putCadastroReserva(reserva: Reserva): Observable<RelatorioReserva>{

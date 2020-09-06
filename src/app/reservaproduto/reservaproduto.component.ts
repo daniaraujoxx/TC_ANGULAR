@@ -102,8 +102,8 @@ export class ReservaprodutoComponent implements OnInit {
     private itemReservaServide: ItemReservaServiceService) { }
 
   ngOnInit(): void {
-    this.dados = this.route.snapshot.paramMap.get('dados');
-    this.relatorioReservaService.getCliente(this.dados).subscribe(response =>{
+
+    this.relatorioReservaService.getCliente().subscribe(response =>{
       this.RelatorioReserva = response;
       console.log(this.RelatorioReserva);
     });

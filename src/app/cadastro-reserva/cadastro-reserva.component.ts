@@ -1,3 +1,4 @@
+import { Operador } from './../login/login/shared/operador.model';
 import { RelatorioReserva } from './../reservaproduto/shared/relatorioreserva.model';
 import { Cliente } from './../relatoriocliente/shared/cliente.model';
 import { ItensReserva } from './../reservaproduto/shared/itensReserva.model';
@@ -76,6 +77,8 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
     dtInicialReserva: null,
     dtFinalReserva: null,
     idTcReserva: null,
+    nrPedido: null,
+    cdFilial: null,
     itens: []
   };
 
@@ -176,6 +179,9 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
 
     this.newReserva.dtFinalReserva = this.datepipe.transform(dateFinal, 'yyyy-MM-dd');
     console.log(this.newReserva);
+
+    const operador: Operador = JSON.parse(localStorage['operador']);
+    this.newReserva.cdFilial = operador.cdFilial;
 
     this.relatorioReservaService.putCadastroReserva(this.newReserva).subscribe(response => {
       this.reservaCadastrada = response;

@@ -6,5 +6,7 @@ export interface Reserva{
   clienteDTO: Cliente;
   dtInicialReserva: string;
   dtFinalReserva: string;
+  nrPedido: number;
+  cdFilial: number;
   itens: Array<ItensReserva>;
 }
