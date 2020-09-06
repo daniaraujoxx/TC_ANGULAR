@@ -70,7 +70,12 @@ export const routes: Routes = [
     path: 'cadastroreservaproduto',
     component: CadastroReservaComponent,
     canActivate: [AuthGuard]
-},
+  },
+  {
+    path: 'cadastroreservaproduto/:cdProduto',
+    component: CadastroReservaComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: 'cadastro',
     component: CadastroComponent,

@@ -30,7 +30,7 @@ export class RelatorioReservaService {
     return this.http.get<RelatorioReserva>(this.API + this.resto + this.cliente.idCliente, this.httpOptions);
   }
 
-  putCadastroReserva(reserva: Reserva): Observable<any>{
-    return this.http.post<any>(this.API, reserva, this.httpOptions)
+  putCadastroReserva(reserva: Reserva): Observable<RelatorioReserva>{
+    return this.http.post<RelatorioReserva>(this.API, reserva, this.httpOptions);
   }
 }
