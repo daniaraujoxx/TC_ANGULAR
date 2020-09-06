@@ -29,11 +29,11 @@
             <td class="text-center">{{reserva.qtProduto}}</td>
             <td class="text-right">
               <button type="button" class="btn btn-secondary btn-etiqueta" data-toggle="modal"
-                data-target="#exampleModal"></button>
+                (click)="generatePdf(retorno)"></button>
               <button type="button" class="btn btn-info btn-editar mx-2" data-toggle="modal"
                 data-target="#exampleModal"></button>
               <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
-                data-target="#exampleModal"></button>
+                data-target="#exampleModal" (click)="selectItemDelete(retorno.idTcReserva, reserva.produto.cdProduto)"></button>
             </td>
           </tr>
         </tbody>
@@ -42,7 +42,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -56,7 +56,7 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-danger">Remover</button>
+                  <button type="button" class="btn btn-danger" (click)="delete()">Remover</button>
               </div>
           </div>
       </div>
