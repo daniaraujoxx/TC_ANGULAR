@@ -145,7 +145,8 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
     if (encontrado){
       this.newReserva.itens.push({
         produto: this.estoqueResponse.retorno[0].produto,
-        qtProduto: this.qtdPrdutoElement.nativeElement.value
+        qtProduto: this.qtdPrdutoElement.nativeElement.value,
+        stSeparado: false
       });
       this.formReset();
       this.btnConfirmar.nativeElement.disabled = false;
@@ -195,6 +196,7 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
       this.generatePdf();
     },
     error => {
+      console.log(this.reservaCadastrada);
       this.mensagemError = 'Erro ao Cadastrar Reserva!';
       this.error =  true;
     }

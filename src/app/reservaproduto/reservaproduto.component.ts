@@ -46,7 +46,8 @@ export class ReservaprodutoComponent implements OnInit {
       lmpmItem: null,
       subCategoria: null,
     },
-    qtProduto: null
+    qtProduto: null,
+    stSeparado: null,
   };
 
   RelatorioReserva: RelatorioReserva = {
@@ -132,6 +133,7 @@ export class ReservaprodutoComponent implements OnInit {
     this.item.reserva  = reserva;
     this.item.produto =  itemReserva.produto;
     this.item.qtProduto = itemReserva.qtProduto;
+    this.item.stSeparado = itemReserva.stSeparado;
     this.editError = false;
     this.editSuccess = false;
     $('#editModal').modal('show');
@@ -178,6 +180,17 @@ export class ReservaprodutoComponent implements OnInit {
     this.item.produto = null;
     this.item.qtProduto = null;
   }
+
+  atualizaSeparado(reserva: Reserva, itemReserva: ItensReserva): void{
+    this.item.produto = itemReserva.produto;
+    this.item.qtProduto = itemReserva.qtProduto;
+    this.item.stSeparado = itemReserva.stSeparado;
+    this.item.reserva = reserva;
+
+
+    this.itemReservaServide.putItemReserva(this.item).subscribe(response => {});
+  }
+
   generatePdf(reserva: Reserva): void{
     const documentDefinition = { content: [
         {canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
