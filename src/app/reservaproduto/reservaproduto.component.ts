@@ -192,9 +192,15 @@ export class ReservaprodutoComponent implements OnInit {
   }
 
   generatePdf(reserva: Reserva): void{
+    let cabecalho: string;
+    if (reserva.nrPedido > 0|| reserva.nrPedido != null){
+      cabecalho = `Reserva: ${reserva.idTcReserva}     Pedido: ${reserva.nrPedido}`;
+    }else{
+      cabecalho = `Reserva: ${reserva.idTcReserva}`;
+    }
     const documentDefinition = { content: [
-        {canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
-        { text: 'Reserva: ' + reserva.idTcReserva, fontSize: 15 },
+        { canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
+        { text: cabecalho, fontSize: 15 },
         { text: 'Data Separação: ' + this.datepipe.transform(reserva.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 },
         { text: 'Vencimento: ' + this.datepipe.transform(reserva.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 },
         { text: 'Cliente: ' + reserva.clienteDTO.nmCliente, fontSize: 10 },
