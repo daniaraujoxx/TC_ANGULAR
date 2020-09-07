@@ -18,6 +18,7 @@
             <th scope="col">Código Produto</th>
             <th scope="col">Descrição</th>
             <th scope="col" class="text-center">Quantidade</th>
+            <th scope="col" class="text-center">Separado</th>
             <th scope="col" class="text-center">Ação</th>
 
           </tr>
@@ -29,6 +30,11 @@
             <th scope="row">{{itemReserva.produto.cdProduto}}</th>
             <td>{{itemReserva.produto.nmFantasia}}</td>
             <td class="text-center">{{itemReserva.qtProduto}}</td>
+            <td class="text-center">  <input
+              type="checkbox"
+              [checked]="itemReserva.stSeparado"
+
+              (change)="itemReserva.stSeparado = !itemReserva.stSeparado; atualizaSeparado(reserva, itemReserva)"/></td>
             <td class="text-right">
               <button type="button" class="btn btn-secondary btn-etiqueta" data-toggle="modal"
                 (click)="generatePdf(reserva)"></button>
