@@ -1,3 +1,5 @@
+import { RelatoriocepService } from './shared/relatoriocep.service';
+import { CepResponse } from './shared/relatoriocep.model';
 import { DatePipe } from '@angular/common';
 import { CategoriaCliente } from './../relatoriocliente/shared/categoriaCliente.model';
 import { CadastroService } from './shared/cadastro.service';
@@ -50,6 +52,8 @@ export class CadastroComponent implements OnInit {
   enderecos: [],
 }
 
+cepresponse:CepResponse;
+
 cadastroResponse: CadastroResponse;
 validcpf: boolean;
   constructor(
@@ -58,7 +62,8 @@ validcpf: boolean;
     private router: Router,
     private formBuilder: FormBuilder,
     private fb: FormBuilder,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private cepservice: RelatoriocepService
   ) { }
 
   ngOnInit(): void {
@@ -152,7 +157,6 @@ validcpf: boolean;
       cpfAux = cpfAux + digito2;
       if (cpf != cpfAux) {
         console.log(false);
-
           return false;
       }
       else {
@@ -160,5 +164,14 @@ validcpf: boolean;
           return true;
       }
   }
-
+  localizacep(){
+    this.cepservice.getCep(this.endereco.nrCep).subscribe(response => {
+      this.cepresponse = response;
+      console.log(this.cepresponse);
+      this.endereco.cidade = this.cepresponse.localidade;
+      this.endereco.dsBairro = this.cepresponse.bairro;
+      this.endereco.sgEstado = this.cepresponse.uf;
+      this.endereco.dsEndereco = this.cepresponse.logradouro;
+    });
+  }
   }

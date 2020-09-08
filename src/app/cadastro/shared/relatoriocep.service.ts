@@ -21,9 +21,9 @@ export class RelatoriocepService {
 
 
   constructor(private http: HttpClient) { }
-  private readonly API = 'viacep.com.br/ws/dados/json/';
+
 
   getCep(dados: string): Observable<CepResponse>{
-    return this.http.get<CepResponse>(this.API + dados, this.httpOptions);
+    return this.http.get<CepResponse>(`https://viacep.com.br/ws/${dados}/json/`);
   }
 }
