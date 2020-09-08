@@ -16,9 +16,9 @@ import { CadastroResponse } from './shared/cadastro.model';
 })
 export class CadastroComponent implements OnInit {
 
-  @ViewChild('formCadastro', {static: true}) formCadastro: NgForm;
+  @ViewChild('formCadastro', { static: true }) formCadastro: NgForm;
 
-  categoriaCliente: CategoriaCliente ={
+  categoriaCliente: CategoriaCliente = {
     idCategoriaCliente: null,
     dsCategoriaCliente: '',
     pcDescontoCliente: 0,
@@ -36,19 +36,19 @@ export class CadastroComponent implements OnInit {
 
   cliente: Cliente = {
     idCliente: null,
-  nmCliente: null,
-  dsEmail: null,
-  dtCadastro: null,
-  nrCPF: null,
-  nrRg: null,
-  dtNascimento: null,
-  dsGenero: null,
-  nrTelefoneCliente: null,
-  categoriaClienteDTO: this.categoriaCliente,
-  enderecos: [],
-}
+    nmCliente: null,
+    dsEmail: null,
+    dtCadastro: null,
+    nrCPF: null,
+    nrRg: null,
+    dtNascimento: null,
+    dsGenero: null,
+    nrTelefoneCliente: null,
+    categoriaClienteDTO: this.categoriaCliente,
+    enderecos: [],
+  }
 
-cadastroResponse: CadastroResponse;
+  cadastroResponse: CadastroResponse;
   constructor(
     private cadastroService: CadastroService,
     private route: ActivatedRoute,
@@ -60,7 +60,7 @@ cadastroResponse: CadastroResponse;
   cadastrar(): void {
     if (this.formCadastro.form.valid) {
       this.cliente.enderecos.push(this.endereco);
-      this.cadastroService.postCadastro(this.cliente).subscribe(request =>{
+      this.cadastroService.postCadastro(this.cliente).subscribe(request => {
         this.cadastroResponse = request;
         console.log(this.cadastroResponse);
         this.router.navigate(['/selecionarcliente']);
@@ -68,19 +68,19 @@ cadastroResponse: CadastroResponse;
       );
     }
   }
-  calculaIdade(): void{
-    var birthdate =  this.cliente.dtNascimento;
+  calculaIdade(): void {
+    var birthdate = this.cliente.dtNascimento;
     let newDate = new Date(birthdate);
-     var dt = new Date();
-     var today = dt.getDate();
+    var dt = new Date();
+    var today = dt.getDate();
 
     let timeDiff = Math.abs(Date.now() - newDate.getTime());
-    let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+    let age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25);
     console.log(age);
 
-    if (age <= 60){
+    if (age <= 60) {
       this.categoriaCliente.idCategoriaCliente = 1;
-    }else{
+    } else {
       this.categoriaCliente.idCategoriaCliente = 2;
     }
     console.log(this.cliente);

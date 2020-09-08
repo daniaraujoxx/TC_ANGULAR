@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   mensagemError: string;
   error: boolean = false;
 
+
   loginResponse: LoginResponse;
 
   constructor(

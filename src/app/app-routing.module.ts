@@ -77,10 +77,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'cadastro',
+    path: 'cadastrarCliente',
     component: CadastroComponent,
     canActivate: [AuthGuard]
-}
+  }
 ];
 
 
