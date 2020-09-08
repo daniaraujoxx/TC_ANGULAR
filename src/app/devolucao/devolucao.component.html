@@ -13,7 +13,7 @@
                 <div class="row">
                   <div class="col-4 my-2">
                     <label for="nCupom">N° Cupom</label>
-                    <input class="form-control form-control-lg" id="nCupom" type="number" placeholder="N° Cupom">
+                    <input class="form-control form-control-lg" id="nCupom" type="number" placeholder="N° Cupom" #inputNf (keyup.enter) = "consultarNF()">
                 </div>
                     <div class="col-4 ">
                         <label class="my-1 mr-2" for="motivo">Motivo da Devolução</label>

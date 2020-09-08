@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NfResponse } from "./shared/nfResponse.model";
+import { DevolucaoService } from "./shared/devolucao.service";
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-devolucao',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevolucaoComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('inputNf') nrNfElement: ElementRef;
+
+  nfResponse: NfResponse;
+
+
+  constructor(private devolucaoService: DevolucaoService) { }
+
 
   ngOnInit(): void {
   }
 
+  consultarNF() {
+    let dados: string = this.nrNfElement.nativeElement.value;
+
+    this.devolucaoService.getNotaFiscal(dados).subscribe(response => {
+      this.nfResponse = response;
+      console.log(this.nfResponse);
+    })
+
+  }
 }
