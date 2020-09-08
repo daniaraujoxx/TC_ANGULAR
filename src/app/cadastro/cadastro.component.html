@@ -100,86 +100,189 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="col-lg-9 col-md-8 col-sm-12">
-<div class="conteudo mt-4 container text-green">
-  <h1>Cadastro De Cliente</h1>
-  <hr>
-  <form #formCadastro = "ngForm">
-      <div class="form-group row">
+    <div class="conteudo mt-4 container text-green">
+      <h1>Cadastro De Cliente</h1>
+      <hr>
+      <form #formCadastro="ngForm" class="needs-validation" novalidate>
+        <div class="form-group row">
           <div class="col-12 my-2">
             <label for="Nome">Nome completo</label>
-            <input class="form-control form-control-lg" id="Nome" type="nome" placeholder="Nome completo" [(ngModel)] = "cliente.nmCliente" name="nmCliente">
+            <input class="form-control form-control-lg" id="Nome" type="nome" placeholder="Nome completo"
+              [(ngModel)]="cliente.nmCliente" #name="ngModel" name="nmCliente" required minlength="4">
+          </div>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="col-12 my-2 alert alert-warning alert-dismissible fade show" role="alert">
+            <div *ngIf="name.errors.required">
+              Nome é Obrigatório!
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="name.errors.minlength">
+              Nome precisa ter no mínimo 4 letras!
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="col-6 my-2">
-          <label for="cpf">CPF</label>
-          <input class="form-control form-control-lg" id="cpf" type="number" placeholder="CPF" [(ngModel)] = "cliente.nrCPF" name="nrCPF">
-        </div>
-        <div class="col-6 my-2">
-          <label for="rg">RG</label>
-          <input class="form-control form-control-lg" id="rg" type="number" placeholder="RG" [(ngModel)] = "cliente.nrRg" name="nrRG">
-        </div>
-        <div class="col-6 my-2">
-          <label for="dtNascimento">Data de Nascimento</label>
-          <input class="form-control form-control-lg" id="dtNascimento" type="date" placeholder="Data de Nascimento" [(ngModel)] = "cliente.dtNascimento" name="dtNascimento" (blur)="calculaIdade()">
-      </div>
+        <div class="form-group row">
+          <div class="col-6 my-2">
+            <label for="cpf">CPF</label>
+            <input class="form-control form-control-lg" id="cpf" type="cpf" placeholder="CPF"
+              [(ngModel)]="cliente.nrCPF" #cpf="ngModel" name="nrCPF" required minlength="11" maxlength="11"
+              (blur)="ValidaCpf()">
+          </div>
+          <div class="col-6 my-2">
+            <label for="rg">RG</label>
+            <input class="form-control form-control-lg" id="rg" type="rg" placeholder="RG" [(ngModel)]="cliente.nrRg"
+              #rg="ngModel" name="nrRG" required minlength="9" maxlength="9">
+          </div>
 
-      <div class="col-6 my-2">
-        <label class="my-1 mr-2" for="genero">Gênero</label>
-        <select class="custom-select my-1 mr-sm-2" id="genero" [(ngModel)] = "cliente.dsGenero" name="dsGenero">
-            <option selected>Escolher...</option>
-            <option value="M">Masculino</option>
-            <option value="F">Feminino</option>
-            <option value="N">Não informado</option>
-        </select>
-      </div>
-      <div class="col-12 my-2"><h2>Endereço</h2></div>
-      <div class="col-6 my-2">
-        <label for="cep">CEP</label>
-        <input class="form-control form-control-lg" id="cep" type="number" placeholder="CEP" [(ngModel)] = "endereco.nrCep" name="nrCep">
-    </div>
-        <div class="col-6 my-2">
-          <label for="endereco">Nome da rua</label>
-          <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Nome da rua" [(ngModel)] = "endereco.dsEndereco" name="dsEndereco">
-      </div>
+        </div>
+        <div class="form-group row">
+          <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="col-6 my-2 alert alert-warning alert-dismissible fade show" role="alert">
+            <div *ngIf="cpf.errors.required">
+              Cpf é Obrigatório!
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="cpf.errors.minlength || cpf.errors.maxlength">
+              CPF precisa ter 11 números!
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="rg.invalid && (rg.dirty || rg.touched)" class="col-6 my-2 alert alert-warning alert-dismissible fade show" role="alert">
+            <div *ngIf="rg.errors.required">
+              RG é Obrigatório!
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="rg.errors.minlength || rg.errors.maxlength">
+              RG precisa ter 9 números!
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-6 my-2">
+            <label for="dtNascimento">Data de Nascimento</label>
+            <input class="form-control form-control-lg" id="dtNascimento" type="date" placeholder="Data de Nascimento"
+              [(ngModel)]="cliente.dtNascimento" name="dtNascimento" (blur)="calculaIdade()" required>
+          </div>
 
           <div class="col-6 my-2">
-              <label for="nEndereco">Número</label>
-              <input class="form-control form-control-lg" id="nEndereco" type="number" placeholder="Número" [(ngModel)] = "endereco.nrEndereco" name="nrEndereco">
+            <label class="my-1 mr-2" for="genero">Gênero</label>
+            <select class="custom-select my-1 mr-sm-2" id="genero" [(ngModel)]="cliente.dsGenero" name="dsGenero"
+              required>
+              <option selected>Escolher...</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+              <option value="N">Não informado</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-12 my-2">
+            <h2>Endereço</h2>
+          </div>
+          <div class="col-6 my-2">
+            <label for="cep">CEP</label>
+            <input class="form-control form-control-lg" id="cep" type="cep" placeholder="CEP"
+              [(ngModel)]="endereco.nrCep" name="nrCep" required minlength="8" maxlength="8" (blur)="localizacep()">
+          </div>
+          <div class="col-6 my-2">
+            <label for="endereco">Nome da rua</label>
+            <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Nome da rua"
+              [(ngModel)]="endereco.dsEndereco" name="dsEndereco" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-6 my-2">
+            <label for="nEndereco">Número</label>
+            <input class="form-control form-control-lg" id="nEndereco" type="number" placeholder="Número"
+              [(ngModel)]="endereco.nrEndereco" name="nrEndereco" required>
           </div>
 
           <div class="col-6 my-2">
             <label for="bairro">Bairro</label>
-            <input class="form-control form-control-lg" id="bairro" type="bairro" placeholder="Bairro" [(ngModel)] = "endereco.dsBairro" name="dsBairro">
+            <input class="form-control form-control-lg" id="bairro" type="bairro" placeholder="Bairro"
+              [(ngModel)]="endereco.dsBairro" name="dsBairro" required>
+          </div>
         </div>
+        <div class="form-group row">
+          <div class="col-6 my-2">
+            <label for="cidade">Cidade</label>
+            <input class="form-control form-control-lg" id="cidade" type="cidade" placeholder="Cidade"
+              [(ngModel)]="endereco.cidade" name="cidade" required>
+          </div>
 
           <div class="col-6 my-2">
-            <label for="endereco">Cidade</label>
-            <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Cidade" [(ngModel)] = "endereco.cidade" name="cidade">
+            <label for="uf">Estado</label>
+            <select id="uf" class="custom-select my-1 mr-sm-2"  [(ngModel)]="endereco.sgEstado" name="sgEstado"
+            required maxlength="2" placeholder="Selecione o estado">
+              <option selected>Selecione</option>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
+            </select>
+          </div>
         </div>
-
-        <div class="col-6 my-2">
-          <label for="uf">UF</label>
-          <input class="form-control form-control-lg" id="uf" type="uf" placeholder="UF" [(ngModel)] = "endereco.sgEstado" name="sgEstado">
-      </div>
-
-      <div class="col-12 my-2"><h2>Contatos</h2></div>
-
-
+        <div class="form-group row">
+          <div class="col-12 my-2">
+            <h2>Contatos</h2>
+          </div>
           <div class="col-6 my-2">
             <label for="email]">Email</label>
-            <input class="form-control form-control-lg" id="email" type="email" placeholder="Email" [(ngModel)] = "cliente.dsEmail" name="dsEmail">
-        </div>
-        <div class="col-6 my-2">
-          <label for="telefone">Telefone</label>
-          <input class="form-control form-control-lg" id="telefone" type="number" placeholder="Telefone" [(ngModel)] = "cliente.nrTelefoneCliente" name="nrTelefoneCliente">
-      </div>
-
-        </div>
-          <div class="col-12 mt-3">
-              <div class="row d-flex justify-content-end">
-                  <div class="col-3">
-                      <a (click) = "cadastrar()" type="submit" class="btn btn-primary form-control btn-lg btn-block">Cadastrar</a>
-                  </div>
-              </div>
+            <input class="form-control form-control-lg" id="email" type="email" placeholder="Email"
+              [(ngModel)]="cliente.dsEmail" name="dsEmail" required>
           </div>
-        </form>
-</div>
+          <div class="col-6 my-2">
+            <label for="telefone">Telefone</label>
+            <input class="form-control form-control-lg" id="telefone" type="telefone" placeholder="Telefone"
+              [(ngModel)]="cliente.nrTelefoneCliente" name="nrTelefoneCliente" required minlength="11" maxlength="11">
+          </div>
+          </div>
+
+        <div class="form-group row">
+        <div class="col-12 mt-3">
+          <div class="row d-flex justify-content-end">
+            <div class="col-3">
+              <button (click)="cadastrar()" [disabled]="formCadastro.form.invalid || ValidaCpf() ==  false " type="submit"
+                class="btn btn-primary form-control btn-lg btn-block">Cadastrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
