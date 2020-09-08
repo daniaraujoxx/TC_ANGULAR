@@ -26,6 +26,8 @@ export class OfertacupomComponent implements OnInit {
     retorno: this.cupom,
     };
 
+
+    btnEnviar = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -41,7 +43,10 @@ export class OfertacupomComponent implements OnInit {
   }
 
   enviarEmail(){
-    this.relatorioCupomService.getEnviarEmail().subscribe();
+   this.btnEnviar = true;
+    this.relatorioCupomService.getEnviarEmail().subscribe(response => {
+      this.btnEnviar = false;
+    });
   }
 
 }
