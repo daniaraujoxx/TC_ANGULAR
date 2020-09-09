@@ -129,13 +129,13 @@
           <div class="col-6 my-2">
             <label for="cpf">CPF</label>
             <input class="form-control form-control-lg" id="cpf" type="cpf" placeholder="CPF"
-              [(ngModel)]="cliente.nrCPF" #cpf="ngModel" name="nrCPF" required minlength="11" maxlength="11"
-              (blur)="ValidaCpf()">
+              [(ngModel)]="cliente.nrCPF" #cpf="ngModel" name="nrCPF" required minlength="14" maxlength="14"
+              (blur)="ValidaCpf()" [textMask]="{mask: mascaraCpf, guide: false}">
           </div>
           <div class="col-6 my-2">
             <label for="rg">RG</label>
             <input class="form-control form-control-lg" id="rg" type="rg" placeholder="RG" [(ngModel)]="cliente.nrRg"
-              #rg="ngModel" name="nrRG" required minlength="9" maxlength="9">
+              #rg="ngModel" name="nrRG" required minlength="11" maxlength="11" [textMask]="{mask: mascaraRG, guide: false}">
           </div>
 
         </div>
@@ -155,7 +155,7 @@
             </div>
           </div>
 
-          <div *ngIf="ValidaCpf() == false" class="col-6 my-2 alert alert-warning alert-dismissible fade show" role="alert">
+          <div *ngIf="cpf.valid && ValidaCpf() == false" class="col-6 my-2 alert alert-warning alert-dismissible fade show" role="alert">
             CPF inválido, digite um CPF válido!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -202,10 +202,10 @@
           <div class="col-6 my-2">
             <label for="cep">CEP</label>
             <input class="form-control form-control-lg" id="cep" type="cep" placeholder="CEP"
-              [(ngModel)]="endereco.nrCep" name="nrCep" required minlength="8" maxlength="8" (blur)="localizacep()">
+              [(ngModel)]="endereco.nrCep" name="nrCep" required minlength="9" maxlength="9" (blur)="localizacep()" [textMask]="{mask: mascaraCep, guide: false}">
           </div>
           <div class="col-6 my-2">
-            <label for="endereco">Nome da rua</label>
+            <label for="endereco">Logradouro</label>
             <input class="form-control form-control-lg" id="endereco" type="endereco" placeholder="Nome da rua"
               [(ngModel)]="endereco.dsEndereco" name="dsEndereco" required>
           </div>
@@ -272,12 +272,12 @@
           <div class="col-6 my-2">
             <label for="email]">Email</label>
             <input class="form-control form-control-lg" id="email" type="email" placeholder="Email"
-              [(ngModel)]="cliente.dsEmail" name="dsEmail" required>
+              [(ngModel)]="cliente.dsEmail" name="dsEmail" required minlength="10" maxlength="50">
           </div>
           <div class="col-6 my-2">
             <label for="telefone">Telefone</label>
-            <input class="form-control form-control-lg" id="telefone" type="telefone" placeholder="Telefone"
-              [(ngModel)]="cliente.nrTelefoneCliente" name="nrTelefoneCliente" required minlength="10" maxlength="11">
+            <input class="form-control form-control-lg" id="telefone" type='text'placeholder="Telefone"
+              [(ngModel)]="cliente.nrTelefoneCliente" name="nrTelefoneCliente" required minlength="13" maxlength="14" [textMask]="{mask: mascaraTelefoneFixo, guide: false}"  (blur)="teste()">
           </div>
           </div>
 

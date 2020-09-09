@@ -24,6 +24,7 @@ import { RelatoriocupomComponent } from './relatoriocupom/relatoriocupom.compone
 import { FooterComponent } from './footer/footer.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.component';
+import { TextMaskModule } from 'angular2-text-mask';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.co
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    TextMaskModule,
   ],
   providers: [
     DatePipe,

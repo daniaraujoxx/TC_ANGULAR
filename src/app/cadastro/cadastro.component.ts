@@ -12,12 +12,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CadastroResponse } from './shared/cadastro.model';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { stringify } from 'querystring';
+declare var $: any;
+
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
-  styleUrls: ['./cadastro.component.css']
+  styleUrls: ['./cadastro.component.css'],
+  template: `
+  <input [textMask]="{mask: mask}" [(ngModel)]="myModel" type="text"/>
+`
 })
 export class CadastroComponent implements OnInit {
+  public myModel = '';
+  public mask = ['(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public mascaraCpf = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+  public mascaraTelefone = ['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public mascaraTelefoneFixo = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public mascaraCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+  public mascaraRG = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/];
+
   formularioDeUsuario: FormGroup;
 
   @ViewChild('formCadastro', { static: true }) formCadastro: NgForm;
@@ -43,7 +56,7 @@ export class CadastroComponent implements OnInit {
     nmCliente: null,
     dsEmail: null,
     dtCadastro: null,
-    nrCPF: null,
+    nrCPF: '',
     nrRg: null,
     dtNascimento: null,
     dsGenero: null,
@@ -52,10 +65,10 @@ export class CadastroComponent implements OnInit {
     enderecos: [],
   }
 
-cepresponse:CepResponse;
+  cepresponse: CepResponse;
 
-cadastroResponse: CadastroResponse;
-validcpf: boolean;
+  cadastroResponse: CadastroResponse;
+  validcpf: boolean;
   constructor(
     private cadastroService: CadastroService,
     private route: ActivatedRoute,
@@ -71,6 +84,9 @@ validcpf: boolean;
   cadastrar(): void {
     if (this.formCadastro.form.valid) {
       this.cliente.enderecos.push(this.endereco);
+      this.cliente.nrCPF = this.cliente.nrCPF.replace(/[^a-z0-9\s]/gi, '');
+      this.cliente.nrRg = this.cliente.nrRg.replace(/[^a-z0-9\s]/gi, '');
+      this.cliente.nrTelefoneCliente = this.cliente.nrTelefoneCliente.replace(/[^a-z0-9\s]/gi, '');
       this.cadastroService.postCadastro(this.cliente).subscribe(request => {
         this.cadastroResponse = request;
         console.log(this.cadastroResponse);
@@ -82,12 +98,12 @@ validcpf: boolean;
   calculaIdade(): void {
     var birthdate = this.cliente.dtNascimento;
     let newDate = new Date(birthdate);
-     var dt = new Date();
-     console.log(dt);
-     let date = new Date();
-     var today = this.datepipe.transform(date, 'yyyy-MM-dd');
-     this.cliente.dtCadastro = today.toString();
-     console.log(today);
+    var dt = new Date();
+    console.log(dt);
+    let date = new Date();
+    var today = this.datepipe.transform(date, 'yyyy-MM-dd');
+    this.cliente.dtCadastro = today.toString();
+    console.log(today);
 
     let timeDiff = Math.abs(Date.now() - newDate.getTime());
     let age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25);
@@ -101,71 +117,72 @@ validcpf: boolean;
     console.log(this.cliente);
 
   }
-  ValidaCpf(){
-      let cpf  = this.cliente.nrCPF;
-      console.log(cpf);
-      if (cpf == null) {
-        console.log("erro 1 cpf nulo");
-          return false;
+  ValidaCpf() {
+    let cpf = this.cliente.nrCPF;
+    cpf = cpf.replace(/[^a-z0-9\s]/gi, '')
+    console.log(cpf);
+    if (cpf == null) {
+      console.log("erro 1 cpf nulo");
+      return false;
+    }
+    if (cpf.length != 11) {
+      console.log("erro 2 numero de digitos errado")
+      return false;
+    }
+    if ((cpf == '00000000000') || (cpf == '11111111111') || (cpf == '22222222222') || (cpf == '33333333333') || (cpf == '44444444444') || (cpf == '55555555555') || (cpf == '66666666666') || (cpf == '77777777777') || (cpf == '88888888888') || (cpf == '99999999999')) {
+      console.log("erro 3 sequencial")
+      return false;
+    }
+    let numero: number = 0;
+    let caracter: string = '';
+    let numeros: string = '0123456789';
+    let j: number = 10;
+    let somatorio: number = 0;
+    let resto: number = 0;
+    let digito1: number = 0;
+    let digito2: number = 0;
+    let cpfAux: string = '';
+    cpfAux = cpf.substring(0, 9);
+    for (let i: number = 0; i < 9; i++) {
+      caracter = cpfAux.charAt(i);
+      if (numeros.search(caracter) == -1) {
+        return false;
       }
-      if (cpf.length != 11) {
-        console.log("erro 2 numero de digitos errado")
-          return false;
-      }
-      if ((cpf == '00000000000') || (cpf == '11111111111') || (cpf == '22222222222') || (cpf == '33333333333') || (cpf == '44444444444') || (cpf == '55555555555') || (cpf == '66666666666') || (cpf == '77777777777') || (cpf == '88888888888') || (cpf == '99999999999')) {
-        console.log("erro 3 sequencial")
-          return false;
-      }
-      let numero: number = 0;
-      let caracter: string = '';
-      let numeros: string = '0123456789';
-      let j: number = 10;
-      let somatorio: number = 0;
-      let resto: number = 0;
-      let digito1: number = 0;
-      let digito2: number = 0;
-      let cpfAux: string = '';
-      cpfAux = cpf.substring(0, 9);
-      for (let i: number = 0; i < 9; i++) {
-          caracter = cpfAux.charAt(i);
-          if (numeros.search(caracter) == -1) {
-              return false;
-          }
-          numero = Number(caracter);
-          somatorio = somatorio + (numero * j);
-          j--;
-      }
-      resto = somatorio % 11;
-      digito1 = 11 - resto;
-      if (digito1 > 9) {
-          digito1 = 0;
-      }
-      j = 11;
-      somatorio = 0;
-      cpfAux = cpfAux + digito1;
-      for (let i: number = 0; i < 10; i++) {
-          caracter = cpfAux.charAt(i);
-          numero = Number(caracter);
-          somatorio = somatorio + (numero * j);
-          j--;
-      }
-      resto = somatorio % 11;
-      digito2 = 11 - resto;
-      if (digito2 > 9) {
-          digito2 = 0;
-      }
-      cpfAux = cpfAux + digito2;
-      if (cpf != cpfAux) {
-        console.log(false);
-          return false;
-      }
-      else {
-        console.log(true);
-          return true;
-      }
+      numero = Number(caracter);
+      somatorio = somatorio + (numero * j);
+      j--;
+    }
+    resto = somatorio % 11;
+    digito1 = 11 - resto;
+    if (digito1 > 9) {
+      digito1 = 0;
+    }
+    j = 11;
+    somatorio = 0;
+    cpfAux = cpfAux + digito1;
+    for (let i: number = 0; i < 10; i++) {
+      caracter = cpfAux.charAt(i);
+      numero = Number(caracter);
+      somatorio = somatorio + (numero * j);
+      j--;
+    }
+    resto = somatorio % 11;
+    digito2 = 11 - resto;
+    if (digito2 > 9) {
+      digito2 = 0;
+    }
+    cpfAux = cpfAux + digito2;
+    if (cpf != cpfAux) {
+      console.log(false);
+      return false;
+    }
+    else {
+      console.log(true);
+      return true;
+    }
   }
-  localizacep(){
-    this.cepservice.getCep(this.endereco.nrCep).subscribe(response => {
+  localizacep() {
+    this.cepservice.getCep(this.endereco.nrCep.replace(/[^a-z0-9\s]/gi, '')).subscribe(response => {
       this.cepresponse = response;
       console.log(this.cepresponse);
       this.endereco.cidade = this.cepresponse.localidade;
@@ -174,4 +191,9 @@ validcpf: boolean;
       this.endereco.dsEndereco = this.cepresponse.logradouro;
     });
   }
+  teste(){
+    var stringa = this.cliente.nrTelefoneCliente;
+    stringa = stringa.replace(/[^a-z0-9\s]/gi, '');
+    console.log(stringa);
   }
+}
