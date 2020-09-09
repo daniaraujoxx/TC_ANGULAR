@@ -3,6 +3,7 @@ import { Filial } from "./filial.model";
 import { Cliente } from "../../relatoriocliente/shared/cliente.model";
 import { ItemNF } from "./itemNF.model";
 import { TipoPagamento } from "./tipoPagamento.model";
+import { MotivoNf } from "../../devolucao/shared/motivoNf.model";
 
 
 
@@ -12,9 +13,9 @@ export interface NF{
     operacao: Operacao;
     filial: Filial;
     cliente: Cliente;
-    motivo: number;
+    motivo: MotivoNf;
     idDocumentoFiscalVenda: number;
-    nrItem: number;
+    nrNumeroItem: Array<number>;
     dataAbertura: string;
     dataFechamento: string;
     flagNota: number;

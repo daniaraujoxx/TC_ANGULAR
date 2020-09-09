@@ -17,7 +17,7 @@
                 </div>
                     <div class="col-4 ">
                         <label class="my-1 mr-2" for="motivo">Motivo da Devolução</label>
-                        <select class="custom-select my-1 mr-sm-2" id="motivo">
+                        <select #motivo  class="custom-select my-1 mr-sm-2" id="motivo">
                             <option selected>Escolher...</option>
                             <option value="1">Compra Incorreta</option>
                             <option value="2">Venda Incorreta</option>
@@ -48,16 +48,9 @@
             </div>
             <div class="col-4 my-2">
                 <label for="nCaixa">N° do Caixa</label>
-                <input class="form-control form-control-lg" id="nCaixa" type="number" placeholder="N° do Caixa">
+                <input #caixa class="form-control form-control-lg" id="nCaixa" type="number" placeholder="N° do Caixa">
             </div>
-            <div class="col-4 my-2">
-                <label for="codFilial">Código da Filial</label>
-                <input class="form-control form-control-lg" type="number" id="number" placeholder="Código da Filial">
-            </div>
-
-            <div class="col-12 mt-3">
-               
-            </div>
+            
         </div>
     </form>
 
@@ -79,7 +72,8 @@
             <th scope="row">{{item.produto.vlUnidade}}</th>
             <th scope="row">{{item.qtItem}}</th>
             <th scope="row">
-                <input  [disabled] = "tipoDevolucao!=true" type = "number"> 
+                <input  [disabled] = "tipoDevolucao!=true" type = "number" [(ngModel)] = "item.qtDevAux"> 
+
             </th>
            
           </tr>
@@ -87,7 +81,7 @@
       </table>
       <div class="row d-flex justify-content-end">
         <div class="col-3">
-            <a type="submit" class="btn btn-primary form-control btn-lg btn-block">Finalizar</a>
+            <a type="submit" class="btn btn-primary form-control btn-lg btn-block" (click) = "gravarDevolucao()" >Finalizar</a>
         </div>
 
 </div>

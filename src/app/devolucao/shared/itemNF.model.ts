@@ -11,6 +11,7 @@ export interface ItemNF{
     porcentoIcms: number;
     valorIcms: number;
     qtDevolvida: number;
+    qtDevAux: number;
     formaDevolucao: any;
     
 

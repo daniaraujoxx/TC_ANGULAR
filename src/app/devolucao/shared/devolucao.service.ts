@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NfResponse } from './nfResponse.model';
+import { NF } from './nf.model';
 
 
 @Injectable({
@@ -25,4 +26,8 @@ export class DevolucaoService {
 
   }
 
+  postNotaFiscal(nf: NF): Observable<NfResponse>{
+    return this.http.post<NfResponse>(this.API + 'devolucao', nf, this.httpOptions);
+
+  }
 }
