@@ -7,7 +7,14 @@
 <div class="conteudo mt-4 container text-green">
     <h1>Devolução de Produtos</h1>
     <hr>
-    <form>
+    <div *ngIf = "responseSucesso" class="alert alert-success" role="alert">
+        {{mensagemSucesso}}
+      </div>
+      <div *ngIf = "responseError" class="alert alert-danger" role="alert">
+        {{mensagemError}}
+      </div>
+
+    <form #formDev = "ngForm">
         <div class="form-group row">
             <div class="col-12 my-2">
                 <div class="row">
@@ -18,7 +25,7 @@
                     <div class="col-4 ">
                         <label class="my-1 mr-2" for="motivo">Motivo da Devolução</label>
                         <select #motivo  class="custom-select my-1 mr-sm-2" id="motivo">
-                            <option selected>Escolher...</option>
+                            <option selected value = " ">Escolher...</option>
                             <option value="1">Compra Incorreta</option>
                             <option value="2">Venda Incorreta</option>
                             <option value="3">Produto Danificado</option>
@@ -48,11 +55,12 @@
             </div>
             <div class="col-4 my-2">
                 <label for="nCaixa">N° do Caixa</label>
-                <input #caixa class="form-control form-control-lg" id="nCaixa" type="number" placeholder="N° do Caixa">
+                <input required #caixa class="form-control form-control-lg" id="nCaixa" type="number" placeholder="N° do Caixa">
             </div>
             
         </div>
     </form>
+
 
     <table class="table">
         <thead class="thead comeco" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
@@ -81,8 +89,30 @@
       </table>
       <div class="row d-flex justify-content-end">
         <div class="col-3">
-            <a type="submit" class="btn btn-primary form-control btn-lg btn-block" (click) = "gravarDevolucao()" >Finalizar</a>
+            <button type="submit" class="btn btn-primary form-control btn-lg btn-block" (click) = "gravarDevolucao()" [disabled]="!formDev.form.invalid">Finalizar</button>
         </div>
 
 </div>
 </div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="mensagemDev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{mensagem }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -11,6 +11,8 @@ import { Cliente } from '../relatoriocliente/shared/cliente.model';
 import { MotivoNf } from './shared/motivoNf.model';
 import { FormaPagamento } from './shared/formaPagamento.model';
 import { FormaDevolucao } from './shared/formaDevolucao.model';
+import { NgForm } from '@angular/forms';
+declare var $: any;
 
 
 @Component({
@@ -24,14 +26,18 @@ export class DevolucaoComponent implements OnInit {
   @ViewChild('dtCupom') dataCupom: ElementRef;
   @ViewChild('motivo') motivo: ElementRef;
   @ViewChild('caixa') caixa: ElementRef;
-
+  @ViewChild('FormDev') formDev: NgForm;
 
 
   operador: Operador = JSON.parse(localStorage['operador']);
 
 
+  mensagem: string;
   nfGravada: NfResponse;
-
+  responseError: boolean;
+  responseSucesso: boolean;
+  mensagemError: string;
+  mensagemSucesso: string;
 
   nf: NF = {
 
@@ -135,10 +141,20 @@ enderecos: []
   consultarNF() {
     let dados: string = this.nrNfElement.nativeElement.value;
 
+
     this.devolucaoService.getNotaFiscal(dados).subscribe(response => {
-      this.nfResponse = response;
-      this.dataCupom.nativeElement.value = this.datepipe.transform(this.nfResponse.retorno.dataAbertura, 'yyyy-MM-dd');
-      console.log(this.nfResponse);
+      if(response.retorno.notaDevolvida != 1){
+        this.nfResponse = response;
+        this.dataCupom.nativeElement.value = this.datepipe.transform(this.nfResponse.retorno.dataAbertura, 'yyyy-MM-dd');
+        console.log(this.nfResponse);
+
+      }else{
+        this.mensagem = `Nota Fiscal ${this.nrNfElement.nativeElement.value} já devolvida`
+        $('#mensagemDev').modal('show');
+
+      }
+
+      
     })
 
 
@@ -177,9 +193,16 @@ enderecos: []
        this.devolucaoService.postNotaFiscal(this.nfDevolucao).subscribe(response =>{
         
         this.nfGravada = response;
-      
+        this.mensagemSucesso = "Devolução gravada com sucesso!"
+        this.responseSucesso = true;
+        this.responseError = false;
+
         },
         error =>{
+          this.mensagemError = "Erro ao gravar devolução";
+          this.responseError = true;
+          this.responseSucesso = false;
+
           console.log(error)
         }
         )
