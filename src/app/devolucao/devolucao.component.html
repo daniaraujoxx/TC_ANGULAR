@@ -27,13 +27,13 @@
 
                     <div class = "col-4">
                         <div class="form-check mt-4">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="true" [(ngModel)] = "tipoDevolucao">
+                            <input class="form-check-input" type="radio" name="exampleRadios"  id="exampleRadios1" (change) = "tipoDevolucao =!tipoDevolucao" checked>
                             <label class="form-check-label" for="exampleRadios1">
                               Devolução total
-                            </label>
+                            </label>                           
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="false"  [(ngModel)] = "tipoDevolucao">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" (change) = "tipoDevolucao =!tipoDevolucao">
                             <label class="form-check-label" for="exampleRadios2">
                               Devolução parcial
                             </label>
@@ -79,7 +79,7 @@
             <th scope="row">{{item.produto.vlUnidade}}</th>
             <th scope="row">{{item.qtItem}}</th>
             <th scope="row">
-                <input [disabled] = "tipoDevolucao" type = "number"> 
+                <input  [disabled] = "tipoDevolucao!=true" type = "number"> 
             </th>
            
           </tr>

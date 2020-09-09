@@ -46,7 +46,7 @@ export class DevolucaoComponent implements OnInit {
   };
 
 
-  tipoDevolucao = true;
+  tipoDevolucao = false;
 
   constructor(private devolucaoService: DevolucaoService, public datepipe: DatePipe) {
 
