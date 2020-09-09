@@ -34,7 +34,7 @@ export class RelatorioclienteComponent implements OnInit {
     this.relatorioClienteService.getCliente(this.dados).subscribe(response =>{
       this.clienteResponse = response;
 
-      console.log(response)
+      console.log(response);
       //  this.router.navigate(['/selecionarcliente']);
 
     },

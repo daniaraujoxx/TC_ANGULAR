@@ -29,8 +29,8 @@
                       <tbody *ngFor="let cliente of clienteResponse.retorno">
                         <tr>
                           <th scope="row" class="text-grey">{{cliente.nmCliente}}</th>
-                          <td>{{cliente.nrRg}}</td>
-                          <td>{{cliente.nrCPF}}</td>
+                          <td>{{cliente.nrRg | rg}}</td>
+                          <td>{{cliente.nrCPF | cpf }}</td>
                           <td>{{cliente.dtNascimento | date: 'dd/MM/yyyy'}}</td>
                           <td class="text-right"><a (click)="selecionar(cliente.idCliente)"
                               class="btn btn-primary person-icon">Selecionar</a></td>

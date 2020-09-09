@@ -25,6 +25,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.component';
 import { TextMaskModule } from 'angular2-text-mask';
+import { CpfPipe } from './cpf.pipe';
+import { RgPipe } from './rg.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     FooterComponent,
     CadastroComponent,
     CadastroReservaComponent,
+    CpfPipe,
+    RgPipe,
   ],
   imports: [
     BrowserModule,
