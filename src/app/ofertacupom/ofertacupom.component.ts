@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Cliente } from '../relatoriocliente/shared/cliente.model';
 
+declare var $: any;
+
+
 @Component({
   selector: 'app-ofertacupom',
   templateUrl: './ofertacupom.component.html',
@@ -47,6 +50,13 @@ export class OfertacupomComponent implements OnInit {
     this.relatorioCupomService.getEnviarEmail().subscribe(response => {
       this.btnEnviar = false;
     });
+
+    
   }
 
-}
+ 
+ 
+  }
+
+
+

@@ -39,7 +39,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
 
   },
-
+  {
+    path: 'cadastro',
+    component: CadastroComponent,
+    
+},
 
   {
     path: 'consultaproduto/:produto',
@@ -61,6 +65,8 @@ export const routes: Routes = [
       component: OfertacupomComponent,
       canActivate: [AuthGuard]
   },
+
+  
   {
       path: 'reservaproduto',
       component: ReservaprodutoComponent,
