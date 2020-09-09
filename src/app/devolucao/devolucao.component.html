@@ -20,12 +20,12 @@
                 <div class="row">
                   <div class="col-4 my-2">
                     <label for="nCupom">N° Cupom</label>
-                    <input class="form-control form-control-lg" id="nCupom" type="number" placeholder="N° Cupom" #inputNf (keyup.enter) = "consultarNF()">
+                    <input class="form-control form-control-lg" id="nCupom" type="number" placeholder="N° Cupom" #inputNf (keyup.enter)="consultarNF()" (blur)="consultarNF()">
                 </div>
                     <div class="col-4 ">
                         <label class="my-1 mr-2" for="motivo">Motivo da Devolução</label>
-                        <select #motivo  class="custom-select my-1 mr-sm-2" id="motivo">
-                            <option selected value = " ">Escolher...</option>
+                        <select #motivo name="motivo" (change)="motivoSelect()" ngModel class="custom-select my-1 mr-sm-2" id="motivo" required>
+                            <option selected value="">Escolher...</option>
                             <option value="1">Compra Incorreta</option>
                             <option value="2">Venda Incorreta</option>
                             <option value="3">Produto Danificado</option>
@@ -34,10 +34,10 @@
 
                     <div class = "col-4">
                         <div class="form-check mt-4">
-                            <input class="form-check-input" type="radio" name="exampleRadios"  id="exampleRadios1" (change) = "tipoDevolucao =!tipoDevolucao" checked>
+                            <input class="form-check-input" type="radio" name="exampleRadios" #tipo id="exampleRadios1" (change) = "tipoDevolucao =!tipoDevolucao" checked>
                             <label class="form-check-label" for="exampleRadios1">
                               Devolução total
-                            </label>                           
+                            </label>
                           </div>
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" (change) = "tipoDevolucao =!tipoDevolucao">
@@ -55,9 +55,9 @@
             </div>
             <div class="col-4 my-2">
                 <label for="nCaixa">N° do Caixa</label>
-                <input required #caixa class="form-control form-control-lg" id="nCaixa" type="number" placeholder="N° do Caixa">
+                <input required #caixa name="caixa" ngModel class="form-control form-control-lg" id="nCaixa" type="number" placeholder="N° do Caixa" (keyup.enter)="tipo.focus()">
             </div>
-            
+
         </div>
     </form>
 
@@ -70,7 +70,7 @@
             <th scope="col">Valor</th>
             <th scope="col">Quantidade</th>
             <th scope="col">Quantidade devolvida</th>
-          
+
           </tr>
         </thead>
         <tbody *ngFor = "let item of nfResponse.retorno.itens">
@@ -80,22 +80,22 @@
             <th scope="row">{{item.produto.vlUnidade}}</th>
             <th scope="row">{{item.qtItem}}</th>
             <th scope="row">
-                <input  [disabled] = "tipoDevolucao!=true" type = "number" [(ngModel)] = "item.qtDevAux"> 
+                <input  [disabled] = "tipoDevolucao!=true" type = "number" [(ngModel)] = "item.qtDevAux">
 
             </th>
-           
+
           </tr>
         </tbody>
       </table>
       <div class="row d-flex justify-content-end">
         <div class="col-3">
-            <button type="submit" class="btn btn-primary form-control btn-lg btn-block" (click) = "gravarDevolucao()" [disabled]="!formDev.form.invalid">Finalizar</button>
+            <button type="submit" class="btn btn-primary form-control btn-lg btn-block" (click) = "gravarDevolucao()" #btnGravar [disabled]="formDev.form.invalid">Gravar</button>
         </div>
 
 </div>
 </div>
 
-  
+
   <!-- Modal -->
   <div class="modal fade" id="mensagemDev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

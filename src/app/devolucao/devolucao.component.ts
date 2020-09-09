@@ -21,12 +21,13 @@ declare var $: any;
   styleUrls: ['./devolucao.component.css']
 })
 export class DevolucaoComponent implements OnInit {
-
+  @ViewChild('FormDev') formDev: NgForm;
   @ViewChild('inputNf') nrNfElement: ElementRef;
   @ViewChild('dtCupom') dataCupom: ElementRef;
   @ViewChild('motivo') motivo: ElementRef;
   @ViewChild('caixa') caixa: ElementRef;
-  @ViewChild('FormDev') formDev: NgForm;
+  @ViewChild('btnGravar') gravar: ElementRef;
+
 
 
   operador: Operador = JSON.parse(localStorage['operador']);
@@ -138,15 +139,27 @@ enderecos: []
   ngOnInit(): void {
   }
 
+  motivoSelect(){
+    if(this.motivo.nativeElement.value == ""){
+      this.mensagem = `Selecionar Motivo`;
+      $('#mensagemDev').modal('show');
+    }else{
+      this.caixa.nativeElement.focus();
+    }
+  }
+
   consultarNF() {
     let dados: string = this.nrNfElement.nativeElement.value;
 
 
     this.devolucaoService.getNotaFiscal(dados).subscribe(response => {
-      if(response.retorno.notaDevolvida != 1){
+      if(response.retorno.notaDevolvida < 1){
         this.nfResponse = response;
+        console.log(this.datepipe.transform(this.nfResponse.retorno.dataAbertura, 'yyyy-MM-dd'));
         this.dataCupom.nativeElement.value = this.datepipe.transform(this.nfResponse.retorno.dataAbertura, 'yyyy-MM-dd');
         console.log(this.nfResponse);
+        this.motivo.nativeElement.focus();
+
 
       }else{
         this.mensagem = `Nota Fiscal ${this.nrNfElement.nativeElement.value} já devolvida`
@@ -154,7 +167,7 @@ enderecos: []
 
       }
 
-      
+
     })
 
 
@@ -186,12 +199,12 @@ enderecos: []
 
        this.nfDevolucao.itens.forEach(element => {
          element.formaDevolucao = this.formaDevolucao;
-        
+
        });
 
        console.log(this.nfDevolucao);
        this.devolucaoService.postNotaFiscal(this.nfDevolucao).subscribe(response =>{
-        
+
         this.nfGravada = response;
         this.mensagemSucesso = "Devolução gravada com sucesso!"
         this.responseSucesso = true;
@@ -206,7 +219,7 @@ enderecos: []
           console.log(error)
         }
         )
-        
+
       }
 
     }
