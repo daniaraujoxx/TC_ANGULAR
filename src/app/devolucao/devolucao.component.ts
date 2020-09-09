@@ -9,6 +9,8 @@ import { Operacao } from './shared/operacao.model';
 import { Filial } from './shared/filial.model';
 import { Cliente } from '../relatoriocliente/shared/cliente.model';
 import { MotivoNf } from './shared/motivoNf.model';
+import { FormaPagamento } from './shared/formaPagamento.model';
+import { FormaDevolucao } from './shared/formaDevolucao.model';
 
 
 @Component({
@@ -75,6 +77,11 @@ enderecos: []
   motivoDevolucao: MotivoNf = {
 
     idMotivo: null
+  }
+
+  formaDevolucao: FormaDevolucao = {
+
+    idTipoPagamento: 1
   }
 
   operacaoDevolucao: Operacao = {
@@ -160,9 +167,16 @@ enderecos: []
        this.nfDevolucao.valorDocumento = valor;
        this.nfDevolucao.numeroCaixa = this.caixa.nativeElement.value;
        this.nfDevolucao.itens = this.nfResponse.retorno.itens;
+
+       this.nfDevolucao.itens.forEach(element => {
+         element.formaDevolucao = this.formaDevolucao;
+        
+       });
+
        console.log(this.nfDevolucao);
        this.devolucaoService.postNotaFiscal(this.nfDevolucao).subscribe(response =>{
-         this.nfGravada = response;
+        
+        this.nfGravada = response;
       
         },
         error =>{

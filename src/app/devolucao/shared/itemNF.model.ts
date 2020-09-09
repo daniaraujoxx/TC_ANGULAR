@@ -1,5 +1,6 @@
 import { NF } from "./nf.model";
 import { Produto } from "../../consultaproduto/shared/produto.model";
+import { FormaDevolucao } from './formaDevolucao.model';
 
 
 export interface ItemNF{
@@ -12,11 +13,6 @@ export interface ItemNF{
     valorIcms: number;
     qtDevolvida: number;
     qtDevAux: number;
-    formaDevolucao: any;
-    
-
-
-
-
+    formaDevolucao: FormaDevolucao
 
 }
