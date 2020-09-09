@@ -24,11 +24,27 @@
                             <option value="3">Produto Danificado</option>
                         </select>
                     </div>
+
+                    <div class = "col-4">
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="true" [(ngModel)] = "tipoDevolucao">
+                            <label class="form-check-label" for="exampleRadios1">
+                              Devolução total
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="false"  [(ngModel)] = "tipoDevolucao">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Devolução parcial
+                            </label>
+                          </div>
+                    </div>
                 </div>
             </div>
+
             <div class="col-4 my-2">
                 <label for="dtEmissao">Data de Emissão do Cupom</label>
-                <input class="form-control form-control-lg" id="dtEmissao" type="date" placeholder="Data de Emissão do Cupom">
+                <input #dtCupom class="form-control form-control-lg" id="dtEmissao" type="date" placeholder="Data de Emissão do Cupom" disabled>
             </div>
             <div class="col-4 my-2">
                 <label for="nCaixa">N° do Caixa</label>
@@ -40,12 +56,39 @@
             </div>
 
             <div class="col-12 mt-3">
-                <div class="row d-flex justify-content-end">
-                    <div class="col-3">
-                        <a type="submit" class="btn btn-primary form-control btn-lg btn-block">Finalizar</a>
-                    </div>
-                </div>
+               
             </div>
         </div>
     </form>
+
+    <table class="table">
+        <thead class="thead comeco" style="background-color: rgb(88, 88, 88); color: white; font-size: 14px;">
+          <tr>
+            <th scope="col">Código Produto</th>
+            <th scope="col">Descrição do Produto</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Quantidade devolvida</th>
+          
+          </tr>
+        </thead>
+        <tbody *ngFor = "let item of nfResponse.retorno.itens">
+          <tr>
+            <th scope="row">{{item.produto.cdProduto}}</th>
+            <th scope="row">{{item.produto.nmFantasia}}</th>
+            <th scope="row">{{item.produto.vlUnidade}}</th>
+            <th scope="row">{{item.qtItem}}</th>
+            <th scope="row">
+                <input [disabled] = "tipoDevolucao" type = "number"> 
+            </th>
+           
+          </tr>
+        </tbody>
+      </table>
+      <div class="row d-flex justify-content-end">
+        <div class="col-3">
+            <a type="submit" class="btn btn-primary form-control btn-lg btn-block">Finalizar</a>
+        </div>
+
+</div>
 </div>
