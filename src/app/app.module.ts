@@ -27,6 +27,7 @@ import { CadastroReservaComponent } from './cadastro-reserva/cadastro-reserva.co
 import { TextMaskModule } from 'angular2-text-mask';
 import { CpfPipe } from './cpf.pipe';
 import { RgPipe } from './rg.pipe';
+import { NomePipe } from './nome.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { RgPipe } from './rg.pipe';
     CadastroReservaComponent,
     CpfPipe,
     RgPipe,
+    NomePipe,
   ],
   imports: [
     BrowserModule,
