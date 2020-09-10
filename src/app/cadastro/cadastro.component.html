@@ -129,13 +129,13 @@
           <div class="col-6 my-2">
             <label for="cpf">CPF</label>
             <input class="form-control form-control-lg" id="cpf" type="cpf" placeholder="CPF"
-              [(ngModel)]="cliente.nrCPF" #cpf="ngModel" name="nrCPF" required minlength="14" maxlength="14"
+              [(ngModel)]="cliente.nrCPF" #cpf="ngModel" name="nrCPF" required minlength="11" maxlength="14"
               (blur)="ValidaCpf()" [textMask]="{mask: mascaraCpf, guide: false}">
           </div>
           <div class="col-6 my-2">
             <label for="rg">RG</label>
             <input class="form-control form-control-lg" id="rg" type="rg" placeholder="RG" [(ngModel)]="cliente.nrRg"
-              #rg="ngModel" name="nrRG" required minlength="11" maxlength="12" [textMask]="{mask: mascaraRG, guide: false}">
+              #rg="ngModel" name="nrRG" required minlength="9" maxlength="12" [textMask]="{mask: mascaraRG, guide: false}">
           </div>
 
         </div>
@@ -277,7 +277,7 @@
           <div class="col-6 my-2">
             <label for="telefone">Telefone</label>
             <input class="form-control form-control-lg" id="telefone" type='text'placeholder="Telefone"
-              [(ngModel)]="cliente.nrTelefoneCliente" name="nrTelefoneCliente" required minlength="13" maxlength="14" [textMask]="{mask: mascaraTelefoneFixo, guide: false}"  (blur)="teste()">
+              [(ngModel)]="cliente.nrTelefoneCliente" name="nrTelefoneCliente" required minlength="10" maxlength="14" [textMask]="{mask: mascaraTelefoneFixo, guide: false}"  (blur)="teste()">
           </div>
           </div>
 
@@ -292,4 +292,19 @@
         </div>
       </div>
       </form>
+    </div>
+    <div class="modal fade" id="cpfModal" tabindex="-1" aria-labelledby="cpfModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cpfModalLabel">Aviso, Erro ao cadastrar usuário!</h5>
+          </div>
+          <div class="modal-body">
+            <h5>CPF Já Cadastrado No Sistema</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button"  class="btn btn-danger" data-toggle="modal" data-target="#cpfModal" data-backdrop="static">OK</button>
+          </div>
+        </div>
+      </div>
     </div>

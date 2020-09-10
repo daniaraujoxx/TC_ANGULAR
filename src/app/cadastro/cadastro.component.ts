@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CadastroResponse } from './shared/cadastro.model';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { stringify } from 'querystring';
+import { errorMonitor } from 'events';
 declare var $: any;
 
 @Component({
@@ -66,6 +67,8 @@ export class CadastroComponent implements OnInit {
   }
 
   cepresponse: CepResponse;
+  mensagemError: string;
+  error = false;
 
   cadastroResponse: CadastroResponse;
   validcpf: boolean;
@@ -83,17 +86,28 @@ export class CadastroComponent implements OnInit {
   }
   cadastrar(): void {
     if (this.formCadastro.form.valid) {
-      this.cliente.enderecos.push(this.endereco);
-      this.cliente.nrCPF = this.cliente.nrCPF.replace(/[^a-z0-9\s]/gi, '');
-      this.cliente.nrRg = this.cliente.nrRg.replace(/[^a-z0-9\s]/gi, '');
-      this.cliente.nrTelefoneCliente = this.cliente.nrTelefoneCliente.replace(/[^a-z0-9\s]/gi, '');
-      this.cadastroService.postCadastro(this.cliente).subscribe(request => {
+      let clientegrav: Cliente = this.cliente;
+      clientegrav.enderecos.push(this.endereco);
+      clientegrav.nrCPF = clientegrav.nrCPF.replace(/[^a-z0-9\s]/gi, '');
+      clientegrav.nrRg = clientegrav.nrRg.replace(/[^a-z0-9\s]/gi, '');
+      clientegrav.nrTelefoneCliente = this.cliente.nrTelefoneCliente.replace(/[^a-z0-9\s]/gi, '');
+      this.cadastroService.postCadastro(clientegrav).subscribe(request => {
         this.cadastroResponse = request;
         console.log(this.cadastroResponse);
         this.router.navigate(['/selecionarcliente']);
       },
+      error => {
+        if (error.status == 400) {
+          this.abreModal();
+        }
+      }
       );
     }
+  }
+  abreModal(){
+
+    $('#cpfModal').modal('show');
+
   }
   calculaIdade(): void {
     var birthdate = this.cliente.dtNascimento;
