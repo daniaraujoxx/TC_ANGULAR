@@ -31,10 +31,13 @@ export class LoginComponent implements OnInit {
         pwOperador: ''
   }
 
+  alterarResponse: LoginResponse;
 
   mensagemError: string;
   error: boolean = false;
 
+  mensagemSucesso: string;
+  success: boolean = false;
 
   loginResponse: LoginResponse;
 
@@ -76,8 +79,18 @@ export class LoginComponent implements OnInit {
   }
   alterarSenha(){
     console.log(this.operador);
-    this.loginService.putLogin(this.operador).subscribe(response => {
-
-    });
+    this.loginService.putLogin(this.operador).subscribe(
+      response => {
+      this.alterarResponse = response;
+        this.mensagemSucesso =  `Senha alterada com sucesso! ${ response.mensagem}`;
+        this.success =  true;
+        this.error =  false;
+      },
+      error=>{
+        this.mensagemError =  `Erro ao alterar senha! ${ error.error.mensagem }`;
+        this.error =  true;
+        this.success =  false;
+      }
+    );
   }
 }

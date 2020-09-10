@@ -14,7 +14,7 @@ declare var $: any;
   styleUrls: ['./ofertacupom.component.css']
 })
 export class OfertacupomComponent implements OnInit {
-  cliente: Cliente = JSON.parse(localStorage["cliente"]);
+  cliente: Cliente;
   dados: string = "";
   cupom: Cupom = {
     idCupom: null,
@@ -29,7 +29,6 @@ export class OfertacupomComponent implements OnInit {
     retorno: this.cupom,
     };
 
-
     btnEnviar = false;
   constructor(
     private route: ActivatedRoute,
@@ -37,25 +36,26 @@ export class OfertacupomComponent implements OnInit {
     private relatorioCupomService: RelatoriocupomService) { }
 
   ngOnInit(): void {
-    this.dados = this.route.snapshot.paramMap.get('dados');
-    this.relatorioCupomService.getCliente(this.dados).subscribe(response =>{
+    this.cliente = JSON.parse(localStorage['cliente']);
+    this.relatorioCupomService.getCliente(this.cliente).subscribe(response =>{
       this.relatorioCupom = response;
       console.log(this.relatorioCupom);
     });
-    
+
   }
 
   enviarEmail(){
    this.btnEnviar = true;
-    this.relatorioCupomService.getEnviarEmail().subscribe(response => {
+    this.relatorioCupomService.getEnviarEmail(this.cliente).subscribe(response => {
       this.btnEnviar = false;
+      $('#exampleModal').modal('show');
     });
 
-    
+
   }
 
- 
- 
+
+
   }
 
 

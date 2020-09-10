@@ -20,17 +20,15 @@ export class RelatoriocupomService {
   };
 
 
-  cliente: Cliente = JSON.parse(localStorage['cliente']);
-
   constructor(private http: HttpClient) { }
   private readonly API = 'http://localhost:8080/cupom/';
 
-  getCliente(dados: string): Observable<RelatorioCupom>{
-    return this.http.get<RelatorioCupom>(this.API + this.cliente.idCliente, this.httpOptions);
+  getCliente(cliente: Cliente): Observable<RelatorioCupom>{
+    return this.http.get<RelatorioCupom>(this.API + cliente.idCliente, this.httpOptions);
   }
 
-  getEnviarEmail(): Observable<any>{
-    return this.http.get<RelatorioCupom>(this.API + "enviar/" + this.cliente.idCliente, this.httpOptions);
-    
+  getEnviarEmail(cliente: Cliente): Observable<any>{
+    return this.http.get<RelatorioCupom>(this.API + "enviar/" + cliente.idCliente, this.httpOptions);
+
   }
 }

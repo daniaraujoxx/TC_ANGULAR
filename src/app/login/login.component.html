@@ -16,6 +16,9 @@
                                     <div class=" col-12 my-4 alert alert-danger" *ngIf="error == true">
                                         {{mensagemError}}
                                     </div>
+                                    <div class=" col-12 my-4 alert alert-warning" *ngIf="success == true">
+                                      {{mensagemSucesso}}
+                                  </div>
                                     <div class="form-group col-12 my-4">
                                         <label for="usuario" class="text-green">Matrícula Usuário:</label>
                                         <input type="number" class="form-control" [(ngModel)] = "operador.nrMatricula" name="nrMatricula" required [ngClass]="{'is-invalid': error == true}">
