@@ -177,7 +177,8 @@ export class DevolucaoComponent implements OnInit {
       } else {
         this.mensagem = `Nota Fiscal ${this.nrNfElement.nativeElement.value} já devolvida`
         $('#mensagemDev').modal('show');
-
+        this.nfResponse.retorno.itens = null;
+        this.nrNfElement.nativeElement.value = null;
       }
 
 
