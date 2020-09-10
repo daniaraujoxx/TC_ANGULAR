@@ -153,12 +153,12 @@ export class DevolucaoComponent implements OnInit {
     if(item.qtDevAux > item.qtItem){
       this.mensagem = `Quantidade produto do ${item.produto.cdProduto} invalida para devolução!`;
       $('#mensagemDev').modal('show');
+      this.nfResponse.retorno.itens.forEach(element => {
+        if(element.numItemDocumento == item.numItemDocumento){
+          element.qtDevAux = null;
+        }
+      });
     }
-    this.nfResponse.retorno.itens.forEach(element => {
-      if(element.numItemDocumento == item.numItemDocumento){
-        element.qtDevAux = null;
-      }
-    });
   }
 
   consultarNF() {
