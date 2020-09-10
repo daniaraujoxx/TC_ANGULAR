@@ -134,7 +134,6 @@ export class CadastroComponent implements OnInit {
   ValidaCpf() {
     let cpf = this.cliente.nrCPF;
     cpf = cpf.replace(/[^a-z0-9\s]/gi, '')
-    console.log(cpf);
     if (cpf == null) {
       console.log("erro 1 cpf nulo");
       return false;
@@ -187,11 +186,9 @@ export class CadastroComponent implements OnInit {
     }
     cpfAux = cpfAux + digito2;
     if (cpf != cpfAux) {
-      console.log(false);
       return false;
     }
     else {
-      console.log(true);
       return true;
     }
   }
