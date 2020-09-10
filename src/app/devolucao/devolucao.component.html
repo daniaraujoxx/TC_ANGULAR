@@ -20,7 +20,7 @@
                 <div class="row">
                   <div class="col-4 my-2">
                     <label for="nCupom">N° Cupom</label>
-                    <input class="form-control form-control-lg" id="nCupom" type="number" placeholder="N° Cupom" #inputNf (keyup.enter)="consultarNF()" (blur)="consultarNF()">
+                    <input class="form-control form-control-lg" id="nCupom" ngModel name="nrNf" type="number" placeholder="N° Cupom" #inputNf (keyup.enter)="motivo.focus()" (blur)="consultarNF()" required >
                 </div>
                     <div class="col-4 ">
                         <label class="my-1 mr-2" for="motivo">Motivo da Devolução</label>
@@ -70,7 +70,6 @@
             <th scope="col">Valor</th>
             <th scope="col">Quantidade</th>
             <th scope="col">Quantidade devolvida</th>
-
           </tr>
         </thead>
         <tbody *ngFor = "let item of nfResponse.retorno.itens">
@@ -80,10 +79,8 @@
             <th scope="row">{{item.produto.vlUnidade}}</th>
             <th scope="row">{{item.qtItem}}</th>
             <th scope="row">
-                <input  [disabled] = "tipoDevolucao!=true" type = "number" [(ngModel)] = "item.qtDevAux">
-
+                <input  [disabled] = "tipoDevolucao!=true" type = "number" [(ngModel)] = "item.qtDevAux" max="{{item.qtItem}}" min="0" (blur)="verificaQtItemDev(item)">
             </th>
-
           </tr>
         </tbody>
       </table>

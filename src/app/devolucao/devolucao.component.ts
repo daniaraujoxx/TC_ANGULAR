@@ -1,3 +1,4 @@
+import { ItemNF } from './shared/itemNF.model';
 import { Component, OnInit, ViewChild, ElementRef, TestabilityRegistry } from '@angular/core';
 import { NfResponse } from "./shared/nfResponse.model";
 import { DevolucaoService } from "./shared/devolucao.service";
@@ -61,23 +62,23 @@ export class DevolucaoComponent implements OnInit {
   };
 
   filialDevolucao: Filial = {
-  cdFilial: null,
-  nmFilial: null,
-  nrCNPJ: null,
-  nrTelefoneFilial: null
-}
+    cdFilial: null,
+    nmFilial: null,
+    nrCNPJ: null,
+    nrTelefoneFilial: null
+  }
   clienteDevolucao: Cliente = {
-idCliente: null,
-nmCliente: null,
-dsEmail: null,
-dtCadastro: null,
-nrCPF: null,
-nrRg: null,
-dtNascimento: null,
-dsGenero: null,
-nrTelefoneCliente: null,
-categoriaClienteDTO: null,
-enderecos: []
+    idCliente: null,
+    nmCliente: null,
+    dsEmail: null,
+    dtCadastro: null,
+    nrCPF: null,
+    nrRg: null,
+    dtNascimento: null,
+    dsGenero: null,
+    nrTelefoneCliente: null,
+    categoriaClienteDTO: null,
+    enderecos: []
 
   }
 
@@ -139,13 +140,25 @@ enderecos: []
   ngOnInit(): void {
   }
 
-  motivoSelect(){
-    if(this.motivo.nativeElement.value == ""){
+  motivoSelect() {
+    if (this.motivo.nativeElement.value == "") {
       this.mensagem = `Selecionar Motivo`;
       $('#mensagemDev').modal('show');
-    }else{
+    } else {
       this.caixa.nativeElement.focus();
     }
+  }
+
+  verificaQtItemDev(item: ItemNF){
+    if(item.qtDevAux > item.qtItem){
+      this.mensagem = `Quantidade produto do ${item.produto.cdProduto} invalida para devolução!`;
+      $('#mensagemDev').modal('show');
+    }
+    this.nfResponse.retorno.itens.forEach(element => {
+      if(element.numItemDocumento == item.numItemDocumento){
+        element.qtDevAux = null;
+      }
+    });
   }
 
   consultarNF() {
@@ -153,7 +166,7 @@ enderecos: []
 
 
     this.devolucaoService.getNotaFiscal(dados).subscribe(response => {
-      if(response.retorno.notaDevolvida < 1){
+      if (response.retorno.notaDevolvida < 1) {
         this.nfResponse = response;
         console.log(this.datepipe.transform(this.nfResponse.retorno.dataAbertura, 'yyyy-MM-dd'));
         this.dataCupom.nativeElement.value = this.datepipe.transform(this.nfResponse.retorno.dataAbertura, 'yyyy-MM-dd');
@@ -161,7 +174,7 @@ enderecos: []
         this.motivo.nativeElement.focus();
 
 
-      }else{
+      } else {
         this.mensagem = `Nota Fiscal ${this.nrNfElement.nativeElement.value} já devolvida`
         $('#mensagemDev').modal('show');
 
@@ -173,55 +186,62 @@ enderecos: []
 
   }
 
-  gravarDevolucao(){
+  gravarDevolucao() {
     console.log(this.tipoDevolucao);
-    if(!this.tipoDevolucao){
-      this.nfDevolucao.filial.cdFilial = this.operador.cdFilial;
-      this.nfDevolucao.cliente.idCliente = this.nfResponse.retorno.cliente.idCliente;
-      this.nfDevolucao.motivo.idMotivo = this.motivo.nativeElement.value;
-      this.nfDevolucao.idDocumentoFiscalVenda = this.nfResponse.retorno.idDocumentoFiscal;
+    this.nfDevolucao.filial.cdFilial = this.operador.cdFilial;
+    this.nfDevolucao.cliente.idCliente = this.nfResponse.retorno.cliente.idCliente;
+    this.nfDevolucao.motivo.idMotivo = this.motivo.nativeElement.value;
+    this.nfDevolucao.idDocumentoFiscalVenda = this.nfResponse.retorno.idDocumentoFiscal;
 
-      let valor = 0;
-      this.nfResponse.retorno.itens.forEach(element =>
-      {
+    let dataAtual = new Date();
+
+    this.nfDevolucao.dataAbertura = this.datepipe.transform(dataAtual, 'yyyy-MM-dd');
+    this.nfDevolucao.dataFechamento = this.datepipe.transform(dataAtual, 'yyyy-MM-dd');
+    this.nfDevolucao.flagNota = 0;
+    this.nfDevolucao.numeroCaixa = this.caixa.nativeElement.value;
+
+    let valor = 0;
+    if (!this.tipoDevolucao) {
+      this.nfDevolucao.itens = this.nfResponse.retorno.itens;
+      this.nfDevolucao.itens.forEach(element => {
         this.nfDevolucao.nrNumeroItem.push(element.numItemDocumento);
-        valor+= (element.produto.vlUnidade * element.qtItem);
-       });
-
-       let dataAtual = new Date();
-
-       this.nfDevolucao.dataAbertura = this.datepipe.transform(dataAtual, 'yyyy-MM-dd');
-       this.nfDevolucao.dataFechamento = this.datepipe.transform(dataAtual, 'yyyy-MM-dd');
-       this.nfDevolucao.flagNota = 0;
-       this.nfDevolucao.valorDocumento = valor;
-       this.nfDevolucao.numeroCaixa = this.caixa.nativeElement.value;
-       this.nfDevolucao.itens = this.nfResponse.retorno.itens;
-
-       this.nfDevolucao.itens.forEach(element => {
-         element.formaDevolucao = this.formaDevolucao;
-
-       });
-
-       console.log(this.nfDevolucao);
-       this.devolucaoService.postNotaFiscal(this.nfDevolucao).subscribe(response =>{
-
-        this.nfGravada = response;
-        this.mensagemSucesso = "Devolução gravada com sucesso!"
-        this.responseSucesso = true;
-        this.responseError = false;
-
-        },
-        error =>{
-          this.mensagemError = "Erro ao gravar devolução";
-          this.responseError = true;
-          this.responseSucesso = false;
-
-          console.log(error)
+        valor += (element.produto.vlUnidade * element.qtItem);
+        element.formaDevolucao = this.formaDevolucao;
+      });
+    } else {
+      this.nfResponse.retorno.itens.forEach(element => {
+        if(element.qtDevAux >0){
+          element.qtItem = element.qtDevAux;
+          this.nfDevolucao.nrNumeroItem.push(element.numItemDocumento);
+          valor += (element.produto.vlUnidade * element.qtItem);
+          element.formaDevolucao = this.formaDevolucao;
+          this.nfDevolucao.itens.push(element);
         }
-        )
-
-      }
-
+      });
     }
+    this.nfDevolucao.valorDocumento = valor;
+
+    console.log(this.nfDevolucao);
+    this.devolucaoService.postNotaFiscal(this.nfDevolucao).subscribe(response => {
+
+      this.nfGravada = response;
+      this.mensagemSucesso = "Devolução gravada com sucesso!"
+      this.responseSucesso = true;
+      this.responseError = false;
+      this.gravar.nativeElement.disable = true;
+      setTimeout( () => {  window.location.reload(); }, 3000 );
+
+
+    },
+      error => {
+        this.mensagemError = "Erro ao gravar devolução";
+        this.responseError = true;
+        this.responseSucesso = false;
+
+        console.log(error)
+      }
+    )
+
+  }
 }
 
