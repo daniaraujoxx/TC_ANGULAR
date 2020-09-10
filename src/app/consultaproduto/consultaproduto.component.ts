@@ -16,6 +16,8 @@ import { Cliente } from '../relatoriocliente/shared/cliente.model';
 })
 export class ConsultaprodutoComponent implements OnInit {
 
+  block: boolean = false;
+
   estoqueResponse: EstoqueResponse = {
     status: null,
     mensagem: null,
@@ -74,6 +76,12 @@ export class ConsultaprodutoComponent implements OnInit {
       console.log(this.estoqueResponse);
     });
   }
+
+  this.cliente = JSON.parse(localStorage['cliente']);
+  if(this.cliente.idCliente == null){
+    this.block = true;
+  }
+
 
   }
   produtoDescricao(id: number){
