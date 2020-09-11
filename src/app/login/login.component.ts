@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
     this.loginService.putLogin(this.operador).subscribe(
       response => {
       this.alterarResponse = response;
-        this.mensagemSucesso =  `Senha alterada com sucesso! ${ response.mensagem}`;
+        this.mensagemSucesso =  `Senha alterada com sucesso!`;
         this.success =  true;
         this.error =  false;
       },
