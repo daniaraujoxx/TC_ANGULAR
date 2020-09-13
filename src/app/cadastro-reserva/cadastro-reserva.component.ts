@@ -255,7 +255,7 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
 
   generateEtiqueta(): void {
     let content = [];
-    let canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }];
+    let cont = 1;
     this.reservaCadastrada.retorno.itens.forEach(item => {
       for (let i = 0; i < item.qtProduto; i++ ) {
         content.push({ canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }] });
@@ -267,6 +267,10 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
         content.push({ text: 'Cliente: ' + this.reservaCadastrada.retorno.clienteDTO.nmCliente, fontSize: 10 });
         content.push({ canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }] });
         content.push({ text: ' ', fontSize: 10 });
+        cont++;
+        if(cont%8 == 0){
+          content.push({ text: '', fontSize: 10, pageBreak: 'after' });
+        }
       }
     });
     const documentDefinition = { content };
