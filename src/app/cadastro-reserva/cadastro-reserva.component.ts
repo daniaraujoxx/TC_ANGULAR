@@ -6,7 +6,7 @@ import { RelatorioReservaService } from './../reservaproduto/shared/relatoriores
 import { Reserva } from './../reservaproduto/shared/reserva.model';
 import { ConsultaprodutoService } from './../consultaproduto/shared/consultaproduto.service';
 import { EstoqueResponse } from './../consultaproduto/shared/estoqueResponse.model';
-import { Component, ElementRef, ViewChild, OnInit, AfterViewInit} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
@@ -41,29 +41,29 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
     mensagem: null,
     retorno: [
       {
-      cdEstoque: null,
-      filial: {
-        cdFilial: null,
-        nmFilial: null,
-        nrCnpj: null,
-        nrTelefoneFilial: null,
-      },
-      produto: {
-        cdProduto: null,
-        statusProduto: null,
-        categoria: null,
-        idTipoProduto: null,
-        nmFantasia: null,
-        nmFabricante: null,
-        vlUnidade: null,
-        dsProduto: null,
-        lmpmItem: null,
-        subCategoria: null,
-      },
-      qtBase: null,
-      qtEmpenho: null,
-      qtEstoque: null
-    }
+        cdEstoque: null,
+        filial: {
+          cdFilial: null,
+          nmFilial: null,
+          nrCnpj: null,
+          nrTelefoneFilial: null,
+        },
+        produto: {
+          cdProduto: null,
+          statusProduto: null,
+          categoria: null,
+          idTipoProduto: null,
+          nmFantasia: null,
+          nmFabricante: null,
+          vlUnidade: null,
+          dsProduto: null,
+          lmpmItem: null,
+          subCategoria: null,
+        },
+        qtBase: null,
+        qtEmpenho: null,
+        qtEstoque: null
+      }
 
     ]
   };
@@ -92,9 +92,9 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
     private relatorioReservaService: RelatorioReservaService
   ) { }
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(): void {
     const cdProduto = this.route.snapshot.paramMap.get('cdProduto');
-    if (cdProduto != null || cdProduto != ''){
+    if (cdProduto != null || cdProduto != '') {
       this.cdPrdutoElement.nativeElement.value = cdProduto;
       this.verificaEstoque();
     }
@@ -103,46 +103,46 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  verificaEstoque(): void{
-    if (this.cdPrdutoElement.nativeElement.value > 0){
-    this.consultaProdutoService.getBuscarProdutoCodigo(this.cdPrdutoElement.nativeElement.value).subscribe(response => {
-      if (response.retorno.length > 0){
-        this.estoqueResponse = response;
-        this.qtdDisponivelReserva = this.estoqueResponse.retorno[0].qtEstoque - this.estoqueResponse.retorno[0].qtEmpenho;
-        this.qtdPrdutoElement.nativeElement.disabled = false;
-        this.qtdPrdutoElement.nativeElement.focus();
-      }else{
-        this.estoqueResponse = this.estoqueNull;
-        this.qtdDisponivelReserva = null;
-        $('#MixEstoque').modal('show');
-      }
+  verificaEstoque(): void {
+    if (this.cdPrdutoElement.nativeElement.value > 0) {
+      this.consultaProdutoService.getBuscarProdutoCodigo(this.cdPrdutoElement.nativeElement.value).subscribe(response => {
+        if (response.retorno.length > 0) {
+          this.estoqueResponse = response;
+          this.qtdDisponivelReserva = this.estoqueResponse.retorno[0].qtEstoque - this.estoqueResponse.retorno[0].qtEmpenho;
+          this.qtdPrdutoElement.nativeElement.disabled = false;
+          this.qtdPrdutoElement.nativeElement.focus();
+        } else {
+          this.estoqueResponse = this.estoqueNull;
+          this.qtdDisponivelReserva = null;
+          $('#MixEstoque').modal('show');
+        }
 
-      console.log(this.estoqueResponse);
-    });
-  }
+        console.log(this.estoqueResponse);
+      });
+    }
   }
 
-  verificaQuantidade(): void{
-    if (this.qtdPrdutoElement.nativeElement.value > this.qtdDisponivelReserva || this.qtdPrdutoElement.nativeElement.value < 1){
+  verificaQuantidade(): void {
+    if (this.qtdPrdutoElement.nativeElement.value > this.qtdDisponivelReserva || this.qtdPrdutoElement.nativeElement.value < 1) {
       $('#QtdReservaInvalid').modal('show');
-    }else{
+    } else {
       this.btnAdicionar.nativeElement.disabled = false;
       this.btnAdicionar.nativeElement.focus();
     }
   }
 
-  adicionar(): void{
+  adicionar(): void {
     console.log(this.newReserva.itens);
     let encontrado = true;
-    if (this.newReserva.itens.length > 0){
+    if (this.newReserva.itens.length > 0) {
       this.newReserva.itens.forEach(item => {
         console.log(item.produto);
-        if (this.estoqueResponse.retorno[0].produto.cdProduto == item.produto.cdProduto){
+        if (this.estoqueResponse.retorno[0].produto.cdProduto == item.produto.cdProduto) {
           encontrado = false;
         }
       });
     }
-    if (encontrado){
+    if (encontrado) {
       this.newReserva.itens.push({
         produto: this.estoqueResponse.retorno[0].produto,
         qtProduto: this.qtdPrdutoElement.nativeElement.value,
@@ -150,24 +150,24 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
       });
       this.formReset();
       this.btnConfirmar.nativeElement.disabled = false;
-    }else{
+    } else {
       this.mensagem = 'Este codigo de produto ja foi adicionado a reserva!';
       this.mensagemShow();
       this.formReset();
     }
   }
 
-  remover(): void{
+  remover(): void {
     console.log(this.Itemselect);
     this.newReserva.itens.splice(this.newReserva.itens.indexOf(this.Itemselect), 1);
-    if (this.newReserva.itens.length <= 0){
+    if (this.newReserva.itens.length <= 0) {
       this.btnConfirmar.nativeElement.disabled = true;
     }
     $('#exampleModal').modal('hide');
 
   }
 
-  confirmar(): void{
+  confirmar(): void {
     const cliente: Cliente = JSON.parse(localStorage['cliente']);
 
     const date = new Date();
@@ -192,60 +192,84 @@ export class CadastroReservaComponent implements OnInit, AfterViewInit {
       this.error = false;
       this.mensagemSuccess = 'Reserva Cadastrada com sucesso!';
       this.success = true;
-      setTimeout( () => { this.success = false; }, 5000 );
-      this.generatePdf();
+      setTimeout(() => { this.success = false; }, 5000);
+      //this.generatePdf();
+      this.generateEtiqueta();
     },
-    error => {
-      console.log(this.reservaCadastrada);
-      this.mensagemError = 'Erro ao Cadastrar Reserva!';
-      this.error =  true;
-    }
+      error => {
+        console.log(this.reservaCadastrada);
+        this.mensagemError = 'Erro ao Cadastrar Reserva!';
+        this.error = true;
+      }
 
     );
 
   }
 
-  formReset(): void{
-      this.cdPrdutoElement.nativeElement.value = null;
-      this.qtdPrdutoElement.nativeElement.value = null;
-      this.estoqueResponse = this.estoqueNull;
-      this.qtdDisponivelReserva = null;
-      this.qtdPrdutoElement.nativeElement.disabled = true;
-      this.cdPrdutoElement.nativeElement.focus();
-      this.btnAdicionar.nativeElement.disabled = true;
+  formReset(): void {
+    this.cdPrdutoElement.nativeElement.value = null;
+    this.qtdPrdutoElement.nativeElement.value = null;
+    this.estoqueResponse = this.estoqueNull;
+    this.qtdDisponivelReserva = null;
+    this.qtdPrdutoElement.nativeElement.disabled = true;
+    this.cdPrdutoElement.nativeElement.focus();
+    this.btnAdicionar.nativeElement.disabled = true;
   }
-  closeMixEstoqueModal(): void{
+  closeMixEstoqueModal(): void {
     $('#MixEstoque').modal('hide');
     this.cdPrdutoElement.nativeElement.focus();
     this.cdPrdutoElement.nativeElement.value = null;
 
   }
 
-  closeQtdReservaInvalidModal(): void{
+  closeQtdReservaInvalidModal(): void {
     $('#QtdReservaInvalid').modal('hide');
     this.qtdPrdutoElement.nativeElement.focus();
     this.qtdPrdutoElement.nativeElement.value = null;
   }
 
-  mensagemShow(): void{
+  mensagemShow(): void {
     $('#MensagemModal').modal('show');
   }
 
-  mensagemClose(): void{
+  mensagemClose(): void {
     $('#MensagemModal').modal('hide');
     this.mensagem = null;
   }
 
-  generatePdf(): void{
-    const documentDefinition = { content: [
-        {canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
+  generatePdf(): void {
+    const documentDefinition = {
+      content: [
+        { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }] },
         { text: 'Reserva: ' + this.reservaCadastrada.retorno.idTcReserva, fontSize: 15 },
         { text: 'Data Separação: ' + this.datepipe.transform(this.reservaCadastrada.retorno.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 },
         { text: 'Vencimento: ' + this.datepipe.transform(this.reservaCadastrada.retorno.dtFinalReserva, 'dd/MM/yyyy'), fontSize: 10 },
         { text: 'Cliente: ' + this.reservaCadastrada.retorno.clienteDTO.nmCliente, fontSize: 10 },
-        {canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
+        { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }] },
 
-    ]};
+      ]
+    };
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
+
+  generateEtiqueta(): void {
+    let content = [];
+    let canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }];
+    this.reservaCadastrada.retorno.itens.forEach(item => {
+      for (let i = 0; i < item.qtProduto; i++ ) {
+        content.push({ canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }] });
+        content.push({ text: 'Reserva: ' + this.reservaCadastrada.retorno.idTcReserva, fontSize: 15 });
+        content.push({ text: 'Codigo Produto: ' + item.produto.cdProduto, fontSize: 10 });
+        content.push({ text: 'Desc. Produto: ' + item.produto.nmFantasia, fontSize: 10 });
+        content.push({ text: 'Data Separação: ' + this.datepipe.transform(this.reservaCadastrada.retorno.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 });
+        content.push({ text: 'Vencimento: ' + this.datepipe.transform(this.reservaCadastrada.retorno.dtFinalReserva, 'dd/MM/yyyy'), fontSize: 10 });
+        content.push({ text: 'Cliente: ' + this.reservaCadastrada.retorno.clienteDTO.nmCliente, fontSize: 10 });
+        content.push({ canvas: [{ type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 }] });
+        content.push({ text: ' ', fontSize: 10 });
+      }
+    });
+    const documentDefinition = { content };
     pdfMake.createPdf(documentDefinition).open();
   }
 
