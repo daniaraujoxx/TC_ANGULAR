@@ -191,7 +191,7 @@ export class ReservaprodutoComponent implements OnInit {
     this.itemReservaServide.putItemReserva(this.item).subscribe(response => {});
   }
 
-  generatePdf(reserva: Reserva): void{
+  generatePdf(reserva: Reserva, item: ItensReserva): void{
     let cabecalho: string;
     if (reserva.nrPedido > 0|| reserva.nrPedido != null){
       cabecalho = `Reserva: ${reserva.idTcReserva}     Pedido: ${reserva.nrPedido}`;
@@ -201,6 +201,8 @@ export class ReservaprodutoComponent implements OnInit {
     const documentDefinition = { content: [
         { canvas: [ { type: 'line', x1: 0, y1: 0, x2: 250, y2: 0, lineWidth: 1 } ]},
         { text: cabecalho, fontSize: 15 },
+        { text: 'Codigo Produto: ' + item.produto.cdProduto, fontSize: 10 },
+        { text: 'Desc. Produto: ' + item.produto.nmFantasia, fontSize: 10 },
         { text: 'Data Separação: ' + this.datepipe.transform(reserva.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 },
         { text: 'Vencimento: ' + this.datepipe.transform(reserva.dtInicialReserva, 'dd/MM/yyyy'), fontSize: 10 },
         { text: 'Cliente: ' + reserva.clienteDTO.nmCliente, fontSize: 10 },

@@ -37,7 +37,7 @@
               (change)="itemReserva.stSeparado = !itemReserva.stSeparado; atualizaSeparado(reserva, itemReserva)"/></td>
             <td class="text-right">
               <button type="button" class="btn btn-secondary btn-etiqueta" data-toggle="modal"
-                (click)="generatePdf(reserva)"></button>
+                (click)="generatePdf(reserva, itemReserva)"></button>
               <button type="button" class="btn btn-info btn-editar mx-2" data-toggle="modal"
                (click)="selectItemEdit(reserva, itemReserva)" [disabled]="(reserva.nrPedido!=null)"></button>
               <button type="button" class="btn btn-danger btn-excluir" data-toggle="modal"
